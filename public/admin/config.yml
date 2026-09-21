@@ -1,0 +1,52 @@
+backend:
+  name: github
+  repo: devooved/colectivo-chacal
+  branch: main
+  base_url: https://decap-auth.chacal.workers.dev
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "catalogo"
+    label: "Catálogo"
+    files:
+      - file: "public/catalogo.json"
+        label: "Publicaciones"
+        name: "publicaciones"
+        fields:
+          - label: "Publicaciones"
+            name: "publicaciones"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+
+              - label: "Título"
+                name: "title"
+                widget: "string"
+
+              - label: "Precio"
+                name: "price"
+                widget: "string"
+
+              - label: "Descripción"
+                name: "description"
+                widget: "text"
+
+              - label: "Categorías"
+                name: "categories"
+                widget: "select"
+                multiple: true
+                options:
+                  - "Fanzine"
+                  - "Revista"
+                  - "Libro"
+                  - "Otros"
+
+              - label: "Imágenes"
+                name: "images"
+                widget: "list"
+                field:
+                  label: "Imagen"
+                  name: "image"
+                  widget: "image"

@@ -1,0 +1,17 @@
+{
+  "publicaciones": [
+    {
+      "title": "PUBLICACIÓN 01",
+      "price": "15 €",
+      "description": "Descripción de la publicación. Aquí irá el texto que explique el contenido, formato y características de la pieza.",
+      "categories": [
+        "Fanzine"
+      ],
+      "images": [
+        "publicaciones/publicacion-01/01.webp",
+        "publicaciones/publicacion-01/02.webp",
+        "publicaciones/publicacion-01/03.webp"
+      ]
+    }
+  ]
+}
