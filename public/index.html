@@ -51,7 +51,6 @@
                     PUBLICACIONES
                 </button>
 
-
                 <div
                     class="nav-dropdown"
                     id="publicaciones-menu"
@@ -64,7 +63,6 @@
                 </div>
 
             </div>
-
 
             <a href="pedidos.html">PEDIDOS</a>
 
@@ -80,10 +78,7 @@
             rel="noopener noreferrer"
             aria-label="Instagram de COLECTIVO CHACAL"
         >
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
                 <rect
                     x="3"
                     y="3"
@@ -120,9 +115,35 @@
             id="mobile-menu"
             aria-hidden="true"
         >
-            <a href="index.html">PUBLICACIONES</a>
+
+            <div class="mobile-publicaciones">
+
+                <button
+                    type="button"
+                    class="mobile-publicaciones-button"
+                    id="mobile-publicaciones-button"
+                    aria-expanded="false"
+                    aria-controls="mobile-categorias"
+                >
+                    PUBLICACIONES
+                </button>
+
+                <div
+                    class="mobile-categorias"
+                    id="mobile-categorias"
+                >
+                    <a href="#" data-categoria="TODO">TODO</a>
+                    <a href="#" data-categoria="FANZINES">FANZINES</a>
+                    <a href="#" data-categoria="REVISTAS">REVISTAS</a>
+                    <a href="#" data-categoria="LIBROS">LIBROS</a>
+                    <a href="#" data-categoria="MÁS">MÁS</a>
+                </div>
+
+            </div>
+
             <a href="pedidos.html">PEDIDOS</a>
             <a href="about.html">ABOUT</a>
+
         </nav>
 
     </header>
@@ -130,11 +151,7 @@
 
     <main class="publicaciones">
 
-        <section class="grid" id="catalogo">
-
-            <!-- Las publicaciones se cargarán desde catalogo.json -->
-
-        </section>
+        <section class="grid" id="catalogo"></section>
 
     </main>
 
@@ -142,37 +159,27 @@
     <script>
 
         const publicacionesButton =
-            document.getElementById(
-                "publicaciones-button"
-            );
-
+            document.getElementById("publicaciones-button");
 
         const publicacionesMenu =
-            document.getElementById(
-                "publicaciones-menu"
-            );
-
+            document.getElementById("publicaciones-menu");
 
         const mobileMenuButton =
-            document.getElementById(
-                "mobile-menu-button"
-            );
-
+            document.getElementById("mobile-menu-button");
 
         const mobileMenu =
-            document.getElementById(
-                "mobile-menu"
-            );
+            document.getElementById("mobile-menu");
 
+        const mobilePublicacionesButton =
+            document.getElementById("mobile-publicaciones-button");
+
+        const mobileCategorias =
+            document.getElementById("mobile-categorias");
 
         const catalogo =
-            document.getElementById(
-                "catalogo"
-            );
+            document.getElementById("catalogo");
 
-
-        let publicaciones =
-            [];
+        let publicaciones = [];
 
 
         publicacionesButton.addEventListener(
@@ -180,16 +187,12 @@
             function () {
 
                 const abierto =
-                    publicacionesButton.getAttribute(
-                        "aria-expanded"
-                    ) === "true";
-
+                    publicacionesButton.getAttribute("aria-expanded") === "true";
 
                 publicacionesButton.setAttribute(
                     "aria-expanded",
                     String(!abierto)
                 );
-
 
                 publicacionesMenu.classList.toggle(
                     "abierto",
@@ -204,24 +207,41 @@
             function () {
 
                 const abierto =
-                    mobileMenuButton.getAttribute(
-                        "aria-expanded"
-                    ) === "true";
-
+                    mobileMenuButton.getAttribute("aria-expanded") === "true";
 
                 mobileMenuButton.setAttribute(
                     "aria-expanded",
                     String(!abierto)
                 );
 
-
                 mobileMenu.setAttribute(
                     "aria-hidden",
                     String(abierto)
                 );
 
-
                 mobileMenu.classList.toggle(
+                    "abierto",
+                    !abierto
+                );
+            }
+        );
+
+
+        mobilePublicacionesButton.addEventListener(
+            "click",
+            function () {
+
+                const abierto =
+                    mobilePublicacionesButton.getAttribute(
+                        "aria-expanded"
+                    ) === "true";
+
+                mobilePublicacionesButton.setAttribute(
+                    "aria-expanded",
+                    String(!abierto)
+                );
+
+                mobileCategorias.classList.toggle(
                     "abierto",
                     !abierto
                 );
@@ -234,16 +254,13 @@
             function (evento) {
 
                 if (
-                    !evento.target.closest(
-                        ".nav-publicaciones"
-                    )
+                    !evento.target.closest(".nav-publicaciones")
                 ) {
 
                     publicacionesButton.setAttribute(
                         "aria-expanded",
                         "false"
                     );
-
 
                     publicacionesMenu.classList.remove(
                         "abierto"
@@ -252,9 +269,7 @@
 
 
                 if (
-                    !evento.target.closest(
-                        ".site-header"
-                    )
+                    !evento.target.closest(".site-header")
                 ) {
 
                     mobileMenuButton.setAttribute(
@@ -262,14 +277,21 @@
                         "false"
                     );
 
-
                     mobileMenu.setAttribute(
                         "aria-hidden",
                         "true"
                     );
 
-
                     mobileMenu.classList.remove(
+                        "abierto"
+                    );
+
+                    mobilePublicacionesButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    mobileCategorias.classList.remove(
                         "abierto"
                     );
                 }
@@ -277,34 +299,31 @@
         );
 
 
-        mobileMenu
-            .querySelectorAll("a")
-            .forEach(
-                function (enlace) {
+        function cerrarMenuMovil() {
 
-                    enlace.addEventListener(
-                        "click",
-                        function () {
-
-                            mobileMenuButton.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-
-
-                            mobileMenu.setAttribute(
-                                "aria-hidden",
-                                "true"
-                            );
-
-
-                            mobileMenu.classList.remove(
-                                "abierto"
-                            );
-                        }
-                    );
-                }
+            mobileMenuButton.setAttribute(
+                "aria-expanded",
+                "false"
             );
+
+            mobileMenu.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            mobileMenu.classList.remove(
+                "abierto"
+            );
+
+            mobilePublicacionesButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            mobileCategorias.classList.remove(
+                "abierto"
+            );
+        }
 
 
         function mostrarPublicaciones(
@@ -313,64 +332,46 @@
 
             catalogo.innerHTML = "";
 
-
             publicacionesFiltradas.forEach(
                 function (publicacion) {
 
                     const indice =
-                        publicaciones.indexOf(
-                            publicacion
-                        );
-
+                        publicaciones.indexOf(publicacion);
 
                     const numero =
-                        String(indice + 1)
-                            .padStart(2, "0");
-
+                        String(indice + 1).padStart(2, "0");
 
                     const producto =
                         document.createElement("article");
 
-
-                    producto.className =
-                        "producto";
-
+                    producto.className = "producto";
 
                     const enlace =
                         document.createElement("a");
 
-
                     enlace.href =
-                        "publicacion.html?id=" +
-                        indice;
-
+                        "publicacion.html?id=" + indice;
 
                     const imagen =
                         document.createElement("div");
-
 
                     imagen.className =
                         "producto-imagen";
 
 
                     if (
-                        Array.isArray(
-                            publicacion.images
-                        ) &&
+                        Array.isArray(publicacion.images) &&
                         publicacion.images.length > 0
                     ) {
 
                         const img =
                             document.createElement("img");
 
-
                         img.src =
                             publicacion.images[0];
 
-
                         img.alt =
                             publicacion.title || "";
-
 
                         imagen.appendChild(img);
 
@@ -379,20 +380,15 @@
                         const textoImagen =
                             document.createElement("span");
 
-
                         textoImagen.textContent =
                             "IMAGEN " + numero;
 
-
-                        imagen.appendChild(
-                            textoImagen
-                        );
+                        imagen.appendChild(textoImagen);
                     }
 
 
                     const titulo =
                         document.createElement("h2");
-
 
                     titulo.textContent =
                         publicacion.title || "";
@@ -400,7 +396,6 @@
 
                     const precio =
                         document.createElement("p");
-
 
                     precio.textContent =
                         publicacion.price || "";
@@ -411,9 +406,7 @@
                     enlace.appendChild(precio);
 
                     producto.appendChild(enlace);
-
                     catalogo.appendChild(producto);
-
                 }
             );
 
@@ -428,16 +421,11 @@
         }
 
 
-        function filtrarPorCategoria(
-            categoria
-        ) {
+        function filtrarPorCategoria(categoria) {
 
             if (categoria === "TODO") {
 
-                mostrarPublicaciones(
-                    publicaciones
-                );
-
+                mostrarPublicaciones(publicaciones);
                 return;
             }
 
@@ -454,23 +442,19 @@
                             return false;
                         }
 
-
-                        return publicacion.categories
-                            .includes(categoria);
+                        return publicacion.categories.includes(
+                            categoria
+                        );
                     }
                 );
 
 
-            mostrarPublicaciones(
-                filtradas
-            );
+            mostrarPublicaciones(filtradas);
         }
 
 
         document
-            .querySelectorAll(
-                "[data-categoria]"
-            )
+            .querySelectorAll("[data-categoria]")
             .forEach(
                 function (enlace) {
 
@@ -480,25 +464,23 @@
 
                             evento.preventDefault();
 
-
                             const categoria =
                                 enlace.dataset.categoria;
-
 
                             filtrarPorCategoria(
                                 categoria
                             );
-
 
                             publicacionesButton.setAttribute(
                                 "aria-expanded",
                                 "false"
                             );
 
-
                             publicacionesMenu.classList.remove(
                                 "abierto"
                             );
+
+                            cerrarMenuMovil();
                         }
                     );
                 }
@@ -511,7 +493,6 @@
 
                 const respuesta =
                     await fetch("catalogo.json");
-
 
                 if (!respuesta.ok) {
                     throw new Error(
@@ -536,7 +517,6 @@
 
                 publicaciones =
                     datos.publicaciones;
-
 
                 mostrarPublicaciones(
                     publicaciones

@@ -65,7 +65,6 @@
             </div>
 
             <a href="pedidos.html">PEDIDOS</a>
-
             <a href="about.html">ABOUT</a>
 
         </nav>
@@ -78,10 +77,7 @@
             rel="noopener noreferrer"
             aria-label="Instagram de COLECTIVO CHACAL"
         >
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
                 <rect
                     x="3"
                     y="3"
@@ -118,9 +114,35 @@
             id="mobile-menu"
             aria-hidden="true"
         >
-            <a href="index.html">PUBLICACIONES</a>
+
+            <div class="mobile-publicaciones">
+
+                <button
+                    type="button"
+                    class="mobile-publicaciones-button"
+                    id="mobile-publicaciones-button"
+                    aria-expanded="false"
+                    aria-controls="mobile-categorias"
+                >
+                    PUBLICACIONES
+                </button>
+
+                <div
+                    class="mobile-categorias"
+                    id="mobile-categorias"
+                >
+                    <a href="index.html?categoria=TODO">TODO</a>
+                    <a href="index.html?categoria=FANZINES">FANZINES</a>
+                    <a href="index.html?categoria=REVISTAS">REVISTAS</a>
+                    <a href="index.html?categoria=LIBROS">LIBROS</a>
+                    <a href="index.html?categoria=MÁS">MÁS</a>
+                </div>
+
+            </div>
+
             <a href="pedidos.html">PEDIDOS</a>
             <a href="about.html">ABOUT</a>
+
         </nav>
 
     </header>
@@ -158,27 +180,22 @@
     <script>
 
         const publicacionesButton =
-            document.getElementById(
-                "publicaciones-button"
-            );
-
+            document.getElementById("publicaciones-button");
 
         const publicacionesMenu =
-            document.getElementById(
-                "publicaciones-menu"
-            );
-
+            document.getElementById("publicaciones-menu");
 
         const mobileMenuButton =
-            document.getElementById(
-                "mobile-menu-button"
-            );
-
+            document.getElementById("mobile-menu-button");
 
         const mobileMenu =
-            document.getElementById(
-                "mobile-menu"
-            );
+            document.getElementById("mobile-menu");
+
+        const mobilePublicacionesButton =
+            document.getElementById("mobile-publicaciones-button");
+
+        const mobileCategorias =
+            document.getElementById("mobile-categorias");
 
 
         publicacionesButton.addEventListener(
@@ -190,12 +207,10 @@
                         "aria-expanded"
                     ) === "true";
 
-
                 publicacionesButton.setAttribute(
                     "aria-expanded",
                     String(!abierto)
                 );
-
 
                 publicacionesMenu.classList.toggle(
                     "abierto",
@@ -214,18 +229,15 @@
                         "aria-expanded"
                     ) === "true";
 
-
                 mobileMenuButton.setAttribute(
                     "aria-expanded",
                     String(!abierto)
                 );
 
-
                 mobileMenu.setAttribute(
                     "aria-hidden",
                     String(abierto)
                 );
-
 
                 mobileMenu.classList.toggle(
                     "abierto",
@@ -235,21 +247,67 @@
         );
 
 
+        mobilePublicacionesButton.addEventListener(
+            "click",
+            function () {
+
+                const abierto =
+                    mobilePublicacionesButton.getAttribute(
+                        "aria-expanded"
+                    ) === "true";
+
+                mobilePublicacionesButton.setAttribute(
+                    "aria-expanded",
+                    String(!abierto)
+                );
+
+                mobileCategorias.classList.toggle(
+                    "abierto",
+                    !abierto
+                );
+            }
+        );
+
+
+        function cerrarMenuMovil() {
+
+            mobileMenuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            mobileMenu.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            mobileMenu.classList.remove(
+                "abierto"
+            );
+
+            mobilePublicacionesButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            mobileCategorias.classList.remove(
+                "abierto"
+            );
+        }
+
+
         document.addEventListener(
             "click",
             function (evento) {
 
                 if (
-                    !evento.target.closest(
-                        ".nav-publicaciones"
-                    )
+                    !evento.target.closest(".nav-publicaciones")
                 ) {
 
                     publicacionesButton.setAttribute(
                         "aria-expanded",
                         "false"
                     );
-
 
                     publicacionesMenu.classList.remove(
                         "abierto"
@@ -258,56 +316,24 @@
 
 
                 if (
-                    !evento.target.closest(
-                        ".site-header"
-                    )
+                    !evento.target.closest(".site-header")
                 ) {
-
-                    mobileMenuButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-
-                    mobileMenu.setAttribute(
-                        "aria-hidden",
-                        "true"
-                    );
-
-
-                    mobileMenu.classList.remove(
-                        "abierto"
-                    );
+                    cerrarMenuMovil();
                 }
             }
         );
 
 
         mobileMenu
-            .querySelectorAll("a")
+            .querySelectorAll(
+                "a"
+            )
             .forEach(
                 function (enlace) {
 
                     enlace.addEventListener(
                         "click",
-                        function () {
-
-                            mobileMenuButton.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-
-
-                            mobileMenu.setAttribute(
-                                "aria-hidden",
-                                "true"
-                            );
-
-
-                            mobileMenu.classList.remove(
-                                "abierto"
-                            );
-                        }
+                        cerrarMenuMovil
                     );
                 }
             );
