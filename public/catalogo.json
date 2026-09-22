@@ -1,48 +1,21 @@
 {
   "publicaciones": [
     {
-      "title": "XULANGA N.1",
-      "price": "4 €",
-      "description": "*Híbridos*\n\n\n\nOctubre 2025.\n\n20x14cm.\n\n32 págs.\n\nBlanco y negro en papel reciclado.\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
-      "categories": [
-        "REVISTAS",
-        "FANZINES"
-      ],
-      "images": [
-        "/uploads/xulanga-1-port.jpeg",
-        "/uploads/xulanga-1-int-1.jpeg",
-        "/uploads/xulanga-1-int-2.jpeg",
-        "/uploads/xulanga-1-contra.jpeg"
-      ]
-    },
-    {
-      "title": "XULANGA N.2",
-      "price": "4€",
-      "description": "*Embarazos espontáneos*\n\n\n\nDiciembre 2025.\n\n20x14cm.\n\n28 págs.\n\nBlanco y negro en papel reciclado.\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal/)",
-      "categories": [
-        "REVISTAS",
-        "FANZINES"
-      ],
-      "images": [
-        "/uploads/xulanga2port.jpeg",
-        "/uploads/xulanga2-1.jpeg",
-        "/uploads/xulanga2-2.jpeg",
-        "/uploads/xulanga2contra.jpeg"
-      ]
-    },
-    {
-      "title": "XULANGA N.3",
-      "price": "4€",
-      "description": "*Tacitas y platitos* \n\n\n\nFebrero 2026\n\n20x14cm.\n\n32 págs.\n\nBlanco y negro en papel reciclado \n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal/)",
+      "title": "CHACALITOS",
+      "price": "8€ / pack de tres",
+      "description": "*Diccionario Infantil Ilustrado*\n\n*Enciclopedia Argos del Mundo Animal*\n\n*Historia Mundial del Siglo 20*\n\n\n\nDiccionario, poemario y relato a partir de las intervenciones de Diego Vidal Cámara.\n\nEjemplares hechos a mano, fechados y numerados \n\nPrimera tirada: septiembre de 2026\n\n7,5x10 cm.\n\n16 págs.\n\nPortada fabricada con el papel de las publicaciones intervenidas, interior blanco y negro en papel reciclado, guardas en papel color con sello en tinta.\n\n\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
       "categories": [
         "FANZINES",
-        "REVISTAS"
+        "LIBROS"
       ],
       "images": [
-        "/uploads/xulanga3-port.jpeg",
-        "/uploads/xulanga3-int.jpeg",
-        "/uploads/xulanga3-int3.jpeg",
-        "/uploads/xulanga3-contra.jpeg"
+        "/uploads/chacalitospack.jpeg",
+        "/uploads/chacalitoverde-port.jpeg",
+        "/uploads/chacalitoverde-int2.jpeg",
+        "/uploads/chacalitorojo-port.jpeg",
+        "/uploads/chacalitorojo.int2.jpeg",
+        "/uploads/chacalitoblanco-port.jpeg",
+        "/uploads/chacalitoblanco-int2.jpeg"
       ]
     },
     {
@@ -61,21 +34,48 @@
       ]
     },
     {
-      "title": "CHACALITOS",
-      "price": "8€ / pack de tres",
-      "description": "*Diccionario Infantil Ilustrado*\n\n*Enciclopedia Argos del Mundo Animal*\n\n*Historia Mundial del Siglo 20*\n\n\n\nDiccionario, poemario y relato a partir de las intervenciones de Diego Vidal Cámara.\n\nEjemplares hechos a mano, fechados y numerados \n\nPrimera tirada: septiembre de 2026\n\n7,5x10 cm.\n\n16 págs.\n\nPortada fabricada con el papel de las publicaciones intervenidas, interior blanco y negro en papel reciclado, guardas en papel color con sello en tinta.\n\n\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
+      "title": "XULANGA N.3",
+      "price": "4€",
+      "description": "*Tacitas y platitos* \n\n\n\nFebrero 2026\n\n20x14cm.\n\n32 págs.\n\nBlanco y negro en papel reciclado \n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal/)",
       "categories": [
         "FANZINES",
-        "LIBROS"
+        "REVISTAS"
       ],
       "images": [
-        "/uploads/chacalitospack.jpeg",
-        "/uploads/chacalitoverde-port.jpeg",
-        "/uploads/chacalitoverde-int2.jpeg",
-        "/uploads/chacalitorojo-port.jpeg",
-        "/uploads/chacalitorojo.int2.jpeg",
-        "/uploads/chacalitoblanco-port.jpeg",
-        "/uploads/chacalitoblanco-int2.jpeg"
+        "/uploads/xulanga3-port.jpeg",
+        "/uploads/xulanga3-int.jpeg",
+        "/uploads/xulanga3-int3.jpeg",
+        "/uploads/xulanga3-contra.jpeg"
+      ]
+    },
+    {
+      "title": "XULANGA N.2",
+      "price": "4€",
+      "description": "*Embarazos espontáneos*\n\n\n\nDiciembre 2025.\n\n20x14cm.\n\n28 págs.\n\nBlanco y negro en papel reciclado.\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal/)",
+      "categories": [
+        "REVISTAS",
+        "FANZINES"
+      ],
+      "images": [
+        "/uploads/xulanga2port.jpeg",
+        "/uploads/xulanga2-1.jpeg",
+        "/uploads/xulanga2-2.jpeg",
+        "/uploads/xulanga2contra.jpeg"
+      ]
+    },
+    {
+      "title": "XULANGA N.1",
+      "price": "4 €",
+      "description": "*Híbridos*\n\n\n\nOctubre 2025.\n\n20x14cm.\n\n32 págs.\n\nBlanco y negro en papel reciclado.\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
+      "categories": [
+        "REVISTAS",
+        "FANZINES"
+      ],
+      "images": [
+        "/uploads/xulanga-1-port.jpeg",
+        "/uploads/xulanga-1-int-1.jpeg",
+        "/uploads/xulanga-1-int-2.jpeg",
+        "/uploads/xulanga-1-contra.jpeg"
       ]
     }
   ]
