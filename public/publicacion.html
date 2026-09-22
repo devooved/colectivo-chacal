@@ -426,69 +426,99 @@
 
 
             /*
-             * IMPORTANTE:
-             *
-             * Decap convierte:
+             * Decap genera:
              *
              * 1 Enter  → \n\n
              * 2 Enters → \n\n\n\n
+             * 3 Enters → \n\n\n\n\n\n
              *
-             * Por eso trabajamos con pares de saltos
-             * de línea, no con cada \n individual.
+             * Cada pareja \n\n equivale a un salto
+             * visual. Por eso contamos las parejas
+             * directamente.
              */
 
 
-            const bloques =
-                texto.split("\n\n");
+            const partes =
+                texto.split(/(\n+)/);
 
 
             let html = "";
+            let enLista = false;
+
+
+            function cerrarLista() {
+
+                if (enLista) {
+
+                    html += "</ul>";
+
+                    enLista = false;
+                }
+            }
 
 
             for (
                 let indice = 0;
-                indice < bloques.length;
+                indice < partes.length;
                 indice++
             ) {
 
-                const bloque =
-                    bloques[indice];
+                const parte =
+                    partes[indice];
 
 
                 /*
-                 * Un bloque vacío significa que había
-                 * una separación adicional:
-                 *
-                 * A\n\n\n\nB
-                 *
-                 * → ["A", "", "B"]
-                 *
-                 * Ese bloque vacío se convierte en
-                 * una línea visual adicional.
+                 * Esta parte contiene solamente
+                 * saltos de línea.
                  */
 
-                if (bloque === "") {
+                if (/^\n+$/.test(parte)) {
 
-                    html += "<br>";
+                    cerrarLista();
+
+
+                    const cantidadSaltos =
+                        parte.length;
+
+
+                    /*
+                     * Decap utiliza pares de \n.
+                     *
+                     * 2 \n → 1 <br>
+                     * 4 \n → 2 <br>
+                     * 6 \n → 3 <br>
+                     *
+                     * Si por alguna razón aparece un
+                     * número impar, conservamos al menos
+                     * un salto visual.
+                     */
+
+                    const cantidadBr =
+                        Math.max(
+                            1,
+                            Math.ceil(
+                                cantidadSaltos / 2
+                            )
+                        );
+
+
+                    html +=
+                        "<br>".repeat(
+                            cantidadBr
+                        );
+
 
                     continue;
                 }
 
 
-                const lineas =
-                    bloque.split("\n");
-
-
-                let enLista = false;
-
-
-                function cerrarLista() {
-
-                    if (enLista) {
-                        html += "</ul>";
-                        enLista = false;
-                    }
+                if (!parte) {
+                    continue;
                 }
+
+
+                const lineas =
+                    parte.split("\n");
 
 
                 for (
@@ -499,6 +529,11 @@
 
                     const linea =
                         lineas[lineaIndice];
+
+
+                    if (!linea) {
+                        continue;
+                    }
 
 
                     if (
@@ -605,29 +640,10 @@
                         html += "<br>";
                     }
                 }
-
-
-                cerrarLista();
-
-
-                /*
-                 * Cada \n\n normal de Decap
-                 * representa un único salto visual.
-                 *
-                 * Si el siguiente bloque está vacío,
-                 * ya hemos añadido el <br> correspondiente
-                 * en la siguiente iteración.
-                 */
-
-                if (
-                    indice <
-                    bloques.length - 1 &&
-                    bloques[indice + 1] !== ""
-                ) {
-
-                    html += "<br>";
-                }
             }
+
+
+            cerrarLista();
 
 
             return html;
