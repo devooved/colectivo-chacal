@@ -38,10 +38,10 @@ collections:
                 widget: "select"
                 multiple: true
                 options:
-                  - "Fanzine"
-                  - "Revista"
-                  - "Libro"
-                  - "Otros"
+                  - "FANZINES"
+                  - "REVISTAS"
+                  - "LIBROS"
+                  - "MÁS"
 
               - label: "Imágenes"
                 name: "images"

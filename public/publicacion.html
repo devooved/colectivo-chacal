@@ -67,9 +67,10 @@
 
             <p class="producto-precio" id="precio"></p>
 
-            <div class="producto-descripcion">
-                <p id="descripcion"></p>
-            </div>
+            <div
+                class="producto-descripcion"
+                id="descripcion"
+            ></div>
 
         </section>
 
@@ -78,22 +79,211 @@
 
     <script>
 
+        function escaparHtml(texto) {
+
+            return texto
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        function convertirMarkdown(markdown) {
+
+            if (!markdown) {
+                return "";
+            }
+
+
+            const lineas =
+                markdown.replace(/\r\n/g, "\n").split("\n");
+
+
+            let html = "";
+            let enLista = false;
+
+
+            function cerrarLista() {
+
+                if (enLista) {
+                    html += "</ul>";
+                    enLista = false;
+                }
+            }
+
+
+            function procesarLinea(linea) {
+
+                let contenido =
+                    escaparHtml(linea);
+
+
+                contenido =
+                    contenido.replace(
+                        /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+                        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+                    );
+
+
+                contenido =
+                    contenido.replace(
+                        /\*\*(.+?)\*\*/g,
+                        "<strong>$1</strong>"
+                    );
+
+
+                contenido =
+                    contenido.replace(
+                        /\*(.+?)\*/g,
+                        "<em>$1</em>"
+                    );
+
+
+                return contenido;
+            }
+
+
+            for (
+                let indice = 0;
+                indice < lineas.length;
+                indice++
+            ) {
+
+                const linea =
+                    lineas[indice];
+
+
+                if (
+                    linea.trim() === ""
+                ) {
+
+                    cerrarLista();
+
+                    continue;
+                }
+
+
+                if (
+                    linea.match(/^- (.+)$/)
+                ) {
+
+                    if (!enLista) {
+                        html += "<ul>";
+                        enLista = true;
+                    }
+
+
+                    const contenido =
+                        linea.replace(
+                            /^- (.+)$/,
+                            "$1"
+                        );
+
+
+                    html +=
+                        "<li>" +
+                        procesarLinea(contenido) +
+                        "</li>";
+
+                    continue;
+                }
+
+
+                cerrarLista();
+
+
+                if (
+                    linea.match(/^### (.+)$/)
+                ) {
+
+                    html +=
+                        "<h4>" +
+                        procesarLinea(
+                            linea.replace(
+                                /^### (.+)$/,
+                                "$1"
+                            )
+                        ) +
+                        "</h4>";
+
+                    continue;
+                }
+
+
+                if (
+                    linea.match(/^## (.+)$/)
+                ) {
+
+                    html +=
+                        "<h3>" +
+                        procesarLinea(
+                            linea.replace(
+                                /^## (.+)$/,
+                                "$1"
+                            )
+                        ) +
+                        "</h3>";
+
+                    continue;
+                }
+
+
+                if (
+                    linea.match(/^# (.+)$/)
+                ) {
+
+                    html +=
+                        "<h2>" +
+                        procesarLinea(
+                            linea.replace(
+                                /^# (.+)$/,
+                                "$1"
+                            )
+                        ) +
+                        "</h2>";
+
+                    continue;
+                }
+
+
+                html +=
+                    "<p>" +
+                    procesarLinea(linea) +
+                    "</p>";
+            }
+
+
+            cerrarLista();
+
+
+            return html;
+        }
+
+
         async function cargarPublicacion() {
 
-            const parametros = new URLSearchParams(
-                window.location.search
-            );
+            const parametros =
+                new URLSearchParams(
+                    window.location.search
+                );
 
-            const id = parametros.get("id");
+            const id =
+                parametros.get("id");
+
 
             if (!id) {
                 mostrarError();
                 return;
             }
 
+
             try {
 
-                const respuesta = await fetch("catalogo.json");
+                const respuesta =
+                    await fetch("catalogo.json");
+
 
                 if (!respuesta.ok) {
                     throw new Error(
@@ -101,9 +291,24 @@
                     );
                 }
 
-                const datos = await respuesta.json();
 
-                const indice = parseInt(id, 10);
+                const datos =
+                    await respuesta.json();
+
+
+                if (
+                    !datos ||
+                    !Array.isArray(datos.publicaciones)
+                ) {
+                    throw new Error(
+                        "El formato de catalogo.json no es válido"
+                    );
+                }
+
+
+                const indice =
+                    parseInt(id, 10);
+
 
                 if (
                     Number.isNaN(indice) ||
@@ -114,35 +319,51 @@
                     return;
                 }
 
+
                 const publicacion =
                     datos.publicaciones[indice];
+
 
                 document.title =
                     publicacion.title +
                     " — COLECTIVO CHACAL";
 
-                document.getElementById("titulo").textContent =
-                    publicacion.title;
 
-                document.getElementById("precio").textContent =
-                    publicacion.price;
+                document.getElementById(
+                    "titulo"
+                ).textContent =
+                    publicacion.title || "";
 
-                document.getElementById("descripcion").textContent =
-                    publicacion.description;
+
+                document.getElementById(
+                    "precio"
+                ).textContent =
+                    publicacion.price || "";
+
+
+                document.getElementById(
+                    "descripcion"
+                ).innerHTML =
+                    convertirMarkdown(
+                        publicacion.description || ""
+                    );
 
 
                 const galeria =
                     document.getElementById("galeria");
+
 
                 const placeholder =
                     galeria.querySelector(
                         ".galeria-placeholder"
                     );
 
+
                 const imagenes =
                     Array.isArray(publicacion.images)
                         ? publicacion.images
                         : [];
+
 
                 let imagenActual = 0;
 
@@ -161,8 +382,10 @@
                 const imagen =
                     document.createElement("img");
 
+
                 imagen.alt =
-                    publicacion.title;
+                    publicacion.title || "";
+
 
                 imagen.style.width = "100%";
                 imagen.style.height = "100%";
@@ -173,6 +396,7 @@
                 if (placeholder) {
                     placeholder.remove();
                 }
+
 
                 galeria.insertBefore(
                     imagen,
@@ -186,6 +410,7 @@
                     galeria.querySelector(
                         ".galeria-flecha-izquierda"
                     );
+
 
                 const flechaDerecha =
                     galeria.querySelector(
@@ -257,13 +482,21 @@
 
         function mostrarError() {
 
-            document.getElementById("titulo").textContent =
+            document.getElementById(
+                "titulo"
+            ).textContent =
                 "PUBLICACIÓN NO ENCONTRADA";
 
-            document.getElementById("precio").textContent =
+
+            document.getElementById(
+                "precio"
+            ).textContent =
                 "";
 
-            document.getElementById("descripcion").textContent =
+
+            document.getElementById(
+                "descripcion"
+            ).textContent =
                 "";
         }
 
