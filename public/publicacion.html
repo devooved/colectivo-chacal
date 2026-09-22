@@ -9,7 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -77,7 +80,10 @@
             rel="noopener noreferrer"
             aria-label="Instagram de COLECTIVO CHACAL"
         >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
                 <rect
                     x="3"
                     y="3"
@@ -183,7 +189,10 @@
 
             <h1 id="titulo">CARGANDO...</h1>
 
-            <p class="producto-precio" id="precio"></p>
+            <p
+                class="producto-precio"
+                id="precio"
+            ></p>
 
             <div
                 class="producto-descripcion"
@@ -366,6 +375,37 @@
         }
 
 
+        function procesarInline(texto) {
+
+            let contenido =
+                escaparHtml(texto);
+
+
+            contenido =
+                contenido.replace(
+                    /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+                    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+                );
+
+
+            contenido =
+                contenido.replace(
+                    /\*\*(.+?)\*\*/g,
+                    "<strong>$1</strong>"
+                );
+
+
+            contenido =
+                contenido.replace(
+                    /\*(.+?)\*/g,
+                    "<em>$1</em>"
+                );
+
+
+            return contenido;
+        }
+
+
         function convertirMarkdown(markdown) {
 
             if (!markdown) {
@@ -380,110 +420,128 @@
                     .trim();
 
 
-            /*
-             * Un solo Enter = salto de línea.
-             * Dos o más Enter = nuevo párrafo.
-             */
-            const bloques =
-                texto.split(/\n[ \t]*\n+/);
-
-
-            function procesarLinea(linea) {
-
-                let contenido =
-                    escaparHtml(linea);
-
-                contenido =
-                    contenido.replace(
-                        /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
-                        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-                    );
-
-                contenido =
-                    contenido.replace(
-                        /\*\*(.+?)\*\*/g,
-                        "<strong>$1</strong>"
-                    );
-
-                contenido =
-                    contenido.replace(
-                        /\*(.+?)\*/g,
-                        "<em>$1</em>"
-                    );
-
-                return contenido;
+            if (!texto) {
+                return "";
             }
 
 
-            function procesarBloque(bloque) {
+            /*
+             * IMPORTANTE:
+             *
+             * Decap convierte:
+             *
+             * 1 Enter  → \n\n
+             * 2 Enters → \n\n\n\n
+             *
+             * Por eso trabajamos con pares de saltos
+             * de línea, no con cada \n individual.
+             */
+
+
+            const bloques =
+                texto.split("\n\n");
+
+
+            let html = "";
+
+
+            for (
+                let indice = 0;
+                indice < bloques.length;
+                indice++
+            ) {
+
+                const bloque =
+                    bloques[indice];
+
+
+                /*
+                 * Un bloque vacío significa que había
+                 * una separación adicional:
+                 *
+                 * A\n\n\n\nB
+                 *
+                 * → ["A", "", "B"]
+                 *
+                 * Ese bloque vacío se convierte en
+                 * una línea visual adicional.
+                 */
+
+                if (bloque === "") {
+
+                    html += "<br>";
+
+                    continue;
+                }
+
 
                 const lineas =
                     bloque.split("\n");
 
 
-                const esLista =
-                    lineas.length > 0 &&
-                    lineas.every(
-                        function (linea) {
-                            return linea.trim() === "" ||
-                                /^- (.+)$/.test(linea);
-                        }
-                    );
+                let enLista = false;
 
 
-                if (esLista) {
+                function cerrarLista() {
 
-                    let listaHtml = "<ul>";
-
-                    lineas.forEach(
-                        function (linea) {
-
-                            if (linea.trim() === "") {
-                                return;
-                            }
-
-                            const contenido =
-                                linea.replace(
-                                    /^- (.+)$/,
-                                    "$1"
-                                );
-
-                            listaHtml +=
-                                "<li>" +
-                                procesarLinea(contenido) +
-                                "</li>";
-                        }
-                    );
-
-                    listaHtml += "</ul>";
-
-                    return listaHtml;
+                    if (enLista) {
+                        html += "</ul>";
+                        enLista = false;
+                    }
                 }
 
 
-                let resultado = "";
-
-
                 for (
-                    let indice = 0;
-                    indice < lineas.length;
-                    indice++
+                    let lineaIndice = 0;
+                    lineaIndice < lineas.length;
+                    lineaIndice++
                 ) {
 
                     const linea =
-                        lineas[indice];
+                        lineas[lineaIndice];
 
 
-                    if (linea.trim() === "") {
+                    if (
+                        linea.match(
+                            /^- (.+)$/
+                        )
+                    ) {
+
+                        if (!enLista) {
+
+                            html += "<ul>";
+
+                            enLista = true;
+                        }
+
+
+                        html +=
+                            "<li>" +
+                            procesarInline(
+                                linea.replace(
+                                    /^- (.+)$/,
+                                    "$1"
+                                )
+                            ) +
+                            "</li>";
+
+
                         continue;
                     }
 
 
-                    if (linea.match(/^### (.+)$/)) {
+                    cerrarLista();
 
-                        resultado +=
+
+                    if (
+                        linea.match(
+                            /^### (.+)$/
+                        )
+                    ) {
+
+                        html +=
                             "<h4>" +
-                            procesarLinea(
+                            procesarInline(
                                 linea.replace(
                                     /^### (.+)$/,
                                     "$1"
@@ -491,11 +549,19 @@
                             ) +
                             "</h4>";
 
-                    } else if (linea.match(/^## (.+)$/)) {
+                        continue;
+                    }
 
-                        resultado +=
+
+                    if (
+                        linea.match(
+                            /^## (.+)$/
+                        )
+                    ) {
+
+                        html +=
                             "<h3>" +
-                            procesarLinea(
+                            procesarInline(
                                 linea.replace(
                                     /^## (.+)$/,
                                     "$1"
@@ -503,11 +569,19 @@
                             ) +
                             "</h3>";
 
-                    } else if (linea.match(/^# (.+)$/)) {
+                        continue;
+                    }
 
-                        resultado +=
+
+                    if (
+                        linea.match(
+                            /^# (.+)$/
+                        )
+                    ) {
+
+                        html +=
                             "<h2>" +
-                            procesarLinea(
+                            procesarInline(
                                 linea.replace(
                                     /^# (.+)$/,
                                     "$1"
@@ -515,48 +589,45 @@
                             ) +
                             "</h2>";
 
-                    } else {
-
-                        resultado +=
-                            procesarLinea(linea);
-
-                    }
-
-
-                    if (
-                        indice <
-                        lineas.length - 1
-                    ) {
-                        resultado += "<br>";
-                    }
-                }
-
-
-                return resultado;
-            }
-
-
-            let html = "";
-
-
-            bloques.forEach(
-                function (bloque) {
-
-                    const contenido =
-                        bloque.trim();
-
-
-                    if (!contenido) {
-                        return;
+                        continue;
                     }
 
 
                     html +=
-                        "<p>" +
-                        procesarBloque(contenido) +
-                        "</p>";
+                        procesarInline(linea);
+
+
+                    if (
+                        lineaIndice <
+                        lineas.length - 1
+                    ) {
+
+                        html += "<br>";
+                    }
                 }
-            );
+
+
+                cerrarLista();
+
+
+                /*
+                 * Cada \n\n normal de Decap
+                 * representa un único salto visual.
+                 *
+                 * Si el siguiente bloque está vacío,
+                 * ya hemos añadido el <br> correspondiente
+                 * en la siguiente iteración.
+                 */
+
+                if (
+                    indice <
+                    bloques.length - 1 &&
+                    bloques[indice + 1] !== ""
+                ) {
+
+                    html += "<br>";
+                }
+            }
 
 
             return html;
@@ -570,12 +641,15 @@
                     window.location.search
                 );
 
+
             const id =
                 parametros.get("id");
 
 
             if (!id) {
+
                 mostrarError();
+
                 return;
             }
 
@@ -587,6 +661,7 @@
 
 
                 if (!respuesta.ok) {
+
                     throw new Error(
                         "No se pudo cargar catalogo.json"
                     );
@@ -599,8 +674,11 @@
 
                 if (
                     !datos ||
-                    !Array.isArray(datos.publicaciones)
+                    !Array.isArray(
+                        datos.publicaciones
+                    )
                 ) {
+
                     throw new Error(
                         "El formato de catalogo.json no es válido"
                     );
@@ -614,9 +692,12 @@
                 if (
                     Number.isNaN(indice) ||
                     indice < 0 ||
-                    indice >= datos.publicaciones.length
+                    indice >=
+                    datos.publicaciones.length
                 ) {
+
                     mostrarError();
+
                     return;
                 }
 
@@ -651,7 +732,9 @@
 
 
                 const galeria =
-                    document.getElementById("galeria");
+                    document.getElementById(
+                        "galeria"
+                    );
 
 
                 const placeholder =
@@ -661,7 +744,9 @@
 
 
                 const imagenes =
-                    Array.isArray(publicacion.images)
+                    Array.isArray(
+                        publicacion.images
+                    )
                         ? publicacion.images
                         : [];
 
@@ -672,6 +757,7 @@
                 if (imagenes.length === 0) {
 
                     if (placeholder) {
+
                         placeholder.textContent =
                             "SIN IMÁGENES";
                     }
@@ -681,19 +767,32 @@
 
 
                 const imagen =
-                    document.createElement("img");
+                    document.createElement(
+                        "img"
+                    );
 
 
                 imagen.alt =
                     publicacion.title || "";
 
-                imagen.style.display = "block";
-                imagen.style.width = "auto";
-                imagen.style.height = "auto";
-                imagen.style.maxWidth = "100%";
+
+                imagen.style.display =
+                    "block";
+
+                imagen.style.width =
+                    "auto";
+
+                imagen.style.height =
+                    "auto";
+
+                imagen.style.maxWidth =
+                    "100%";
+
                 imagen.style.maxHeight =
                     "calc(100vh - 180px)";
-                imagen.style.objectFit = "contain";
+
+                imagen.style.objectFit =
+                    "contain";
 
 
                 if (placeholder) {
@@ -750,11 +849,15 @@
                     let ancho =
                         anchoDisponible;
 
+
                     let alto =
                         ancho / proporcion;
 
 
-                    if (alto > altoDisponible) {
+                    if (
+                        alto >
+                        altoDisponible
+                    ) {
 
                         alto =
                             altoDisponible;
@@ -767,19 +870,24 @@
                     galeria.style.width =
                         ancho + "px";
 
+
                     galeria.style.height =
                         alto + "px";
+
 
                     galeria.style.aspectRatio =
                         imagen.naturalWidth +
                         " / " +
                         imagen.naturalHeight;
 
+
                     galeria.style.display =
                         "flex";
 
+
                     galeria.style.alignItems =
                         "center";
+
 
                     galeria.style.justifyContent =
                         "center";
@@ -791,11 +899,13 @@
                     imagen.onload =
                         ajustarGaleria;
 
+
                     imagen.src =
                         imagenes[imagenActual];
 
 
                     if (imagen.complete) {
+
                         ajustarGaleria();
                     }
                 }
@@ -813,10 +923,15 @@
 
                         imagenActual--;
 
-                        if (imagenActual < 0) {
+
+                        if (
+                            imagenActual < 0
+                        ) {
+
                             imagenActual =
                                 imagenes.length - 1;
                         }
+
 
                         mostrarImagen();
                     }
@@ -829,12 +944,15 @@
 
                         imagenActual++;
 
+
                         if (
                             imagenActual >=
                             imagenes.length
                         ) {
+
                             imagenActual = 0;
                         }
+
 
                         mostrarImagen();
                     }
