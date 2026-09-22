@@ -456,7 +456,11 @@ body {
 }
 
 .producto-descripcion p {
-    margin: 0;
+    margin: 0 0 1.5em;
+}
+
+.producto-descripcion p:last-child {
+    margin-bottom: 0;
 }
 
 
