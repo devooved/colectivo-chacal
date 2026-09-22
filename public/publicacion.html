@@ -645,11 +645,13 @@
                 imagen.alt =
                     publicacion.title || "";
 
-
-                imagen.style.width = "100%";
-                imagen.style.height = "100%";
-                imagen.style.objectFit = "cover";
                 imagen.style.display = "block";
+                imagen.style.width = "auto";
+                imagen.style.height = "auto";
+                imagen.style.maxWidth = "100%";
+                imagen.style.maxHeight =
+                    "calc(100vh - 180px)";
+                imagen.style.objectFit = "contain";
 
 
                 if (placeholder) {
@@ -677,11 +679,81 @@
                     );
 
 
+                function ajustarGaleria() {
+
+                    if (
+                        !imagen.naturalWidth ||
+                        !imagen.naturalHeight
+                    ) {
+                        return;
+                    }
+
+
+                    const anchoDisponible =
+                        galeria.parentElement.clientWidth;
+
+
+                    const altoDisponible =
+                        Math.max(
+                            240,
+                            window.innerHeight - 180
+                        );
+
+
+                    const proporcion =
+                        imagen.naturalWidth /
+                        imagen.naturalHeight;
+
+
+                    let ancho =
+                        anchoDisponible;
+
+                    let alto =
+                        ancho / proporcion;
+
+
+                    if (alto > altoDisponible) {
+
+                        alto =
+                            altoDisponible;
+
+                        ancho =
+                            alto * proporcion;
+                    }
+
+
+                    galeria.style.width =
+                        ancho + "px";
+
+                    galeria.style.height =
+                        alto + "px";
+
+                    galeria.style.aspectRatio =
+                        imagen.naturalWidth +
+                        " / " +
+                        imagen.naturalHeight;
+                }
+
+
                 function mostrarImagen() {
+
+                    imagen.onload =
+                        ajustarGaleria;
 
                     imagen.src =
                         imagenes[imagenActual];
+
+
+                    if (imagen.complete) {
+                        ajustarGaleria();
+                    }
                 }
+
+
+                window.addEventListener(
+                    "resize",
+                    ajustarGaleria
+                );
 
 
                 flechaIzquierda.addEventListener(
