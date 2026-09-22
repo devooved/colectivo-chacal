@@ -1,7 +1,3 @@
-/* =========================
-   BASE
-   ========================= */
-
 * {
     box-sizing: border-box;
 }
@@ -23,6 +19,8 @@ body {
    ========================= */
 
 .site-header {
+    position: relative;
+
     width: 100%;
     height: 86px;
     padding: 0 24px;
@@ -67,6 +65,42 @@ body {
 .site-title:hover,
 .nav-dropdown-button:hover {
     color: #ff0000;
+}
+
+
+/* =========================
+   MOBILE MENU
+   ========================= */
+
+.mobile-menu-button {
+    display: none;
+
+    width: 32px;
+    height: 32px;
+
+    margin: 0;
+    padding: 4px 0;
+
+    border: 0;
+    background: transparent;
+
+    flex-direction: column;
+    justify-content: space-between;
+
+    cursor: pointer;
+}
+
+.mobile-menu-button span {
+    display: block;
+
+    width: 100%;
+    height: 2px;
+
+    background: #fff;
+}
+
+.mobile-menu {
+    display: none;
 }
 
 
@@ -419,34 +453,63 @@ body {
     .site-header {
         height: 80px;
         padding: 0 16px;
+
+        justify-content: flex-start;
+        gap: 14px;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+        flex: 0 0 auto;
     }
 
     .site-title {
-        font-size: 38px;
+        font-size: 34px;
         font-weight: 700;
         letter-spacing: 0.01em;
     }
 
     .site-nav {
-        gap: 16px;
+        display: none;
     }
 
-    .site-nav a,
-    .nav-dropdown-button {
-        font-size: 11px;
+    .mobile-menu {
+        position: absolute;
+        top: 80px;
+        left: 16px;
+        z-index: 20;
+
+        width: 190px;
+
+        display: none;
+        flex-direction: column;
+
+        padding: 12px 0;
+
+        background: #000;
+        border: 1px solid #fff;
     }
 
-    .nav-dropdown {
-        top: calc(100% + 14px);
-        right: 0;
-
-        min-width: 130px;
-
-        padding: 10px 0;
+    .mobile-menu.abierto {
+        display: flex;
     }
 
-    .nav-dropdown a {
-        padding: 7px 14px;
+    .mobile-menu a {
+        display: block;
+
+        padding: 10px 16px;
+
+        color: #fff;
+        text-decoration: none;
+
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+    }
+
+    .mobile-menu a:hover {
+        color: #ff0000;
     }
 
     .publicaciones {
@@ -458,7 +521,10 @@ body {
         gap: 32px 12px;
     }
 
-    .producto h2,
+    .producto h2 {
+        font-size: 14px;
+    }
+
     .producto p {
         font-size: 12px;
     }
