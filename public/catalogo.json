@@ -45,7 +45,7 @@
     {
       "title": "XULANGA N.4",
       "price": "4€",
-      "description": "*Miel*\n\nAbril 2026\n\n20x14cm.\n\n28 págs.\n\nBlanco y negro en papel reciclado\n\n\n\nPedidos a colectivochacal@gmail.com o DM @colectivochacal",
+      "description": "*Miel*\n\nAbril 2026\n\n20x14cm.\n\n28 págs.\n\nBlanco y negro en papel reciclado\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
       "categories": [
         "FANZINES",
         "REVISTAS"
@@ -55,6 +55,24 @@
         "/uploads/xulanga4-int.jpeg",
         "/uploads/xulanga4.int2.jpeg",
         "/uploads/xulanga4-contra.jpeg"
+      ]
+    },
+    {
+      "title": "CHACALITOS",
+      "price": "8€ / pack de tres",
+      "description": "*Diccionario Infantil Ilustrado; Enciclopedia Argos del Mundo Animal; Historia Mundial del Siglo 20*\n\nEjemplares hechos a mano, fechados y numerados (primera tirada: septiembre de 2026)\n\n7,5x10 cm.\n\n16 págs.\n\nDiccionario, poemario y relato a partir de las intervenciones de Diego Vidal Cámara.\n\nPortada fabricada con el papel de las publicaciones intervenidas, interior blanco y negro en papel reciclado, guardas en papel color con sello en tinta.\n\n\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
+      "categories": [
+        "FANZINES",
+        "LIBROS"
+      ],
+      "images": [
+        "/uploads/chacalitospack.jpeg",
+        "/uploads/chacalitoverde-port.jpeg",
+        "/uploads/chacalitoverde-int2.jpeg",
+        "/uploads/chacalitorojo-port.jpeg",
+        "/uploads/chacalitorojo.int2.jpeg",
+        "/uploads/chacalitoblanco-port.jpeg",
+        "/uploads/chacalitoblanco-int2.jpeg"
       ]
     }
   ]
