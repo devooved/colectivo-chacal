@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ABOUT — COLECTIVO CHACAL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <a href="index.html" class="site-title">
+            COLECTIVO CHACAL
+        </a>
+
+        <nav class="site-nav">
+
+            <div class="nav-publicaciones">
+
+                <button
+                    type="button"
+                    class="nav-dropdown-button"
+                    id="publicaciones-button"
+                    aria-expanded="false"
+                    aria-controls="publicaciones-menu"
+                >
+                    PUBLICACIONES
+                </button>
+
+                <div
+                    class="nav-dropdown"
+                    id="publicaciones-menu"
+                >
+                    <a href="index.html?categoria=TODO">TODO</a>
+                    <a href="index.html?categoria=FANZINES">FANZINES</a>
+                    <a href="index.html?categoria=REVISTAS">REVISTAS</a>
+                    <a href="index.html?categoria=LIBROS">LIBROS</a>
+                    <a href="index.html?categoria=MÁS">MÁS</a>
+                </div>
+
+            </div>
+
+            <a href="pedidos.html">PEDIDOS</a>
+
+            <a href="about.html">ABOUT</a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="pagina-informacion about-layout">
+
+        <section class="about-texto">
+
+            <h1>ABOUT</h1>
+
+            <div class="pagina-contenido">
+
+                <p>
+                    En COLECTIVO CHACAL intentamos reanimar formas de escritura y creación colectivas, híbridas, artesanales y no productivas, para recuperar el arte como placer inmediato y desplazar el disgusto del trabajo como proyecto a futuro.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="about-imagen">
+
+            <img
+                src="images/CARTEL.png"
+                alt="Cartel de COLECTIVO CHACAL"
+            >
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        const publicacionesButton =
+            document.getElementById(
+                "publicaciones-button"
+            );
+
+        const publicacionesMenu =
+            document.getElementById(
+                "publicaciones-menu"
+            );
+
+
+        publicacionesButton.addEventListener(
+            "click",
+            function () {
+
+                const abierto =
+                    publicacionesButton.getAttribute(
+                        "aria-expanded"
+                    ) === "true";
+
+
+                publicacionesButton.setAttribute(
+                    "aria-expanded",
+                    String(!abierto)
+                );
+
+
+                publicacionesMenu.classList.toggle(
+                    "abierto",
+                    !abierto
+                );
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (evento) {
+
+                if (
+                    !evento.target.closest(
+                        ".nav-publicaciones"
+                    )
+                ) {
+
+                    publicacionesButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    publicacionesMenu.classList.remove(
+                        "abierto"
+                    );
+                }
+            }
+        );
+
+    </script>
+
+</body>
+</html>

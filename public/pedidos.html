@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PEDIDOS — COLECTIVO CHACAL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <a href="index.html" class="site-title">
+            COLECTIVO CHACAL
+        </a>
+
+        <nav class="site-nav">
+
+            <div class="nav-publicaciones">
+
+                <button
+                    type="button"
+                    class="nav-dropdown-button"
+                    id="publicaciones-button"
+                    aria-expanded="false"
+                    aria-controls="publicaciones-menu"
+                >
+                    PUBLICACIONES
+                </button>
+
+                <div
+                    class="nav-dropdown"
+                    id="publicaciones-menu"
+                >
+                    <a href="index.html?categoria=TODO">TODO</a>
+                    <a href="index.html?categoria=FANZINES">FANZINES</a>
+                    <a href="index.html?categoria=REVISTAS">REVISTAS</a>
+                    <a href="index.html?categoria=LIBROS">LIBROS</a>
+                    <a href="index.html?categoria=MÁS">MÁS</a>
+                </div>
+
+            </div>
+
+            <a href="pedidos.html">PEDIDOS</a>
+
+            <a href="about.html">ABOUT</a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="pagina-informacion">
+
+        <h1>PEDIDOS</h1>
+
+        <div class="pagina-contenido">
+
+            <p>
+                Para pedidos, envía un email a
+                <a href="mailto:colectivochacal@gmail.com">
+                    colectivochacal@gmail.com
+                </a>
+                y cuéntanos qué publicaciones te gustaría comprar y en qué dirección quieres recibir el pedido. Calcularemos los gastos de envío y la forma de pago y te contestaremos lo antes posible.
+            </p>
+
+            <p>
+                También hacemos entrega en mano en Madrid. Y si quieres, nos puedes seguir en
+                <a
+                    href="https://www.instagram.com/colectivochacal/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    @colectivochacal
+                </a>
+                para estar al tanto de otros puntos de venta donde pueden estar disponibles nuestras publicaciones.
+            </p>
+
+            <p>
+                Cualquier duda o consulta, puedes escribirnos al correo o a Instagram. ¡Gracias!
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const publicacionesButton =
+            document.getElementById(
+                "publicaciones-button"
+            );
+
+        const publicacionesMenu =
+            document.getElementById(
+                "publicaciones-menu"
+            );
+
+
+        publicacionesButton.addEventListener(
+            "click",
+            function () {
+
+                const abierto =
+                    publicacionesButton.getAttribute(
+                        "aria-expanded"
+                    ) === "true";
+
+
+                publicacionesButton.setAttribute(
+                    "aria-expanded",
+                    String(!abierto)
+                );
+
+
+                publicacionesMenu.classList.toggle(
+                    "abierto",
+                    !abierto
+                );
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (evento) {
+
+                if (
+                    !evento.target.closest(
+                        ".nav-publicaciones"
+                    )
+                ) {
+
+                    publicacionesButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    publicacionesMenu.classList.remove(
+                        "abierto"
+                    );
+                }
+            }
+        );
+
+    </script>
+
+</body>
+</html>

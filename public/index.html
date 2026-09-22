@@ -22,9 +22,40 @@
             COLECTIVO CHACAL
         </a>
 
+
         <nav class="site-nav">
-            <a href="index.html">PUBLICACIONES</a>
+
+            <div class="nav-publicaciones">
+
+                <button
+                    type="button"
+                    class="nav-dropdown-button"
+                    id="publicaciones-button"
+                    aria-expanded="false"
+                    aria-controls="publicaciones-menu"
+                >
+                    PUBLICACIONES
+                </button>
+
+
+                <div
+                    class="nav-dropdown"
+                    id="publicaciones-menu"
+                >
+                    <a href="#" data-categoria="TODO">TODO</a>
+                    <a href="#" data-categoria="FANZINES">FANZINES</a>
+                    <a href="#" data-categoria="REVISTAS">REVISTAS</a>
+                    <a href="#" data-categoria="LIBROS">LIBROS</a>
+                    <a href="#" data-categoria="MÁS">MÁS</a>
+                </div>
+
+            </div>
+
+
+            <a href="pedidos.html">PEDIDOS</a>
+
             <a href="about.html">ABOUT</a>
+
         </nav>
 
     </header>
@@ -43,10 +74,275 @@
 
     <script>
 
-        async function cargarCatalogo() {
+        const publicacionesButton =
+            document.getElementById(
+                "publicaciones-button"
+            );
 
-            const catalogo =
-                document.getElementById("catalogo");
+
+        const publicacionesMenu =
+            document.getElementById(
+                "publicaciones-menu"
+            );
+
+
+        const catalogo =
+            document.getElementById(
+                "catalogo"
+            );
+
+
+        let publicaciones =
+            [];
+
+
+        publicacionesButton.addEventListener(
+            "click",
+            function () {
+
+                const abierto =
+                    publicacionesButton.getAttribute(
+                        "aria-expanded"
+                    ) === "true";
+
+
+                publicacionesButton.setAttribute(
+                    "aria-expanded",
+                    String(!abierto)
+                );
+
+
+                publicacionesMenu.classList.toggle(
+                    "abierto",
+                    !abierto
+                );
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (evento) {
+
+                if (
+                    !evento.target.closest(
+                        ".nav-publicaciones"
+                    )
+                ) {
+
+                    publicacionesButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+
+                    publicacionesMenu.classList.remove(
+                        "abierto"
+                    );
+                }
+            }
+        );
+
+
+        function mostrarPublicaciones(
+            publicacionesFiltradas
+        ) {
+
+            catalogo.innerHTML = "";
+
+
+            publicacionesFiltradas.forEach(
+                function (publicacion) {
+
+                    const indice =
+                        publicaciones.indexOf(
+                            publicacion
+                        );
+
+
+                    const numero =
+                        String(indice + 1)
+                            .padStart(2, "0");
+
+
+                    const producto =
+                        document.createElement("article");
+
+
+                    producto.className =
+                        "producto";
+
+
+                    const enlace =
+                        document.createElement("a");
+
+
+                    enlace.href =
+                        "publicacion.html?id=" +
+                        indice;
+
+
+                    const imagen =
+                        document.createElement("div");
+
+
+                    imagen.className =
+                        "producto-imagen";
+
+
+                    if (
+                        Array.isArray(
+                            publicacion.images
+                        ) &&
+                        publicacion.images.length > 0
+                    ) {
+
+                        const img =
+                            document.createElement("img");
+
+
+                        img.src =
+                            publicacion.images[0];
+
+
+                        img.alt =
+                            publicacion.title || "";
+
+
+                        imagen.appendChild(img);
+
+                    } else {
+
+                        const textoImagen =
+                            document.createElement("span");
+
+
+                        textoImagen.textContent =
+                            "IMAGEN " + numero;
+
+
+                        imagen.appendChild(
+                            textoImagen
+                        );
+                    }
+
+
+                    const titulo =
+                        document.createElement("h2");
+
+
+                    titulo.textContent =
+                        publicacion.title || "";
+
+
+                    const precio =
+                        document.createElement("p");
+
+
+                    precio.textContent =
+                        publicacion.price || "";
+
+
+                    enlace.appendChild(imagen);
+                    enlace.appendChild(titulo);
+                    enlace.appendChild(precio);
+
+                    producto.appendChild(enlace);
+
+                    catalogo.appendChild(producto);
+
+                }
+            );
+
+
+            if (
+                publicacionesFiltradas.length === 0
+            ) {
+
+                catalogo.innerHTML =
+                    "<p>No hay publicaciones en esta categoría.</p>";
+            }
+        }
+
+
+        function filtrarPorCategoria(
+            categoria
+        ) {
+
+            if (categoria === "TODO") {
+
+                mostrarPublicaciones(
+                    publicaciones
+                );
+
+                return;
+            }
+
+
+            const filtradas =
+                publicaciones.filter(
+                    function (publicacion) {
+
+                        if (
+                            !Array.isArray(
+                                publicacion.categories
+                            )
+                        ) {
+                            return false;
+                        }
+
+
+                        return publicacion.categories
+                            .includes(categoria);
+                    }
+                );
+
+
+            mostrarPublicaciones(
+                filtradas
+            );
+        }
+
+
+        document
+            .querySelectorAll(
+                "[data-categoria]"
+            )
+            .forEach(
+                function (enlace) {
+
+                    enlace.addEventListener(
+                        "click",
+                        function (evento) {
+
+                            evento.preventDefault();
+
+
+                            const categoria =
+                                enlace.dataset.categoria;
+
+
+                            filtrarPorCategoria(
+                                categoria
+                            );
+
+
+                            publicacionesButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+
+                            publicacionesMenu.classList.remove(
+                                "abierto"
+                            );
+                        }
+                    );
+                }
+            );
+
+
+        async function cargarCatalogo() {
 
             try {
 
@@ -75,98 +371,12 @@
                 }
 
 
-                datos.publicaciones.forEach(
-                    function (publicacion, indice) {
-
-                        const numero =
-                            String(indice + 1)
-                                .padStart(2, "0");
+                publicaciones =
+                    datos.publicaciones;
 
 
-                        const producto =
-                            document.createElement("article");
-
-                        producto.className =
-                            "producto";
-
-
-                        const enlace =
-                            document.createElement("a");
-
-                        /*
-                         * Todas las publicaciones utilizan
-                         * la misma plantilla dinámica.
-                         */
-
-                        enlace.href =
-                            "publicacion.html?id=" +
-                            indice;
-
-
-                        const imagen =
-                            document.createElement("div");
-
-                        imagen.className =
-                            "producto-imagen";
-
-
-                        if (
-                            Array.isArray(
-                                publicacion.images
-                            ) &&
-                            publicacion.images.length > 0
-                        ) {
-
-                            const img =
-                                document.createElement("img");
-
-                            img.src =
-                                publicacion.images[0];
-
-                            img.alt =
-                                publicacion.title || "";
-
-
-                            imagen.appendChild(img);
-
-                        } else {
-
-                            const textoImagen =
-                                document.createElement("span");
-
-                            textoImagen.textContent =
-                                "IMAGEN " + numero;
-
-
-                            imagen.appendChild(
-                                textoImagen
-                            );
-                        }
-
-
-                        const titulo =
-                            document.createElement("h2");
-
-                        titulo.textContent =
-                            publicacion.title || "";
-
-
-                        const precio =
-                            document.createElement("p");
-
-                        precio.textContent =
-                            publicacion.price || "";
-
-
-                        enlace.appendChild(imagen);
-                        enlace.appendChild(titulo);
-                        enlace.appendChild(precio);
-
-                        producto.appendChild(enlace);
-
-                        catalogo.appendChild(producto);
-
-                    }
+                mostrarPublicaciones(
+                    publicaciones
                 );
 
             } catch (error) {

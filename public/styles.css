@@ -1,6 +1,5 @@
 /* =========================
-   CHACAL
-   Base
+   BASE
    ========================= */
 
 * {
@@ -49,10 +48,12 @@ body {
 
 .site-nav {
     display: flex;
+    align-items: center;
     gap: 28px;
 }
 
-.site-nav a {
+.site-nav a,
+.nav-dropdown-button {
     color: #fff;
     text-decoration: none;
 
@@ -62,8 +63,62 @@ body {
     letter-spacing: 0.01em;
 }
 
+.site-nav a:hover,
 .site-title:hover,
-.site-nav a:hover {
+.nav-dropdown-button:hover {
+    color: #ff0000;
+}
+
+
+/* =========================
+   PUBLICACIONES DROPDOWN
+   ========================= */
+
+.nav-publicaciones {
+    position: relative;
+}
+
+.nav-dropdown-button {
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    background: none;
+
+    cursor: pointer;
+}
+
+.nav-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    right: 0;
+    z-index: 10;
+
+    min-width: 150px;
+
+    display: none;
+    flex-direction: column;
+
+    padding: 12px 0;
+
+    background: #000;
+    border: 1px solid #fff;
+}
+
+.nav-dropdown.abierto {
+    display: flex;
+}
+
+.nav-dropdown a {
+    display: block;
+
+    padding: 8px 16px;
+
+    color: #fff;
+    white-space: nowrap;
+}
+
+.nav-dropdown a:hover {
     color: #ff0000;
 }
 
@@ -294,6 +349,68 @@ body {
 
 
 /* =========================
+   INFORMATION PAGES
+   ========================= */
+
+.pagina-informacion {
+    width: 100%;
+    padding: 24px;
+}
+
+.pagina-informacion h1 {
+    margin: 0;
+
+    color: #000;
+
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.pagina-contenido {
+    max-width: 700px;
+    margin-top: 36px;
+
+    color: #000;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   ABOUT
+   ========================= */
+
+.about-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+}
+
+.about-texto {
+    min-width: 0;
+}
+
+.about-imagen {
+    width: 100%;
+    height: calc(100vh - 134px);
+    overflow: hidden;
+}
+
+.about-imagen img {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    object-fit: contain;
+    object-position: center;
+}
+
+
+/* =========================
    TABLET / MOBILE
    ========================= */
 
@@ -314,8 +431,22 @@ body {
         gap: 16px;
     }
 
-    .site-nav a {
+    .site-nav a,
+    .nav-dropdown-button {
         font-size: 11px;
+    }
+
+    .nav-dropdown {
+        top: calc(100% + 14px);
+        right: 0;
+
+        min-width: 130px;
+
+        padding: 10px 0;
+    }
+
+    .nav-dropdown a {
+        padding: 7px 14px;
     }
 
     .publicaciones {
@@ -355,6 +486,42 @@ body {
 
         font-size: 12px;
         line-height: 1.5;
+    }
+
+
+    /* INFORMATION PAGES */
+
+    .pagina-informacion {
+        padding: 16px;
+    }
+
+    .pagina-informacion h1 {
+        font-size: 26px;
+    }
+
+    .pagina-contenido {
+        margin-top: 28px;
+
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+
+    /* ABOUT */
+
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .about-imagen {
+        height: auto;
+    }
+
+    .about-imagen img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 
 
