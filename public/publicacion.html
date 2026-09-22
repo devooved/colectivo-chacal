@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COLECTIVO CHACAL</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <a href="index.html" class="site-title">
+            COLECTIVO CHACAL
+        </a>
+
+        <nav class="site-nav">
+            <a href="index.html">PUBLICACIONES</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+
+    </header>
+
+
+    <main class="producto-detalle">
+
+        <section class="producto-galeria">
+
+            <div class="galeria-imagen" id="galeria">
+
+                <div class="galeria-placeholder">
+                    CARGANDO...
+                </div>
+
+                <button
+                    type="button"
+                    class="galeria-flecha galeria-flecha-izquierda"
+                    aria-label="Imagen anterior"
+                >
+                    ←
+                </button>
+
+                <button
+                    type="button"
+                    class="galeria-flecha galeria-flecha-derecha"
+                    aria-label="Imagen siguiente"
+                >
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section class="producto-info">
+
+            <h1 id="titulo">CARGANDO...</h1>
+
+            <p class="producto-precio" id="precio"></p>
+
+            <div class="producto-descripcion">
+                <p id="descripcion"></p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        async function cargarPublicacion() {
+
+            const parametros = new URLSearchParams(
+                window.location.search
+            );
+
+            const id = parametros.get("id");
+
+            if (!id) {
+                mostrarError();
+                return;
+            }
+
+            try {
+
+                const respuesta = await fetch("catalogo.json");
+
+                if (!respuesta.ok) {
+                    throw new Error(
+                        "No se pudo cargar catalogo.json"
+                    );
+                }
+
+                const datos = await respuesta.json();
+
+                const indice = parseInt(id, 10);
+
+                if (
+                    Number.isNaN(indice) ||
+                    indice < 0 ||
+                    indice >= datos.publicaciones.length
+                ) {
+                    mostrarError();
+                    return;
+                }
+
+                const publicacion =
+                    datos.publicaciones[indice];
+
+                document.title =
+                    publicacion.title +
+                    " — COLECTIVO CHACAL";
+
+                document.getElementById("titulo").textContent =
+                    publicacion.title;
+
+                document.getElementById("precio").textContent =
+                    publicacion.price;
+
+                document.getElementById("descripcion").textContent =
+                    publicacion.description;
+
+
+                const galeria =
+                    document.getElementById("galeria");
+
+                const placeholder =
+                    galeria.querySelector(
+                        ".galeria-placeholder"
+                    );
+
+                const imagenes =
+                    Array.isArray(publicacion.images)
+                        ? publicacion.images
+                        : [];
+
+                let imagenActual = 0;
+
+
+                if (imagenes.length === 0) {
+
+                    if (placeholder) {
+                        placeholder.textContent =
+                            "SIN IMÁGENES";
+                    }
+
+                    return;
+                }
+
+
+                const imagen =
+                    document.createElement("img");
+
+                imagen.alt =
+                    publicacion.title;
+
+                imagen.style.width = "100%";
+                imagen.style.height = "100%";
+                imagen.style.objectFit = "cover";
+                imagen.style.display = "block";
+
+
+                if (placeholder) {
+                    placeholder.remove();
+                }
+
+                galeria.insertBefore(
+                    imagen,
+                    galeria.querySelector(
+                        ".galeria-flecha-izquierda"
+                    )
+                );
+
+
+                const flechaIzquierda =
+                    galeria.querySelector(
+                        ".galeria-flecha-izquierda"
+                    );
+
+                const flechaDerecha =
+                    galeria.querySelector(
+                        ".galeria-flecha-derecha"
+                    );
+
+
+                function mostrarImagen() {
+
+                    imagen.src =
+                        imagenes[imagenActual];
+                }
+
+
+                flechaIzquierda.addEventListener(
+                    "click",
+                    function () {
+
+                        imagenActual--;
+
+                        if (imagenActual < 0) {
+                            imagenActual =
+                                imagenes.length - 1;
+                        }
+
+                        mostrarImagen();
+                    }
+                );
+
+
+                flechaDerecha.addEventListener(
+                    "click",
+                    function () {
+
+                        imagenActual++;
+
+                        if (
+                            imagenActual >=
+                            imagenes.length
+                        ) {
+                            imagenActual = 0;
+                        }
+
+                        mostrarImagen();
+                    }
+                );
+
+
+                if (imagenes.length === 1) {
+
+                    flechaIzquierda.style.display =
+                        "none";
+
+                    flechaDerecha.style.display =
+                        "none";
+                }
+
+
+                mostrarImagen();
+
+            } catch (error) {
+
+                console.error(error);
+
+                mostrarError();
+            }
+        }
+
+
+        function mostrarError() {
+
+            document.getElementById("titulo").textContent =
+                "PUBLICACIÓN NO ENCONTRADA";
+
+            document.getElementById("precio").textContent =
+                "";
+
+            document.getElementById("descripcion").textContent =
+                "";
+        }
+
+
+        cargarPublicacion();
+
+    </script>
+
+</body>
+</html>

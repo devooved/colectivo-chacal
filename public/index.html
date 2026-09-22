@@ -32,73 +32,156 @@
 
     <main class="publicaciones">
 
-        <section class="grid">
+        <section class="grid" id="catalogo">
 
-            <!-- PRODUCTO 01 -->
-            <article class="producto">
-                <a href="publicaciones/publicacion-01/">
-
-                    <div class="producto-imagen">
-                        <img
-                            src="publicaciones/publicacion-01/01.webp"
-                            alt="PUBLICACIÓN 01"
-                        >
-                    </div>
-
-                    <h2>PUBLICACIÓN 01</h2>
-                    <p>15 €</p>
-
-                </a>
-            </article>
-
-
-            <!-- PRODUCTO 02 -->
-            <article class="producto">
-                <a href="#">
-
-                    <div class="producto-imagen">
-                        <span>IMAGEN 02</span>
-                    </div>
-
-                    <h2>PUBLICACIÓN 02</h2>
-                    <p>18 €</p>
-
-                </a>
-            </article>
-
-
-            <!-- PRODUCTO 03 -->
-            <article class="producto">
-                <a href="#">
-
-                    <div class="producto-imagen">
-                        <span>IMAGEN 03</span>
-                    </div>
-
-                    <h2>PUBLICACIÓN 03</h2>
-                    <p>12 €</p>
-
-                </a>
-            </article>
-
-
-            <!-- PRODUCTO 04 -->
-            <article class="producto">
-                <a href="#">
-
-                    <div class="producto-imagen">
-                        <span>IMAGEN 04</span>
-                    </div>
-
-                    <h2>PUBLICACIÓN 04</h2>
-                    <p>20 €</p>
-
-                </a>
-            </article>
+            <!-- Las publicaciones se cargarán desde catalogo.json -->
 
         </section>
 
     </main>
+
+
+    <script>
+
+        async function cargarCatalogo() {
+
+            const catalogo =
+                document.getElementById("catalogo");
+
+            try {
+
+                const respuesta =
+                    await fetch("catalogo.json");
+
+
+                if (!respuesta.ok) {
+                    throw new Error(
+                        "No se pudo cargar catalogo.json"
+                    );
+                }
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                if (
+                    !datos ||
+                    !Array.isArray(datos.publicaciones)
+                ) {
+                    throw new Error(
+                        "El formato de catalogo.json no es válido"
+                    );
+                }
+
+
+                datos.publicaciones.forEach(
+                    function (publicacion, indice) {
+
+                        const numero =
+                            String(indice + 1)
+                                .padStart(2, "0");
+
+
+                        const producto =
+                            document.createElement("article");
+
+                        producto.className =
+                            "producto";
+
+
+                        const enlace =
+                            document.createElement("a");
+
+                        /*
+                         * Todas las publicaciones utilizan
+                         * la misma plantilla dinámica.
+                         */
+
+                        enlace.href =
+                            "publicacion.html?id=" +
+                            indice;
+
+
+                        const imagen =
+                            document.createElement("div");
+
+                        imagen.className =
+                            "producto-imagen";
+
+
+                        if (
+                            Array.isArray(
+                                publicacion.images
+                            ) &&
+                            publicacion.images.length > 0
+                        ) {
+
+                            const img =
+                                document.createElement("img");
+
+                            img.src =
+                                publicacion.images[0];
+
+                            img.alt =
+                                publicacion.title || "";
+
+
+                            imagen.appendChild(img);
+
+                        } else {
+
+                            const textoImagen =
+                                document.createElement("span");
+
+                            textoImagen.textContent =
+                                "IMAGEN " + numero;
+
+
+                            imagen.appendChild(
+                                textoImagen
+                            );
+                        }
+
+
+                        const titulo =
+                            document.createElement("h2");
+
+                        titulo.textContent =
+                            publicacion.title || "";
+
+
+                        const precio =
+                            document.createElement("p");
+
+                        precio.textContent =
+                            publicacion.price || "";
+
+
+                        enlace.appendChild(imagen);
+                        enlace.appendChild(titulo);
+                        enlace.appendChild(precio);
+
+                        producto.appendChild(enlace);
+
+                        catalogo.appendChild(producto);
+
+                    }
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                catalogo.innerHTML =
+                    "<p>No se ha podido cargar el catálogo.</p>";
+            }
+        }
+
+
+        cargarCatalogo();
+
+    </script>
 
 </body>
 </html>
