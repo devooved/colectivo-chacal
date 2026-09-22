@@ -380,21 +380,12 @@
                     .trim();
 
 
+            /*
+             * Un solo Enter = salto de línea.
+             * Dos o más Enter = nuevo párrafo.
+             */
             const bloques =
-                texto.split(/\n\s*\n/);
-
-
-            let html = "";
-            let enLista = false;
-
-
-            function cerrarLista() {
-
-                if (enLista) {
-                    html += "</ul>";
-                    enLista = false;
-                }
-            }
+                texto.split(/\n[ \t]*\n+/);
 
 
             function procesarLinea(linea) {
@@ -429,6 +420,47 @@
                 const lineas =
                     bloque.split("\n");
 
+
+                const esLista =
+                    lineas.length > 0 &&
+                    lineas.every(
+                        function (linea) {
+                            return linea.trim() === "" ||
+                                /^- (.+)$/.test(linea);
+                        }
+                    );
+
+
+                if (esLista) {
+
+                    let listaHtml = "<ul>";
+
+                    lineas.forEach(
+                        function (linea) {
+
+                            if (linea.trim() === "") {
+                                return;
+                            }
+
+                            const contenido =
+                                linea.replace(
+                                    /^- (.+)$/,
+                                    "$1"
+                                );
+
+                            listaHtml +=
+                                "<li>" +
+                                procesarLinea(contenido) +
+                                "</li>";
+                        }
+                    );
+
+                    listaHtml += "</ul>";
+
+                    return listaHtml;
+                }
+
+
                 let resultado = "";
 
 
@@ -447,33 +479,6 @@
                     }
 
 
-                    if (linea.match(/^- (.+)$/)) {
-
-                        if (!enLista) {
-                            resultado += "<ul>";
-                            enLista = true;
-                        }
-
-
-                        const contenido =
-                            linea.replace(
-                                /^- (.+)$/,
-                                "$1"
-                            );
-
-
-                        resultado +=
-                            "<li>" +
-                            procesarLinea(contenido) +
-                            "</li>";
-
-                        continue;
-                    }
-
-
-                    cerrarLista();
-
-
                     if (linea.match(/^### (.+)$/)) {
 
                         resultado +=
@@ -486,11 +491,7 @@
                             ) +
                             "</h4>";
 
-                        continue;
-                    }
-
-
-                    if (linea.match(/^## (.+)$/)) {
+                    } else if (linea.match(/^## (.+)$/)) {
 
                         resultado +=
                             "<h3>" +
@@ -502,11 +503,7 @@
                             ) +
                             "</h3>";
 
-                        continue;
-                    }
-
-
-                    if (linea.match(/^# (.+)$/)) {
+                    } else if (linea.match(/^# (.+)$/)) {
 
                         resultado +=
                             "<h2>" +
@@ -518,12 +515,12 @@
                             ) +
                             "</h2>";
 
-                        continue;
+                    } else {
+
+                        resultado +=
+                            procesarLinea(linea);
+
                     }
-
-
-                    resultado +=
-                        procesarLinea(linea);
 
 
                     if (
@@ -539,42 +536,28 @@
             }
 
 
-            for (
-                let indice = 0;
-                indice < bloques.length;
-                indice++
-            ) {
-
-                const bloque =
-                    bloques[indice].trim();
+            let html = "";
 
 
-                if (!bloque) {
-                    continue;
-                }
+            bloques.forEach(
+                function (bloque) {
+
+                    const contenido =
+                        bloque.trim();
 
 
-                if (
-                    bloque.match(
-                        /^(?:- .+(?:\n|$))+/
-                    )
-                ) {
+                    if (!contenido) {
+                        return;
+                    }
+
 
                     html +=
-                        procesarBloque(bloque);
-
-                    continue;
+                        "<p>" +
+                        procesarBloque(contenido) +
+                        "</p>";
                 }
+            );
 
-
-                html +=
-                    "<p>" +
-                    procesarBloque(bloque) +
-                    "</p>";
-            }
-
-
-            cerrarLista();
 
             return html;
         }
