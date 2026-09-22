@@ -1,15 +1,18 @@
 {
   "publicaciones": [
     {
-      "title": "PUBLICACIÓN 01",
-      "price": "15 €",
-      "description": "Descripción de la publicación. Aquí irá el texto que explique el contenido, formato y características de la pieza.",
+      "title": "XULANGA N.1",
+      "price": "4 €",
+      "description": "*Híbridos*\n\n\n\nOctubre 2025.\n\n20x14cm.\n\n28 págs.\n\nBlanco y negro en papel reciclado.\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
       "categories": [
         "REVISTAS",
         "FANZINES"
       ],
       "images": [
-        "/uploads/foto-xulanga-2.jpg"
+        "/uploads/xulanga-1-port.jpeg",
+        "/uploads/xulanga-1-int-1.jpeg",
+        "/uploads/xulanga-1-int-2.jpeg",
+        "/uploads/xulanga-1-contra.jpeg"
       ]
     },
     {
