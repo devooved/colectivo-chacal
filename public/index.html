@@ -18,6 +18,20 @@
 
     <header class="site-header">
 
+        <button
+            type="button"
+            class="mobile-menu-button"
+            id="mobile-menu-button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Abrir menú"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+
         <a href="index.html" class="site-title">
             COLECTIVO CHACAL
         </a>
@@ -58,6 +72,17 @@
 
         </nav>
 
+
+        <nav
+            class="mobile-menu"
+            id="mobile-menu"
+            aria-hidden="true"
+        >
+            <a href="index.html">PUBLICACIONES</a>
+            <a href="pedidos.html">PEDIDOS</a>
+            <a href="about.html">ABOUT</a>
+        </nav>
+
     </header>
 
 
@@ -83,6 +108,18 @@
         const publicacionesMenu =
             document.getElementById(
                 "publicaciones-menu"
+            );
+
+
+        const mobileMenuButton =
+            document.getElementById(
+                "mobile-menu-button"
+            );
+
+
+        const mobileMenu =
+            document.getElementById(
+                "mobile-menu"
             );
 
 
@@ -120,6 +157,36 @@
         );
 
 
+        mobileMenuButton.addEventListener(
+            "click",
+            function () {
+
+                const abierto =
+                    mobileMenuButton.getAttribute(
+                        "aria-expanded"
+                    ) === "true";
+
+
+                mobileMenuButton.setAttribute(
+                    "aria-expanded",
+                    String(!abierto)
+                );
+
+
+                mobileMenu.setAttribute(
+                    "aria-hidden",
+                    String(abierto)
+                );
+
+
+                mobileMenu.classList.toggle(
+                    "abierto",
+                    !abierto
+                );
+            }
+        );
+
+
         document.addEventListener(
             "click",
             function (evento) {
@@ -140,8 +207,62 @@
                         "abierto"
                     );
                 }
+
+
+                if (
+                    !evento.target.closest(
+                        ".site-header"
+                    )
+                ) {
+
+                    mobileMenuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+
+                    mobileMenu.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    mobileMenu.classList.remove(
+                        "abierto"
+                    );
+                }
             }
         );
+
+
+        mobileMenu
+            .querySelectorAll("a")
+            .forEach(
+                function (enlace) {
+
+                    enlace.addEventListener(
+                        "click",
+                        function () {
+
+                            mobileMenuButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+
+                            mobileMenu.setAttribute(
+                                "aria-hidden",
+                                "true"
+                            );
+
+
+                            mobileMenu.classList.remove(
+                                "abierto"
+                            );
+                        }
+                    );
+                }
+            );
 
 
         function mostrarPublicaciones(
