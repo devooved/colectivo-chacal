@@ -59,6 +59,7 @@
                     <a href="#" data-categoria="FANZINES">FANZINES</a>
                     <a href="#" data-categoria="REVISTAS">REVISTAS</a>
                     <a href="#" data-categoria="LIBROS">LIBROS</a>
+                    <a href="#" data-categoria="FOTOGRAFÍA">FOTOGRAFÍA</a>
                     <a href="#" data-categoria="MÁS">MÁS</a>
                 </div>
 
@@ -136,6 +137,7 @@
                     <a href="#" data-categoria="FANZINES">FANZINES</a>
                     <a href="#" data-categoria="REVISTAS">REVISTAS</a>
                     <a href="#" data-categoria="LIBROS">LIBROS</a>
+                    <a href="#" data-categoria="FOTOGRAFÍA">FOTOGRAFÍA</a>
                     <a href="#" data-categoria="MÁS">MÁS</a>
                 </div>
 
@@ -518,9 +520,29 @@
                 publicaciones =
                     datos.publicaciones;
 
-                mostrarPublicaciones(
-                    publicaciones
-                );
+
+                const parametros =
+                    new URLSearchParams(
+                        window.location.search
+                    );
+
+
+                const categoria =
+                    parametros.get("categoria");
+
+
+                if (categoria) {
+
+                    filtrarPorCategoria(
+                        categoria
+                    );
+
+                } else {
+
+                    mostrarPublicaciones(
+                        publicaciones
+                    );
+                }
 
             } catch (error) {
 
