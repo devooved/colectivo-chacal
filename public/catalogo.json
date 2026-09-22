@@ -10,6 +10,19 @@
       "images": [
         "/uploads/foto-xulanga-2.jpg"
       ]
+    },
+    {
+      "title": "XULANGA N.2",
+      "price": "4€",
+      "description": "Descripción.\n\nPedidos a colectivochacal@gmail.com",
+      "categories": [
+        "Revista"
+      ],
+      "images": [
+        "/uploads/foto-xulanga-3.jpg",
+        "/uploads/img_9085.jpeg",
+        "/uploads/img_9089.jpeg"
+      ]
     }
   ]
 }
