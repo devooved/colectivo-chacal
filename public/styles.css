@@ -114,7 +114,72 @@ body {
 
 
 /* =========================
-   PUBLICACIONES DROPDOWN
+   MOBILE PUBLICACIONES
+   ========================= */
+
+.mobile-publicaciones {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-publicaciones-button {
+    display: block;
+
+    width: 100%;
+
+    margin: 0;
+    padding: 10px 16px;
+
+    border: 0;
+    background: transparent;
+
+    color: #fff;
+
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.mobile-publicaciones-button:hover {
+    color: #ff0000;
+}
+
+.mobile-categorias {
+    display: none;
+    flex-direction: column;
+
+    padding: 0 0 6px 16px;
+}
+
+.mobile-categorias.abierto {
+    display: flex;
+}
+
+.mobile-categorias a {
+    display: block;
+
+    padding: 7px 16px;
+
+    color: #fff;
+    text-decoration: none;
+
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.mobile-categorias a:hover {
+    color: #ff0000;
+}
+
+
+/* =========================
+   PUBLICACIONES DROPDOWN DESKTOP
    ========================= */
 
 .nav-publicaciones {
@@ -512,7 +577,7 @@ body {
         left: 16px;
         z-index: 20;
 
-        width: 190px;
+        width: 210px;
 
         display: none;
         flex-direction: column;
@@ -527,7 +592,7 @@ body {
         display: flex;
     }
 
-    .mobile-menu a {
+    .mobile-menu > a {
         display: block;
 
         padding: 10px 16px;
@@ -541,7 +606,7 @@ body {
         letter-spacing: 0.01em;
     }
 
-    .mobile-menu a:hover {
+    .mobile-menu > a:hover {
         color: #ff0000;
     }
 
