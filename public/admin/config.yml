@@ -31,7 +31,7 @@ collections:
 
               - label: "Descripción"
                 name: "description"
-                widget: "text"
+                widget: "markdown"
 
               - label: "Categorías"
                 name: "categories"
