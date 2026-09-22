@@ -105,6 +105,15 @@ body {
 
 
 /* =========================
+   MOBILE INSTAGRAM
+   ========================= */
+
+.mobile-instagram {
+    display: none;
+}
+
+
+/* =========================
    PUBLICACIONES DROPDOWN
    ========================= */
 
@@ -471,6 +480,30 @@ body {
 
     .site-nav {
         display: none;
+    }
+
+    .mobile-instagram {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 22px;
+        height: 22px;
+
+        margin-left: auto;
+
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .mobile-instagram svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+    }
+
+    .mobile-instagram:hover {
+        color: #ff0000;
     }
 
     .mobile-menu {
