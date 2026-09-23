@@ -12,6 +12,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .footer-chacal-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            height: 80px;
+            text-decoration: none;
+        }
+
+        .footer-chacal {
+            display: block;
+            width: auto;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .footer-chacal-hover {
+            display: none;
+        }
+
+        .footer-chacal-link:hover .footer-chacal-normal,
+        .footer-chacal-link.tocado .footer-chacal-normal {
+            display: none;
+        }
+
+        .footer-chacal-link:hover .footer-chacal-hover,
+        .footer-chacal-link.tocado .footer-chacal-hover {
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            .footer-chacal-link {
+                height: 70px;
+            }
+
+            .footer-chacal {
+                height: 70px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -158,6 +201,31 @@
     </main>
 
 
+    <footer class="site-footer">
+
+        <a
+            href="https://www.instagram.com/colectivochacal"
+            class="footer-chacal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram de COLECTIVO CHACAL"
+        >
+            <img
+                src="images/chacalparaweb.webp"
+                class="footer-chacal footer-chacal-normal"
+                alt="COLECTIVO CHACAL"
+            >
+
+            <img
+                src="images/chacalparaweb2.webp"
+                class="footer-chacal footer-chacal-hover"
+                alt=""
+            >
+        </a>
+
+    </footer>
+
+
     <script>
 
         const publicacionesButton =
@@ -181,7 +249,51 @@
         const catalogo =
             document.getElementById("catalogo");
 
+        const footerChacal =
+            document.querySelector(".footer-chacal-link");
+
         let publicaciones = [];
+
+
+        if (footerChacal) {
+
+            footerChacal.addEventListener(
+                "pointerdown",
+                function () {
+
+                    footerChacal.classList.add("tocado");
+
+                }
+            );
+
+            footerChacal.addEventListener(
+                "pointerup",
+                function () {
+
+                    footerChacal.classList.remove("tocado");
+
+                }
+            );
+
+            footerChacal.addEventListener(
+                "pointercancel",
+                function () {
+
+                    footerChacal.classList.remove("tocado");
+
+                }
+            );
+
+            footerChacal.addEventListener(
+                "pointerleave",
+                function () {
+
+                    footerChacal.classList.remove("tocado");
+
+                }
+            );
+
+        }
 
 
         publicacionesButton.addEventListener(

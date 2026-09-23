@@ -15,6 +15,49 @@
     >
 
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .footer-chacal-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            height: 80px;
+            text-decoration: none;
+        }
+
+        .footer-chacal {
+            display: block;
+            width: auto;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .footer-chacal-hover {
+            display: none;
+        }
+
+        .footer-chacal-link:hover .footer-chacal-normal,
+        .footer-chacal-link.tocado .footer-chacal-normal {
+            display: none;
+        }
+
+        .footer-chacal-link:hover .footer-chacal-hover,
+        .footer-chacal-link.tocado .footer-chacal-hover {
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            .footer-chacal-link {
+                height: 70px;
+            }
+
+            .footer-chacal {
+                height: 70px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -206,6 +249,31 @@
     </main>
 
 
+    <footer class="site-footer">
+
+        <a
+            href="https://www.instagram.com/colectivochacal"
+            class="footer-chacal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram de COLECTIVO CHACAL"
+        >
+            <img
+                src="images/chacalparaweb.webp"
+                class="footer-chacal footer-chacal-normal"
+                alt="COLECTIVO CHACAL"
+            >
+
+            <img
+                src="images/chacalparaweb2.webp"
+                class="footer-chacal footer-chacal-hover"
+                alt=""
+            >
+        </a>
+
+    </footer>
+
+
     <script>
 
         const publicacionesButton =
@@ -225,6 +293,50 @@
 
         const mobileCategorias =
             document.getElementById("mobile-categorias");
+
+        const footerChacal =
+            document.querySelector(".footer-chacal-link");
+
+
+        if (footerChacal) {
+
+            footerChacal.addEventListener(
+                "pointerdown",
+                function () {
+
+                    footerChacal.classList.add("tocado");
+
+                }
+            );
+
+            footerChacal.addEventListener(
+                "pointerup",
+                function () {
+
+                    footerChacal.classList.remove("tocado");
+
+                }
+            );
+
+            footerChacal.addEventListener(
+                "pointercancel",
+                function () {
+
+                    footerChacal.classList.remove("tocado");
+
+                }
+            );
+
+            footerChacal.addEventListener(
+                "pointerleave",
+                function () {
+
+                    footerChacal.classList.remove("tocado");
+
+                }
+            );
+
+        }
 
 
         publicacionesButton.addEventListener(
@@ -427,19 +539,6 @@
             }
 
 
-            /*
-             * Decap genera:
-             *
-             * 1 Enter  → \n\n
-             * 2 Enters → \n\n\n\n
-             * 3 Enters → \n\n\n\n\n\n
-             *
-             * Cada pareja \n\n equivale a un salto
-             * visual. Por eso contamos las parejas
-             * directamente.
-             */
-
-
             const partes =
                 texto.split(/(\n+)/);
 
@@ -469,11 +568,6 @@
                     partes[indice];
 
 
-                /*
-                 * Esta parte contiene solamente
-                 * saltos de línea.
-                 */
-
                 if (/^\n+$/.test(parte)) {
 
                     cerrarLista();
@@ -482,18 +576,6 @@
                     const cantidadSaltos =
                         parte.length;
 
-
-                    /*
-                     * Decap utiliza pares de \n.
-                     *
-                     * 2 \n → 1 <br>
-                     * 4 \n → 2 <br>
-                     * 6 \n → 3 <br>
-                     *
-                     * Si por alguna razón aparece un
-                     * número impar, conservamos al menos
-                     * un salto visual.
-                     */
 
                     const cantidadBr =
                         Math.max(
@@ -807,7 +889,7 @@
                     "100%";
 
                 imagen.style.maxHeight =
-                    "calc(100vh - 180px)";
+                    "100%";
 
                 imagen.style.objectFit =
                     "contain";
@@ -838,7 +920,15 @@
                     );
 
 
-                function ajustarGaleria() {
+                function ajustarImagenMovil() {
+
+                    if (
+                        window.innerWidth >
+                        700
+                    ) {
+                        return;
+                    }
+
 
                     if (
                         !imagen.naturalWidth ||
@@ -848,8 +938,39 @@
                     }
 
 
-                    const anchoDisponible =
-                        galeria.parentElement.clientWidth;
+                    if (
+                        imagen.naturalHeight >
+                        imagen.naturalWidth
+                    ) {
+
+                        imagen.style.maxHeight =
+                            "80%";
+
+                        imagen.style.maxWidth =
+                            "80%";
+
+                    } else {
+
+                        imagen.style.maxHeight =
+                            "100%";
+
+                        imagen.style.maxWidth =
+                            "100%";
+                    }
+                }
+
+
+                function ajustarGaleria() {
+
+                    if (
+                        window.innerWidth <=
+                        700
+                    ) {
+
+                        ajustarImagenMovil();
+
+                        return;
+                    }
 
 
                     const altoDisponible =
@@ -859,63 +980,21 @@
                         );
 
 
-                    const proporcion =
-                        imagen.naturalWidth /
-                        imagen.naturalHeight;
-
-
-                    let ancho =
-                        anchoDisponible;
-
-
-                    let alto =
-                        ancho / proporcion;
-
-
-                    if (
-                        alto >
-                        altoDisponible
-                    ) {
-
-                        alto =
-                            altoDisponible;
-
-                        ancho =
-                            alto * proporcion;
-                    }
-
-
                     galeria.style.width =
-                        ancho + "px";
-
+                        "100%";
 
                     galeria.style.height =
-                        alto + "px";
-
-
-                    galeria.style.aspectRatio =
-                        imagen.naturalWidth +
-                        " / " +
-                        imagen.naturalHeight;
-
-
-                    galeria.style.display =
-                        "flex";
-
-
-                    galeria.style.alignItems =
-                        "center";
-
-
-                    galeria.style.justifyContent =
-                        "center";
+                        altoDisponible + "px";
                 }
 
 
                 function mostrarImagen() {
 
                     imagen.onload =
-                        ajustarGaleria;
+                        function () {
+
+                            ajustarGaleria();
+                        };
 
 
                     imagen.src =
@@ -988,6 +1067,8 @@
 
 
                 mostrarImagen();
+
+                ajustarGaleria();
 
             } catch (error) {
 
