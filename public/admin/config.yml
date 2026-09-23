@@ -29,10 +29,6 @@ collections:
                 name: "price"
                 widget: "string"
 
-              - label: "Fecha de publicación"
-                name: "date"
-                widget: "string"
-
               - label: "Descripción"
                 name: "description"
                 widget: "markdown"
