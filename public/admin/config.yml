@@ -29,6 +29,11 @@ collections:
                 name: "price"
                 widget: "string"
 
+              - label: "Fecha de publicación"
+                name: "date"
+                widget: "datetime"
+                format: "YYYY-MM-DD"
+
               - label: "Descripción"
                 name: "description"
                 widget: "markdown"
