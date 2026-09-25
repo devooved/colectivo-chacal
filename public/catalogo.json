@@ -126,7 +126,7 @@
       ]
     },
     {
-      "title": "El tren",
+      "title": "EL TREN ",
       "price": "",
       "description": "Libro hecho a mano con portada en linografía, fechado y numerado. \n\nLinografía realizada por Diego Vidal Camara. \n\n11.5 x 8 cm. \n\n16 págs. \n\nSobre de cartón reciclado, papel interior de 80 g. impresión a blanco y negro, linografía.",
       "categories": [
@@ -138,6 +138,15 @@
         "/uploads/el-tren-int.jpeg",
         "/uploads/el-tren-int2.jpeg",
         "/uploads/el-tren-contra.jpeg"
+      ]
+    },
+    {
+      "title": "UN CUENTO DE PETAR DACHEV ",
+      "description": "Petar Dachev: \n\nLibro hecho a mano en una habitación de hotel en Plovidv, numerado y fechado. \n\nPortada realizada por Diego Vidal Cámara a partir de grabado de Petar Dachev. \n\n14 x 10 cm. \n\n16 págs. \n\nPapel bond 80g, impresión a blanco y negro.",
+      "images": [
+        "/uploads/peter-d-port.jpeg",
+        "/uploads/peter-d-int.jpeg",
+        "/uploads/peter-d-contra.jpeg"
       ]
     }
   ]
