@@ -254,7 +254,7 @@ main {
 
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 40px 16px;
+    gap: 40px 24px;
 }
 
 
