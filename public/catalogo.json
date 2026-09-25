@@ -124,6 +124,21 @@
         "/uploads/xulanga-1-int-2.jpeg",
         "/uploads/xulanga-1-contra.jpeg"
       ]
+    },
+    {
+      "title": "El tren",
+      "price": "",
+      "description": "Libro hecho a mano con portada en linografía, fechado y numerado. \n\nLinografía realizada por Diego Vidal Camara. \n\n11.5 x 8 cm. \n\n16 págs. \n\nSobre de cartón reciclado, papel interior de 80 g. impresión a blanco y negro, linografía.",
+      "categories": [
+        "FANZINES",
+        "LIBROS"
+      ],
+      "images": [
+        "/uploads/el-tren-port.jpeg",
+        "/uploads/el-tren-int.jpeg",
+        "/uploads/el-tren-int2.jpeg",
+        "/uploads/el-tren-contra.jpeg"
+      ]
     }
   ]
 }
