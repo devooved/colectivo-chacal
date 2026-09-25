@@ -20,10 +20,10 @@
     {
       "title": "DIKAIA ",
       "price": "6€",
-      "description": "*Dikaia es un pueblo en la región de Evros (Grecia).* \n\n\n\nFotografías digitales a color tomadas por Diego VIdal Cámara. \n\nFotolibro hecho a mano. \n\n20x14 cm. \n\n32 págs. \n\nPapel mate 120 g, impresión a color. \n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
+      "description": "*Dikaia*\n\n\n\nFotografías digitales a color tomadas por Diego VIdal Cámara. \n\nFotolibro hecho a mano. \n\n20x14 cm. \n\n32 págs. \n\nPapel mate 120 g, impresión a color. \n\n\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
       "categories": [
-        "LIBROS",
-        "FANZINES"
+        "FANZINES",
+        "FOTOGRAFÍA"
       ],
       "images": [
         "/uploads/dikea-port.jpg",
@@ -35,10 +35,10 @@
     {
       "title": "VISHOVGRAD",
       "price": "6€",
-      "description": "*Vishovgrad es un pueblo en la provincia de Veliko Tarnovo (Bulgaria). Tiene doscientos cuarenta habitantes.* \n\n\n\nFotografías digitales tomadas por Montserrat Camargo. \n\nFotolibro hecho a mano. \n\n20x14 cm. \n\n32 págs. \n\nPapel mate de 120 g, impresión a color. \n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
+      "description": "*Vishovgrad* \n\n \n\nFotografías digitales tomadas por Montserrat Camargo. \n\nFotolibro hecho a mano. \n\n20x14 cm. \n\n32 págs. \n\nPapel mate de 120 g, impresión a color. \n\n\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
       "categories": [
-        "LIBROS",
-        "FANZINES"
+        "FANZINES",
+        "FOTOGRAFÍA"
       ],
       "images": [
         "/uploads/vishovgrad-port.jpg",
@@ -126,9 +126,9 @@
       ]
     },
     {
-      "title": "EL TREN ",
-      "price": "",
-      "description": "Libro hecho a mano con portada en linografía, fechado y numerado. \n\nLinografía realizada por Diego Vidal Camara. \n\n11.5 x 8 cm. \n\n16 págs. \n\nSobre de cartón reciclado, papel interior de 80 g. impresión a blanco y negro, linografía.",
+      "title": "ΠΑΡΑΙΝΕΣΕΙΣ Σ' ΑΥΤΟΥΣ ΠΟΥ ΔΙΑΔΗΛΩΝΟΥΝ ΕΝΑΝΤΙΟΝ ΤΗΣ ΚΑΤΑΡΓΗΣΗΣ ΣΙΔΗΡΟΔΡΟΜΙΚΩΝ ΔΡΟΜΟΛΟΓΙΩΝ",
+      "price": "-",
+      "description": "*Avisos para los que se manifiesten contra el cierre de líneas férreas* (1985), por Agustín García Calvo. Traducción al griego de Kostas Panagiotidis. \n\n\n\nLibro hecho a mano en el taller de Cotranspose en Dikaia, con portada en linografía, fechado y numerado. Repartido gratuitamente entre habitantes locales.\n\n11.5 x 8 cm. \n\n16 págs. \n\nSobre de cartón reciclado, papel interior de 80 g. impresión a blanco y negro, linografía.\n\n\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
       "categories": [
         "FANZINES",
         "LIBROS"
@@ -141,13 +141,17 @@
       ]
     },
     {
-      "title": "UN CUENTO DE PETAR DACHEV ",
-      "description": "Petar Dachev: \n\nLibro hecho a mano en una habitación de hotel en Plovidv, numerado y fechado. \n\nPortada realizada por Diego Vidal Cámara a partir de grabado de Petar Dachev. \n\n14 x 10 cm. \n\n16 págs. \n\nPapel bond 80g, impresión a blanco y negro.",
+      "title": "ЧУЧУЛАТА - Петър Дачев",
+      "description": "*Чучулата*, cuento del artista y escritor búlgaro Petar Dachev.\n\n\n\nLibro hecho a mano en una habitación de hotel en Plovdiv, numerado y fechado. \n\nRepartido gratuitamente entre habitantes locales.\n\nPortada realizada a partir de un grabado de Petar Dachev. \n\n14 x 10 cm. \n\n16 págs. \n\nPapel bond 80g, impresión a blanco y negro.\n\n\n\nPedidos a colectivochacal@gmail.com o DM [@colectivochacal](https://www.instagram.com/colectivochacal)",
       "images": [
         "/uploads/peter-d-port.jpeg",
         "/uploads/peter-d-int.jpeg",
         "/uploads/peter-d-contra.jpeg"
-      ]
+      ],
+      "categories": [
+        "FANZINES"
+      ],
+      "price": "-"
     }
   ]
 }
