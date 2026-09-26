@@ -22,8 +22,8 @@ export default {
                 headers: request.headers,
                 cf: {
                     image: {
-                        width: 1000,
-                        height: 1000,
+                        width: 800,
+                        height: 800,
                         fit: "scale-down",
                         format: "webp"
                     }
