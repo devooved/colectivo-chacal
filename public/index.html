@@ -481,8 +481,16 @@
                         const img =
                             document.createElement("img");
 
-                        img.src =
+                        const imagenOriginal =
                             publicacion.images[0];
+
+                        img.src =
+                            imagenOriginal.startsWith("/uploads/")
+                                ? imagenOriginal.replace(
+                                    "/uploads/",
+                                    "/thumbs/"
+                                )
+                                : imagenOriginal;
 
                         img.alt =
                             publicacion.title || "";
