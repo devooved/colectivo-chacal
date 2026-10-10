@@ -77,11 +77,9 @@
             <span></span>
         </button>
 
-
         <a href="index.html" class="site-title">
             COLECTIVO CHACAL
         </a>
-
 
         <nav class="site-nav">
 
@@ -115,7 +113,6 @@
             <a href="about.html">ABOUT</a>
 
         </nav>
-
 
         <a
             href="https://www.instagram.com/colectivochacal"
@@ -158,7 +155,6 @@
             </svg>
         </a>
 
-
         <nav
             class="mobile-menu"
             id="mobile-menu"
@@ -198,7 +194,6 @@
 
     </header>
 
-
     <main class="producto-detalle">
 
         <section class="producto-galeria">
@@ -229,7 +224,6 @@
 
         </section>
 
-
         <section class="producto-info">
 
             <h1 id="titulo">CARGANDO...</h1>
@@ -247,7 +241,6 @@
         </section>
 
     </main>
-
 
     <footer class="site-footer">
 
@@ -272,7 +265,6 @@
         </a>
 
     </footer>
-
 
     <script>
 
@@ -742,11 +734,11 @@
                 );
 
 
-            const id =
-                parametros.get("id");
+            const slug =
+                parametros.get("slug");
 
 
-            if (!id) {
+            if (!slug) {
 
                 mostrarError();
 
@@ -785,25 +777,22 @@
                 }
 
 
-                const indice =
-                    parseInt(id, 10);
+                const publicacion =
+                    datos.publicaciones.find(
+                        function (elemento) {
+
+                            return elemento.slug === slug;
+
+                        }
+                    );
 
 
-                if (
-                    Number.isNaN(indice) ||
-                    indice < 0 ||
-                    indice >=
-                    datos.publicaciones.length
-                ) {
+                if (!publicacion) {
 
                     mostrarError();
 
                     return;
                 }
-
-
-                const publicacion =
-                    datos.publicaciones[indice];
 
 
                 document.title =

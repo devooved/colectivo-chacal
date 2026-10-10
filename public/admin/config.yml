@@ -1,3 +1,4 @@
+
 backend:
   name: github
   repo: devooved/colectivo-chacal
@@ -24,6 +25,11 @@ collections:
               - label: "Título"
                 name: "title"
                 widget: "string"
+
+              - label: "Identificador de URL"
+                name: "slug"
+                widget: "string"
+                hint: "Identificador único y permanente. Usa minúsculas, números y guiones, sin espacios ni tildes. Ejemplo: chacalitos."
 
               - label: "Precio"
                 name: "price"

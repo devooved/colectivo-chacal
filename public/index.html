@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -74,11 +75,9 @@
             <span></span>
         </button>
 
-
         <a href="index.html" class="site-title">
             COLECTIVO CHACAL
         </a>
-
 
         <nav class="site-nav">
 
@@ -113,7 +112,6 @@
             <a href="about.html">ABOUT</a>
 
         </nav>
-
 
         <a
             href="https://www.instagram.com/colectivochacal"
@@ -152,7 +150,6 @@
                 ></circle>
             </svg>
         </a>
-
 
         <nav
             class="mobile-menu"
@@ -193,13 +190,11 @@
 
     </header>
 
-
     <main class="publicaciones">
 
         <section class="grid" id="catalogo"></section>
 
     </main>
-
 
     <footer class="site-footer">
 
@@ -224,7 +219,6 @@
         </a>
 
     </footer>
-
 
     <script>
 
@@ -260,36 +254,28 @@
             footerChacal.addEventListener(
                 "pointerdown",
                 function () {
-
                     footerChacal.classList.add("tocado");
-
                 }
             );
 
             footerChacal.addEventListener(
                 "pointerup",
                 function () {
-
                     footerChacal.classList.remove("tocado");
-
                 }
             );
 
             footerChacal.addEventListener(
                 "pointercancel",
                 function () {
-
                     footerChacal.classList.remove("tocado");
-
                 }
             );
 
             footerChacal.addEventListener(
                 "pointerleave",
                 function () {
-
                     footerChacal.classList.remove("tocado");
-
                 }
             );
 
@@ -381,7 +367,6 @@
                     );
                 }
 
-
                 if (
                     !evento.target.closest(".site-header")
                 ) {
@@ -463,8 +448,24 @@
                     const enlace =
                         document.createElement("a");
 
-                    enlace.href =
-                        "publicacion.html?id=" + indice;
+                    if (
+                        typeof publicacion.slug === "string" &&
+                        publicacion.slug.trim() !== ""
+                    ) {
+
+                        enlace.href =
+                            "publicacion.html?slug=" +
+                            encodeURIComponent(publicacion.slug);
+
+                    } else {
+
+                        enlace.removeAttribute("href");
+
+                        console.error(
+                            "La publicación no tiene un slug válido:",
+                            publicacion.title
+                        );
+                    }
 
                     const imagen =
                         document.createElement("div");
@@ -551,7 +552,6 @@
                 return;
             }
 
-
             const filtradas =
                 publicaciones.filter(
                     function (publicacion) {
@@ -569,7 +569,6 @@
                         );
                     }
                 );
-
 
             mostrarPublicaciones(filtradas);
         }
@@ -622,10 +621,8 @@
                     );
                 }
 
-
                 const datos =
                     await respuesta.json();
-
 
                 if (
                     !datos ||
@@ -636,20 +633,16 @@
                     );
                 }
 
-
                 publicaciones =
                     datos.publicaciones;
-
 
                 const parametros =
                     new URLSearchParams(
                         window.location.search
                     );
 
-
                 const categoria =
                     parametros.get("categoria");
-
 
                 if (categoria) {
 
