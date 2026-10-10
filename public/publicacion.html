@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -734,11 +735,40 @@
                 );
 
 
+            /*
+             * Compatibilidad con las URL antiguas.
+             * Cada id queda asociado a un slug fijo,
+             * sin depender del orden actual del catálogo.
+             */
+            const equivalenciasIdsAntiguos = {
+                "0": "ben-yart-agc",
+                "1": "dikaia",
+                "2": "vishovgrad",
+                "3": "chacalitos",
+                "4": "xulanga-n4",
+                "5": "xulanga-n3",
+                "6": "xulanga-n2",
+                "7": "xulanga-n1",
+                "8": "avisos-cierre-lineas-ferreas",
+                "9": "chuchulata-petar-dachev"
+            };
+
+
             const slug =
                 parametros.get("slug");
 
 
-            if (!slug) {
+            const idAntiguo =
+                parametros.get("id");
+
+
+            const slugFinal =
+                slug !== null
+                    ? slug
+                    : equivalenciasIdsAntiguos[idAntiguo];
+
+
+            if (!slugFinal) {
 
                 mostrarError();
 
@@ -781,7 +811,7 @@
                     datos.publicaciones.find(
                         function (elemento) {
 
-                            return elemento.slug === slug;
+                            return elemento.slug === slugFinal;
 
                         }
                     );
