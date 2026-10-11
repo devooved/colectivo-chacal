@@ -803,7 +803,33 @@
             return html;
         }
 
+function obtenerUrlFotoOptimizada(ruta) {
+    try {
+        const url = new URL(ruta, window.location.href);
 
+        // No modificar imágenes externas ni rutas ajenas a uploads.
+        if (
+            url.origin !== window.location.origin ||
+            !url.pathname.startsWith("/uploads/")
+        ) {
+            return ruta;
+        }
+
+        // Móvil: máximo 600 px. Ordenador: máximo 1400 px.
+        const ancho = window.innerWidth <= 700 ? 600 : 1400;
+
+        url.pathname = url.pathname.replace(
+            /^\/uploads\//,
+            "/fotos/"
+        );
+
+        url.searchParams.set("w", ancho);
+
+        return url.pathname + url.search + url.hash;
+    } catch (error) {
+        return ruta;
+    }
+}
         async function cargarPublicacion() {
 
             const parametros =
@@ -1063,8 +1089,9 @@
                         publicacion.title || "";
 
                     foto.draggable = false;
-                    foto.src = imagenes[obtenerIndice(indice)];
-
+                    foto.src = obtenerUrlFotoOptimizada(
+                        imagenes[obtenerIndice(indice)]
+);
 
                     foto.addEventListener(
                         "load",
@@ -1456,8 +1483,9 @@
                     };
 
 
-                    imagen.src =
-                        imagenes[imagenActual];
+                    imagen.src = obtenerUrlFotoOptimizada(
+                        imagenes[imagenActual]
+);
 
 
                     if (imagen.complete) {

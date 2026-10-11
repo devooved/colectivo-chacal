@@ -1,39 +1,54 @@
+
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
 
-        // Cuando Cloudflare está realizando la transformación,
-        // dejamos que la petición vaya directamente al archivo original.
+        // Evitar repetir la transformación de imágenes.
         if (/image-resizing/.test(request.headers.get("Via") || "")) {
             return env.ASSETS.fetch(request);
         }
 
-        // Solo transformamos las imágenes solicitadas mediante /thumbs/
-        if (url.pathname.startsWith("/thumbs/")) {
-            const nombre = url.pathname.replace("/thumbs/", "");
+        const esMiniatura = url.pathname.startsWith("/thumbs/");
+        const esFotoCarrusel = url.pathname.startsWith("/fotos/");
 
-            // El original permanece en /uploads/
+        if (esMiniatura || esFotoCarrusel) {
+            const nombre = url.pathname.replace(
+                /^\/(?:thumbs|fotos)\//,
+                ""
+            );
+
+            // El original permanece en /uploads/.
             const imagenOriginal = new URL(
                 `/uploads/${nombre}`,
                 request.url
             );
 
-            const respuesta = await fetch(imagenOriginal, {
+            // Las miniaturas mantienen 800 px.
+            // El carrusel acepta únicamente 600 o 1400 px.
+            let ancho = 800;
+
+            if (esFotoCarrusel) {
+                const anchoSolicitado = Number(url.searchParams.get("w"));
+
+                ancho = anchoSolicitado === 600 ? 600 : 1400;
+            }
+
+            const opcionesImagen = {
+                width: ancho,
+                height: ancho,
+                fit: "scale-down",
+                format: "webp"
+            };
+
+            return fetch(imagenOriginal, {
                 headers: request.headers,
                 cf: {
-                    image: {
-                        width: 800,
-                        height: 800,
-                        fit: "scale-down",
-                        format: "webp"
-                    }
+                    image: opcionesImagen
                 }
             });
-
-            return respuesta;
         }
 
-        // Todo lo demás sigue funcionando como hasta ahora.
+        // El resto de la web continúa funcionando igual.
         return env.ASSETS.fetch(request);
     }
 };
