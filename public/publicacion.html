@@ -48,6 +48,15 @@
             display: block;
         }
 
+        /* El carrusel y el contador están ocultos por defecto. */
+        .galeria-movil-track {
+            display: none;
+        }
+
+        .galeria-contador {
+            display: none;
+        }
+
         @media (max-width: 700px) {
             .footer-chacal-link {
                 height: 70px;
@@ -55,6 +64,76 @@
 
             .footer-chacal {
                 height: 70px;
+            }
+
+            .galeria-imagen {
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Oculta la imagen original solo en móviles. */
+            .galeria-imagen > img {
+                display: none !important;
+            }
+
+            .galeria-movil-track {
+                position: absolute;
+                inset: 0;
+                display: block;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                touch-action: pan-y;
+                user-select: none;
+                -webkit-user-select: none;
+            }
+
+            .galeria-movil-cinta {
+                display: flex;
+                width: 300%;
+                height: 100%;
+                transform: translate3d(-33.333333%, 0, 0);
+                transition: transform 260ms ease;
+                will-change: transform;
+            }
+
+            .galeria-movil-panel {
+                flex: 0 0 33.333333%;
+                width: 33.333333%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .galeria-movil-panel img {
+                display: block;
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                pointer-events: none;
+                -webkit-user-drag: none;
+            }
+
+            /* Las flechas solo se ocultan en móviles. */
+            .galeria-flecha {
+                display: none !important;
+            }
+
+            /* Contador debajo de la imagen, solo en móviles. */
+            .galeria-contador {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                margin: 10px 0 0;
+                font-size: 12px;
+                line-height: 1.4;
+                letter-spacing: 0.08em;
+                font-variant-numeric: tabular-nums;
             }
         }
     </style>
@@ -222,6 +301,13 @@
 
             </div>
 
+            <div
+                class="galeria-contador"
+                id="galeria-contador"
+                aria-live="polite"
+                aria-atomic="true"
+            ></div>
+
         </section>
 
         <section class="producto-info">
@@ -295,36 +381,28 @@
             footerChacal.addEventListener(
                 "pointerdown",
                 function () {
-
                     footerChacal.classList.add("tocado");
-
                 }
             );
 
             footerChacal.addEventListener(
                 "pointerup",
                 function () {
-
                     footerChacal.classList.remove("tocado");
-
                 }
             );
 
             footerChacal.addEventListener(
                 "pointercancel",
                 function () {
-
                     footerChacal.classList.remove("tocado");
-
                 }
             );
 
             footerChacal.addEventListener(
                 "pointerleave",
                 function () {
-
                     footerChacal.classList.remove("tocado");
-
                 }
             );
 
@@ -809,9 +887,7 @@
                 const publicacion =
                     datos.publicaciones.find(
                         function (elemento) {
-
                             return elemento.slug === slugFinal;
-
                         }
                     );
 
@@ -850,21 +926,17 @@
 
 
                 const galeria =
-                    document.getElementById(
-                        "galeria"
-                    );
+                    document.getElementById("galeria");
 
+                const contador =
+                    document.getElementById("galeria-contador");
 
                 const placeholder =
-                    galeria.querySelector(
-                        ".galeria-placeholder"
-                    );
+                    galeria.querySelector(".galeria-placeholder");
 
 
                 const imagenes =
-                    Array.isArray(
-                        publicacion.images
-                    )
+                    Array.isArray(publicacion.images)
                         ? publicacion.images
                         : [];
 
@@ -875,42 +947,33 @@
                 if (imagenes.length === 0) {
 
                     if (placeholder) {
-
-                        placeholder.textContent =
-                            "SIN IMÁGENES";
+                        placeholder.textContent = "SIN IMÁGENES";
                     }
+
+                    contador.style.display = "none";
 
                     return;
                 }
 
 
+                /*
+                 * Imagen original de escritorio.
+                 * Se conserva el funcionamiento existente
+                 * de las flechas y del cambio de imagen.
+                 */
                 const imagen =
-                    document.createElement(
-                        "img"
-                    );
+                    document.createElement("img");
 
 
                 imagen.alt =
                     publicacion.title || "";
 
-
-                imagen.style.display =
-                    "block";
-
-                imagen.style.width =
-                    "auto";
-
-                imagen.style.height =
-                    "auto";
-
-                imagen.style.maxWidth =
-                    "100%";
-
-                imagen.style.maxHeight =
-                    "100%";
-
-                imagen.style.objectFit =
-                    "contain";
+                imagen.style.display = "block";
+                imagen.style.width = "auto";
+                imagen.style.height = "auto";
+                imagen.style.maxWidth = "100%";
+                imagen.style.maxHeight = "100%";
+                imagen.style.objectFit = "contain";
 
 
                 if (placeholder) {
@@ -931,24 +994,393 @@
                         ".galeria-flecha-izquierda"
                     );
 
-
                 const flechaDerecha =
                     galeria.querySelector(
                         ".galeria-flecha-derecha"
                     );
 
 
-                function ajustarImagenMovil() {
+                /*
+                 * Elementos exclusivos del carrusel móvil.
+                 */
+                let trackMovil = null;
+                let cintaMovil = null;
+                let arrastreActivo = false;
+                let inicioX = 0;
+                let desplazamientoX = 0;
+                let anchoGaleria = 0;
+                let punteroActivo = null;
+                let movimientoAnimacion = false;
+
+
+                function esMovil() {
+                    return window.innerWidth <= 700;
+                }
+
+
+                function actualizarContador() {
+
+                    if (!esMovil() || imagenes.length <= 1) {
+                        contador.style.display = "none";
+                        return;
+                    }
+
+                    contador.style.display = "block";
+
+                    contador.textContent =
+                        (imagenActual + 1) +
+                        " / " +
+                        imagenes.length;
+                }
+
+
+                function obtenerIndice(indice) {
+
+                    if (indice < 0) {
+                        return imagenes.length - 1;
+                    }
+
+                    if (indice >= imagenes.length) {
+                        return 0;
+                    }
+
+                    return indice;
+                }
+
+
+                function crearPanelMovil(indice) {
+
+                    const panel =
+                        document.createElement("div");
+
+                    panel.className = "galeria-movil-panel";
+
+
+                    const foto =
+                        document.createElement("img");
+
+                    foto.alt =
+                        publicacion.title || "";
+
+                    foto.draggable = false;
+                    foto.src = imagenes[obtenerIndice(indice)];
+
+
+                    foto.addEventListener(
+                        "load",
+                        function () {
+
+                            if (
+                                foto.naturalWidth &&
+                                foto.naturalHeight
+                            ) {
+
+                                if (
+                                    foto.naturalHeight >
+                                    foto.naturalWidth
+                                ) {
+
+                                    foto.style.maxHeight = "80%";
+                                    foto.style.maxWidth = "80%";
+
+                                } else {
+
+                                    foto.style.maxHeight = "100%";
+                                    foto.style.maxWidth = "100%";
+                                }
+                            }
+                        }
+                    );
+
+
+                    panel.appendChild(foto);
+
+                    return panel;
+                }
+
+
+                function prepararCarruselMovil() {
+
+                    if (trackMovil) {
+                        return;
+                    }
+
+
+                    trackMovil =
+                        document.createElement("div");
+
+                    trackMovil.className =
+                        "galeria-movil-track";
+
+
+                    cintaMovil =
+                        document.createElement("div");
+
+                    cintaMovil.className =
+                        "galeria-movil-cinta";
+
+
+                    trackMovil.appendChild(cintaMovil);
+
+                    galeria.appendChild(trackMovil);
+
+
+                    trackMovil.addEventListener(
+                        "pointerdown",
+                        iniciarArrastre
+                    );
+
+                    trackMovil.addEventListener(
+                        "pointermove",
+                        moverArrastre
+                    );
+
+                    trackMovil.addEventListener(
+                        "pointerup",
+                        finalizarArrastre
+                    );
+
+                    trackMovil.addEventListener(
+                        "pointercancel",
+                        cancelarArrastre
+                    );
+
+
+                    cintaMovil.addEventListener(
+                        "transitionend",
+                        finalizarTransicion
+                    );
+
+
+                    dibujarCarruselMovil();
+                }
+
+
+                function dibujarCarruselMovil() {
+
+                    if (!cintaMovil) {
+                        return;
+                    }
+
+
+                    cintaMovil.innerHTML = "";
+
+
+                    cintaMovil.appendChild(
+                        crearPanelMovil(imagenActual - 1)
+                    );
+
+                    cintaMovil.appendChild(
+                        crearPanelMovil(imagenActual)
+                    );
+
+                    cintaMovil.appendChild(
+                        crearPanelMovil(imagenActual + 1)
+                    );
+
+
+                    cintaMovil.style.transition = "none";
+
+                    cintaMovil.style.transform =
+                        "translate3d(-" +
+                        galeria.clientWidth +
+                        "px, 0, 0)";
+
+
+                    /*
+                     * Fuerza al navegador a aplicar la posición inicial
+                     * antes de volver a activar la transición.
+                     */
+                    cintaMovil.offsetHeight;
+
+                    cintaMovil.style.transition =
+                        "transform 260ms ease";
+
+
+                    actualizarContador();
+                }
+
+
+                function iniciarArrastre(evento) {
 
                     if (
-                        window.innerWidth >
-                        700
+                        !esMovil() ||
+                        imagenes.length <= 1 ||
+                        movimientoAnimacion
                     ) {
                         return;
                     }
 
 
+                    if (evento.pointerType === "mouse") {
+                        return;
+                    }
+
+
+                    arrastreActivo = true;
+                    punteroActivo = evento.pointerId;
+                    inicioX = evento.clientX;
+                    desplazamientoX = 0;
+                    anchoGaleria = galeria.clientWidth;
+
+
+                    cintaMovil.style.transition = "none";
+
+
+                    if (trackMovil.setPointerCapture) {
+
+                        try {
+                            trackMovil.setPointerCapture(
+                                evento.pointerId
+                            );
+                        } catch (error) {
+                            // El navegador puede haber liberado el puntero.
+                        }
+                    }
+                }
+
+
+                function moverArrastre(evento) {
+
                     if (
+                        !arrastreActivo ||
+                        evento.pointerId !== punteroActivo
+                    ) {
+                        return;
+                    }
+
+
+                    desplazamientoX =
+                        evento.clientX - inicioX;
+
+
+                    cintaMovil.style.transform =
+                        "translate3d(" +
+                        (-anchoGaleria + desplazamientoX) +
+                        "px, 0, 0)";
+                }
+
+
+                function finalizarArrastre(evento) {
+
+                    if (
+                        !arrastreActivo ||
+                        evento.pointerId !== punteroActivo
+                    ) {
+                        return;
+                    }
+
+
+                    arrastreActivo = false;
+                    punteroActivo = null;
+
+
+                    const umbral =
+                        Math.min(70, anchoGaleria * 0.18);
+
+
+                    if (desplazamientoX < -umbral) {
+
+                        /*
+                         * El dedo se ha desplazado hacia la izquierda:
+                         * mostrar la siguiente imagen.
+                         */
+                        imagenActual =
+                            obtenerIndice(imagenActual + 1);
+
+                        movimientoAnimacion = true;
+
+                        cintaMovil.style.transition =
+                            "transform 260ms ease";
+
+                        cintaMovil.style.transform =
+                            "translate3d(" +
+                            (-anchoGaleria * 2) +
+                            "px, 0, 0)";
+
+                    } else if (desplazamientoX > umbral) {
+
+                        /*
+                         * El dedo se ha desplazado hacia la derecha:
+                         * mostrar la imagen anterior.
+                         */
+                        imagenActual =
+                            obtenerIndice(imagenActual - 1);
+
+                        movimientoAnimacion = true;
+
+                        cintaMovil.style.transition =
+                            "transform 260ms ease";
+
+                        cintaMovil.style.transform =
+                            "translate3d(0, 0, 0)";
+
+                    } else {
+
+                        /*
+                         * Si el arrastre ha sido corto, regresar
+                         * suavemente a la imagen actual.
+                         */
+                        cintaMovil.style.transition =
+                            "transform 260ms ease";
+
+                        cintaMovil.style.transform =
+                            "translate3d(" +
+                            (-anchoGaleria) +
+                            "px, 0, 0)";
+                    }
+
+
+                    desplazamientoX = 0;
+                }
+
+
+                function cancelarArrastre(evento) {
+
+                    if (
+                        !arrastreActivo ||
+                        evento.pointerId !== punteroActivo
+                    ) {
+                        return;
+                    }
+
+
+                    arrastreActivo = false;
+                    punteroActivo = null;
+                    desplazamientoX = 0;
+
+
+                    cintaMovil.style.transition =
+                        "transform 260ms ease";
+
+                    cintaMovil.style.transform =
+                        "translate3d(" +
+                        (-galeria.clientWidth) +
+                        "px, 0, 0)";
+                }
+
+
+                function finalizarTransicion(evento) {
+
+                    if (
+                        evento.target !== cintaMovil ||
+                        evento.propertyName !== "transform" ||
+                        !movimientoAnimacion
+                    ) {
+                        return;
+                    }
+
+
+                    movimientoAnimacion = false;
+
+                    dibujarCarruselMovil();
+                }
+
+
+                function ajustarImagenMovil() {
+
+                    if (
+                        window.innerWidth > 700 ||
                         !imagen.naturalWidth ||
                         !imagen.naturalHeight
                     ) {
@@ -961,31 +1393,39 @@
                         imagen.naturalWidth
                     ) {
 
-                        imagen.style.maxHeight =
-                            "80%";
-
-                        imagen.style.maxWidth =
-                            "80%";
+                        imagen.style.maxHeight = "80%";
+                        imagen.style.maxWidth = "80%";
 
                     } else {
 
-                        imagen.style.maxHeight =
-                            "100%";
-
-                        imagen.style.maxWidth =
-                            "100%";
+                        imagen.style.maxHeight = "100%";
+                        imagen.style.maxWidth = "100%";
                     }
                 }
 
 
                 function ajustarGaleria() {
 
-                    if (
-                        window.innerWidth <=
-                        700
-                    ) {
+                    if (esMovil()) {
 
                         ajustarImagenMovil();
+
+                        if (trackMovil) {
+
+                            cintaMovil.style.transition = "none";
+
+                            cintaMovil.style.transform =
+                                "translate3d(-" +
+                                galeria.clientWidth +
+                                "px, 0, 0)";
+
+                            cintaMovil.offsetHeight;
+
+                            cintaMovil.style.transition =
+                                "transform 260ms ease";
+                        }
+
+                        actualizarContador();
 
                         return;
                     }
@@ -998,21 +1438,22 @@
                         );
 
 
-                    galeria.style.width =
-                        "100%";
+                    galeria.style.width = "100%";
 
                     galeria.style.height =
                         altoDisponible + "px";
+
+
+                    contador.style.display = "none";
                 }
 
 
                 function mostrarImagen() {
 
-                    imagen.onload =
-                        function () {
+                    imagen.onload = function () {
 
-                            ajustarGaleria();
-                        };
+                        ajustarGaleria();
+                    };
 
 
                     imagen.src =
@@ -1020,8 +1461,18 @@
 
 
                     if (imagen.complete) {
-
                         ajustarGaleria();
+                    }
+
+
+                    actualizarContador();
+
+
+                    if (esMovil()) {
+
+                        prepararCarruselMovil();
+
+                        dibujarCarruselMovil();
                     }
                 }
 
@@ -1032,6 +1483,10 @@
                 );
 
 
+                /*
+                 * Las flechas de escritorio conservan
+                 * su comportamiento original.
+                 */
                 flechaIzquierda.addEventListener(
                     "click",
                     function () {
@@ -1039,12 +1494,8 @@
                         imagenActual--;
 
 
-                        if (
-                            imagenActual < 0
-                        ) {
-
-                            imagenActual =
-                                imagenes.length - 1;
+                        if (imagenActual < 0) {
+                            imagenActual = imagenes.length - 1;
                         }
 
 
@@ -1060,11 +1511,7 @@
                         imagenActual++;
 
 
-                        if (
-                            imagenActual >=
-                            imagenes.length
-                        ) {
-
+                        if (imagenActual >= imagenes.length) {
                             imagenActual = 0;
                         }
 
@@ -1076,11 +1523,11 @@
 
                 if (imagenes.length === 1) {
 
-                    flechaIzquierda.style.display =
-                        "none";
+                    flechaIzquierda.style.display = "none";
 
-                    flechaDerecha.style.display =
-                        "none";
+                    flechaDerecha.style.display = "none";
+
+                    contador.style.display = "none";
                 }
 
 
@@ -1115,6 +1562,14 @@
                 "descripcion"
             ).textContent =
                 "";
+
+
+            const contador =
+                document.getElementById("galeria-contador");
+
+            if (contador) {
+                contador.style.display = "none";
+            }
         }
 
 
