@@ -479,24 +479,38 @@
                         publicacion.images.length > 0
                     ) {
 
-                        const img =
-                            document.createElement("img");
+                        
+                    const img = document.createElement("img");
 
-                        const imagenOriginal =
-                            publicacion.images[0];
+                    const imagenOriginal = publicacion.images[0];
 
-                        img.src =
-                            imagenOriginal.startsWith("/uploads/")
-                                ? imagenOriginal.replace(
-                                    "/uploads/",
-                                    "/thumbs/"
-                                )
-                                : imagenOriginal;
+                    img.alt = publicacion.title || "";
+                    img.loading = "lazy";
+                    img.decoding = "async";
 
-                        img.alt =
-                            publicacion.title || "";
+                    if (imagenOriginal.startsWith("/uploads/")) {
+                        const rutaMiniatura = imagenOriginal.replace(
+                        "/uploads/",
+                        "/thumbs/"
+                        );
 
+                        // Móvil: 500 px. Escritorio: 800 px.
+                        const picture = document.createElement("picture");
+                        const fuenteMovil = document.createElement("source");
+
+                        fuenteMovil.media = "(max-width: 700px)";
+                        fuenteMovil.srcset = rutaMiniatura + "?w=500";
+
+                        img.src = rutaMiniatura;
+
+                        picture.appendChild(fuenteMovil);
+                        picture.appendChild(img);
+                        imagen.appendChild(picture);
+                    } else {
+                        img.src = imagenOriginal;
                         imagen.appendChild(img);
+                    }
+
 
                     } else {
 

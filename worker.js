@@ -17,28 +17,54 @@ export default {
                 ""
             );
 
-            // El original permanece en /uploads/.
+            // El original permanece intacto en /uploads/.
             const imagenOriginal = new URL(
                 `/uploads/${nombre}`,
                 request.url
             );
 
-            // Las miniaturas mantienen 800 px.
-            // El carrusel acepta únicamente 600 o 1400 px.
-            let ancho = 800;
+            let opcionesImagen;
 
-            if (esFotoCarrusel) {
-                const anchoSolicitado = Number(url.searchParams.get("w"));
+            if (esMiniatura) {
+                const anchoSolicitado = Number(
+                    url.searchParams.get("w")
+                );
 
-                ancho = anchoSolicitado === 600 ? 600 : 1400;
+                // En escritorio, 800 px como hasta ahora.
+                // En móvil, 500 px.
+                const ancho = anchoSolicitado === 500 ? 500 : 800;
+
+                opcionesImagen = {
+                    width: ancho,
+                    height: ancho,
+                    fit: "scale-down",
+                    format: "webp"
+                };
+
+                // Calidad reducida únicamente para miniaturas móviles.
+                if (ancho === 500) {
+                    opcionesImagen.quality = 82;
+                }
+            } else {
+                const anchoSolicitado = Number(
+                    url.searchParams.get("w")
+                );
+
+                const ancho = anchoSolicitado === 600 ? 600 : 1400;
+
+                opcionesImagen = {
+                    width: ancho,
+                    height: ancho,
+                    fit: "scale-down",
+                    format: "webp"
+                };
+
+                // El carrusel móvil permanece igual.
+                // Solo optimizamos el carrusel de escritorio.
+                if (ancho === 1400) {
+                    opcionesImagen.quality = 82;
+                }
             }
-
-            const opcionesImagen = {
-                width: ancho,
-                height: ancho,
-                fit: "scale-down",
-                format: "webp"
-            };
 
             return fetch(imagenOriginal, {
                 headers: request.headers,
@@ -48,7 +74,6 @@ export default {
             });
         }
 
-        // El resto de la web continúa funcionando igual.
         return env.ASSETS.fetch(request);
     }
 };
