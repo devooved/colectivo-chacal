@@ -1,19 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>COLECTIVO CHACAL</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
     <style>
@@ -48,20 +43,13 @@
             display: block;
         }
 
-        /* El carrusel y el contador están ocultos por defecto. */
-        .galeria-movil-track {
-            display: none;
-        }
-
+        .galeria-movil-track,
         .galeria-contador {
             display: none;
         }
 
         @media (max-width: 700px) {
-            .footer-chacal-link {
-                height: 70px;
-            }
-
+            .footer-chacal-link,
             .footer-chacal {
                 height: 70px;
             }
@@ -71,7 +59,6 @@
                 overflow: hidden;
             }
 
-            /* Oculta la imagen original solo en móviles. */
             .galeria-imagen > img {
                 display: none !important;
             }
@@ -111,19 +98,17 @@
                 display: block;
                 width: auto;
                 height: auto;
-                max-width: 100%;
-                max-height: 100%;
+                max-width: 90%;
+                max-height: 90%;
                 object-fit: contain;
                 pointer-events: none;
                 -webkit-user-drag: none;
             }
 
-            /* Las flechas solo se ocultan en móviles. */
             .galeria-flecha {
                 display: none !important;
             }
 
-            /* Contador debajo de la imagen, solo en móviles. */
             .galeria-contador {
                 display: block;
                 width: 100%;
@@ -140,44 +125,22 @@
 </head>
 
 <body>
-
     <header class="site-header">
-
-        <button
-            type="button"
-            class="mobile-menu-button"
-            id="mobile-menu-button"
-            aria-expanded="false"
-            aria-controls="mobile-menu"
-            aria-label="Abrir menú"
-        >
-            <span></span>
-            <span></span>
-            <span></span>
+        <button type="button" class="mobile-menu-button" id="mobile-menu-button"
+            aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+            <span></span><span></span><span></span>
         </button>
 
-        <a href="index.html" class="site-title">
-            COLECTIVO CHACAL
-        </a>
+        <a href="index.html" class="site-title">COLECTIVO CHACAL</a>
 
         <nav class="site-nav">
-
             <div class="nav-publicaciones">
-
-                <button
-                    type="button"
-                    class="nav-dropdown-button"
-                    id="publicaciones-button"
-                    aria-expanded="false"
-                    aria-controls="publicaciones-menu"
-                >
+                <button type="button" class="nav-dropdown-button" id="publicaciones-button"
+                    aria-expanded="false" aria-controls="publicaciones-menu">
                     PUBLICACIONES
                 </button>
 
-                <div
-                    class="nav-dropdown"
-                    id="publicaciones-menu"
-                >
+                <div class="nav-dropdown" id="publicaciones-menu">
                     <a href="index.html?categoria=TODO">TODO</a>
                     <a href="index.html?categoria=FANZINES">FANZINES</a>
                     <a href="index.html?categoria=REVISTAS">REVISTAS</a>
@@ -185,77 +148,33 @@
                     <a href="index.html?categoria=FOTOGRAFÍA">FOTOGRAFÍA</a>
                     <a href="index.html?categoria=MÁS">MÁS</a>
                 </div>
-
             </div>
 
             <a href="pedidos.html">PEDIDOS</a>
             <a href="about.html">ABOUT</a>
-
         </nav>
 
-        <a
-            href="https://www.instagram.com/colectivochacal"
-            class="mobile-instagram"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram de COLECTIVO CHACAL"
-        >
-            <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-            >
-                <rect
-                    x="3"
-                    y="3"
-                    width="18"
-                    height="18"
-                    rx="5"
-                    ry="5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                ></rect>
-
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="4"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                ></circle>
-
-                <circle
-                    cx="17.5"
-                    cy="6.5"
-                    r="1.2"
-                    fill="currentColor"
-                ></circle>
+        <a href="https://www.instagram.com/colectivochacal"
+            class="mobile-instagram" target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram de COLECTIVO CHACAL">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" ry="5"
+                    fill="none" stroke="currentColor" stroke-width="2"></rect>
+                <circle cx="12" cy="12" r="4" fill="none"
+                    stroke="currentColor" stroke-width="2"></circle>
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"></circle>
             </svg>
         </a>
 
-        <nav
-            class="mobile-menu"
-            id="mobile-menu"
-            aria-hidden="true"
-        >
-
+        <nav class="mobile-menu" id="mobile-menu" aria-hidden="true">
             <div class="mobile-publicaciones">
-
-                <button
-                    type="button"
-                    class="mobile-publicaciones-button"
-                    id="mobile-publicaciones-button"
-                    aria-expanded="false"
-                    aria-controls="mobile-categorias"
-                >
+                <button type="button" class="mobile-publicaciones-button"
+                    id="mobile-publicaciones-button" aria-expanded="false"
+                    aria-controls="mobile-categorias">
                     PUBLICACIONES
                 </button>
 
-                <div
-                    class="mobile-categorias"
-                    id="mobile-categorias"
-                >
+                <div class="mobile-categorias" id="mobile-categorias">
                     <a href="index.html?categoria=TODO">TODO</a>
                     <a href="index.html?categoria=FANZINES">FANZINES</a>
                     <a href="index.html?categoria=REVISTAS">REVISTAS</a>
@@ -263,294 +182,107 @@
                     <a href="index.html?categoria=FOTOGRAFÍA">FOTOGRAFÍA</a>
                     <a href="index.html?categoria=MÁS">MÁS</a>
                 </div>
-
             </div>
 
             <a href="pedidos.html">PEDIDOS</a>
             <a href="about.html">ABOUT</a>
-
         </nav>
-
     </header>
 
     <main class="producto-detalle">
-
         <section class="producto-galeria">
-
             <div class="galeria-imagen" id="galeria">
+                <div class="galeria-placeholder">CARGANDO...</div>
 
-                <div class="galeria-placeholder">
-                    CARGANDO...
-                </div>
-
-                <button
-                    type="button"
-                    class="galeria-flecha galeria-flecha-izquierda"
-                    aria-label="Imagen anterior"
-                >
-                    ←
-                </button>
-
-                <button
-                    type="button"
-                    class="galeria-flecha galeria-flecha-derecha"
-                    aria-label="Imagen siguiente"
-                >
-                    →
-                </button>
-
+                <button type="button" class="galeria-flecha galeria-flecha-izquierda"
+                    aria-label="Imagen anterior">←</button>
+                <button type="button" class="galeria-flecha galeria-flecha-derecha"
+                    aria-label="Imagen siguiente">→</button>
             </div>
 
-            <div
-                class="galeria-contador"
-                id="galeria-contador"
-                aria-live="polite"
-                aria-atomic="true"
-            ></div>
-
+            <div class="galeria-contador" id="galeria-contador"
+                aria-live="polite" aria-atomic="true"></div>
         </section>
 
         <section class="producto-info">
-
             <h1 id="titulo">CARGANDO...</h1>
-
-            <p
-                class="producto-precio"
-                id="precio"
-            ></p>
-
-            <div
-                class="producto-descripcion"
-                id="descripcion"
-            ></div>
-
+            <p class="producto-precio" id="precio"></p>
+            <div class="producto-descripcion" id="descripcion"></div>
         </section>
-
     </main>
 
     <footer class="site-footer">
-
-        <a
-            href="https://www.instagram.com/colectivochacal"
-            class="footer-chacal-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram de COLECTIVO CHACAL"
-        >
-            <img
-                src="images/chacalparaweb.webp"
-                class="footer-chacal footer-chacal-normal"
-                alt="COLECTIVO CHACAL"
-            >
-
-            <img
-                src="images/chacalparaweb2.webp"
-                class="footer-chacal footer-chacal-hover"
-                alt=""
-            >
+        <a href="https://www.instagram.com/colectivochacal"
+            class="footer-chacal-link" target="_blank" rel="noopener noreferrer"
+            aria-label="Instagram de COLECTIVO CHACAL">
+            <img src="images/chacalparaweb.webp"
+                class="footer-chacal footer-chacal-normal" alt="COLECTIVO CHACAL">
+            <img src="images/chacalparaweb2.webp"
+                class="footer-chacal footer-chacal-hover" alt="">
         </a>
-
     </footer>
 
     <script>
-
-        const publicacionesButton =
-            document.getElementById("publicaciones-button");
-
-        const publicacionesMenu =
-            document.getElementById("publicaciones-menu");
-
-        const mobileMenuButton =
-            document.getElementById("mobile-menu-button");
-
-        const mobileMenu =
-            document.getElementById("mobile-menu");
-
-        const mobilePublicacionesButton =
-            document.getElementById("mobile-publicaciones-button");
-
-        const mobileCategorias =
-            document.getElementById("mobile-categorias");
-
-        const footerChacal =
-            document.querySelector(".footer-chacal-link");
-
+        const publicacionesButton = document.getElementById("publicaciones-button");
+        const publicacionesMenu = document.getElementById("publicaciones-menu");
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const mobilePublicacionesButton = document.getElementById("mobile-publicaciones-button");
+        const mobileCategorias = document.getElementById("mobile-categorias");
+        const footerChacal = document.querySelector(".footer-chacal-link");
 
         if (footerChacal) {
-
-            footerChacal.addEventListener(
-                "pointerdown",
-                function () {
-                    footerChacal.classList.add("tocado");
-                }
-            );
-
-            footerChacal.addEventListener(
-                "pointerup",
-                function () {
-                    footerChacal.classList.remove("tocado");
-                }
-            );
-
-            footerChacal.addEventListener(
-                "pointercancel",
-                function () {
-                    footerChacal.classList.remove("tocado");
-                }
-            );
-
-            footerChacal.addEventListener(
-                "pointerleave",
-                function () {
-                    footerChacal.classList.remove("tocado");
-                }
-            );
-
+            ["pointerdown", "pointerup", "pointercancel", "pointerleave"].forEach(tipo => {
+                footerChacal.addEventListener(tipo, () => {
+                    footerChacal.classList.toggle("tocado", tipo === "pointerdown");
+                });
+            });
         }
 
+        publicacionesButton.addEventListener("click", function () {
+            const abierto = publicacionesButton.getAttribute("aria-expanded") === "true";
+            publicacionesButton.setAttribute("aria-expanded", String(!abierto));
+            publicacionesMenu.classList.toggle("abierto", !abierto);
+        });
 
-        publicacionesButton.addEventListener(
-            "click",
-            function () {
+        mobileMenuButton.addEventListener("click", function () {
+            const abierto = mobileMenuButton.getAttribute("aria-expanded") === "true";
+            mobileMenuButton.setAttribute("aria-expanded", String(!abierto));
+            mobileMenu.setAttribute("aria-hidden", String(abierto));
+            mobileMenu.classList.toggle("abierto", !abierto);
+        });
 
-                const abierto =
-                    publicacionesButton.getAttribute(
-                        "aria-expanded"
-                    ) === "true";
-
-                publicacionesButton.setAttribute(
-                    "aria-expanded",
-                    String(!abierto)
-                );
-
-                publicacionesMenu.classList.toggle(
-                    "abierto",
-                    !abierto
-                );
-            }
-        );
-
-
-        mobileMenuButton.addEventListener(
-            "click",
-            function () {
-
-                const abierto =
-                    mobileMenuButton.getAttribute(
-                        "aria-expanded"
-                    ) === "true";
-
-                mobileMenuButton.setAttribute(
-                    "aria-expanded",
-                    String(!abierto)
-                );
-
-                mobileMenu.setAttribute(
-                    "aria-hidden",
-                    String(abierto)
-                );
-
-                mobileMenu.classList.toggle(
-                    "abierto",
-                    !abierto
-                );
-            }
-        );
-
-
-        mobilePublicacionesButton.addEventListener(
-            "click",
-            function () {
-
-                const abierto =
-                    mobilePublicacionesButton.getAttribute(
-                        "aria-expanded"
-                    ) === "true";
-
-                mobilePublicacionesButton.setAttribute(
-                    "aria-expanded",
-                    String(!abierto)
-                );
-
-                mobileCategorias.classList.toggle(
-                    "abierto",
-                    !abierto
-                );
-            }
-        );
-
+        mobilePublicacionesButton.addEventListener("click", function () {
+            const abierto = mobilePublicacionesButton.getAttribute("aria-expanded") === "true";
+            mobilePublicacionesButton.setAttribute("aria-expanded", String(!abierto));
+            mobileCategorias.classList.toggle("abierto", !abierto);
+        });
 
         function cerrarMenuMovil() {
-
-            mobileMenuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            mobileMenu.setAttribute(
-                "aria-hidden",
-                "true"
-            );
-
-            mobileMenu.classList.remove(
-                "abierto"
-            );
-
-            mobilePublicacionesButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            mobileCategorias.classList.remove(
-                "abierto"
-            );
+            mobileMenuButton.setAttribute("aria-expanded", "false");
+            mobileMenu.setAttribute("aria-hidden", "true");
+            mobileMenu.classList.remove("abierto");
+            mobilePublicacionesButton.setAttribute("aria-expanded", "false");
+            mobileCategorias.classList.remove("abierto");
         }
 
-
-        document.addEventListener(
-            "click",
-            function (evento) {
-
-                if (
-                    !evento.target.closest(".nav-publicaciones")
-                ) {
-
-                    publicacionesButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                    publicacionesMenu.classList.remove(
-                        "abierto"
-                    );
-                }
-
-
-                if (
-                    !evento.target.closest(".site-header")
-                ) {
-                    cerrarMenuMovil();
-                }
+        document.addEventListener("click", function (evento) {
+            if (!evento.target.closest(".nav-publicaciones")) {
+                publicacionesButton.setAttribute("aria-expanded", "false");
+                publicacionesMenu.classList.remove("abierto");
             }
-        );
 
+            if (!evento.target.closest(".site-header")) {
+                cerrarMenuMovil();
+            }
+        });
 
-        mobileMenu
-            .querySelectorAll("a")
-            .forEach(
-                function (enlace) {
-
-                    enlace.addEventListener(
-                        "click",
-                        cerrarMenuMovil
-                    );
-                }
-            );
-
+        mobileMenu.querySelectorAll("a").forEach(enlace => {
+            enlace.addEventListener("click", cerrarMenuMovil);
+        });
 
         function escaparHtml(texto) {
-
-            return texto
+            return String(texto)
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
@@ -558,291 +290,110 @@
                 .replace(/'/g, "&#039;");
         }
 
-
         function procesarInline(texto) {
+            let contenido = escaparHtml(texto);
 
-            let contenido =
-                escaparHtml(texto);
+            contenido = contenido.replace(
+                /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+                '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+            );
 
-
-            contenido =
-                contenido.replace(
-                    /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
-                    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-                );
-
-
-            contenido =
-                contenido.replace(
-                    /\*\*(.+?)\*\*/g,
-                    "<strong>$1</strong>"
-                );
-
-
-            contenido =
-                contenido.replace(
-                    /\*(.+?)\*/g,
-                    "<em>$1</em>"
-                );
-
+            contenido = contenido.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+            contenido = contenido.replace(/\*(.+?)\*/g, "<em>$1</em>");
 
             return contenido;
         }
 
-
         function convertirMarkdown(markdown) {
+            if (!markdown) return "";
 
-            if (!markdown) {
-                return "";
-            }
+            const texto = markdown.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
+            if (!texto) return "";
 
-
-            const texto =
-                markdown
-                    .replace(/\r\n/g, "\n")
-                    .replace(/\r/g, "\n")
-                    .trim();
-
-
-            if (!texto) {
-                return "";
-            }
-
-
-            const partes =
-                texto.split(/(\n+)/);
-
-
+            const partes = texto.split(/(\n+)/);
             let html = "";
             let enLista = false;
 
-
             function cerrarLista() {
-
                 if (enLista) {
-
                     html += "</ul>";
-
                     enLista = false;
                 }
             }
 
-
-            for (
-                let indice = 0;
-                indice < partes.length;
-                indice++
-            ) {
-
-                const parte =
-                    partes[indice];
-
-
+            for (const parte of partes) {
                 if (/^\n+$/.test(parte)) {
-
                     cerrarLista();
-
-
-                    const cantidadSaltos =
-                        parte.length;
-
-
-                    const cantidadBr =
-                        Math.max(
-                            1,
-                            Math.ceil(
-                                cantidadSaltos / 2
-                            )
-                        );
-
-
-                    html +=
-                        "<br>".repeat(
-                            cantidadBr
-                        );
-
-
+                    html += "<br>".repeat(Math.max(1, Math.ceil(parte.length / 2)));
                     continue;
                 }
 
+                if (!parte) continue;
 
-                if (!parte) {
-                    continue;
-                }
+                const lineas = parte.split("\n");
 
+                for (let i = 0; i < lineas.length; i++) {
+                    const linea = lineas[i];
+                    if (!linea) continue;
 
-                const lineas =
-                    parte.split("\n");
+                    const elementoLista = linea.match(/^- (.+)$/);
 
-
-                for (
-                    let lineaIndice = 0;
-                    lineaIndice < lineas.length;
-                    lineaIndice++
-                ) {
-
-                    const linea =
-                        lineas[lineaIndice];
-
-
-                    if (!linea) {
-                        continue;
-                    }
-
-
-                    if (
-                        linea.match(
-                            /^- (.+)$/
-                        )
-                    ) {
-
+                    if (elementoLista) {
                         if (!enLista) {
-
                             html += "<ul>";
-
                             enLista = true;
                         }
 
-
-                        html +=
-                            "<li>" +
-                            procesarInline(
-                                linea.replace(
-                                    /^- (.+)$/,
-                                    "$1"
-                                )
-                            ) +
-                            "</li>";
-
-
+                        html += "<li>" + procesarInline(elementoLista[1]) + "</li>";
                         continue;
                     }
-
 
                     cerrarLista();
 
+                    const encabezado = linea.match(/^(#{1,3}) (.+)$/);
 
-                    if (
-                        linea.match(
-                            /^### (.+)$/
-                        )
-                    ) {
-
-                        html +=
-                            "<h4>" +
-                            procesarInline(
-                                linea.replace(
-                                    /^### (.+)$/,
-                                    "$1"
-                                )
-                            ) +
-                            "</h4>";
-
+                    if (encabezado) {
+                        const nivel = encabezado[1].length;
+                        const etiqueta = nivel === 1 ? "h2" : nivel === 2 ? "h3" : "h4";
+                        html += "<" + etiqueta + ">" +
+                            procesarInline(encabezado[2]) +
+                            "</" + etiqueta + ">";
                         continue;
                     }
 
-
-                    if (
-                        linea.match(
-                            /^## (.+)$/
-                        )
-                    ) {
-
-                        html +=
-                            "<h3>" +
-                            procesarInline(
-                                linea.replace(
-                                    /^## (.+)$/,
-                                    "$1"
-                                )
-                            ) +
-                            "</h3>";
-
-                        continue;
-                    }
-
-
-                    if (
-                        linea.match(
-                            /^# (.+)$/
-                        )
-                    ) {
-
-                        html +=
-                            "<h2>" +
-                            procesarInline(
-                                linea.replace(
-                                    /^# (.+)$/,
-                                    "$1"
-                                )
-                            ) +
-                            "</h2>";
-
-                        continue;
-                    }
-
-
-                    html +=
-                        procesarInline(linea);
-
-
-                    if (
-                        lineaIndice <
-                        lineas.length - 1
-                    ) {
-
-                        html += "<br>";
-                    }
+                    html += procesarInline(linea);
+                    if (i < lineas.length - 1) html += "<br>";
                 }
             }
 
-
             cerrarLista();
-
-
             return html;
         }
 
-function obtenerUrlFotoOptimizada(ruta) {
-    try {
-        const url = new URL(ruta, window.location.href);
+        function obtenerUrlFotoOptimizada(ruta) {
+            try {
+                const url = new URL(ruta, window.location.href);
 
-        // No modificar imágenes externas ni rutas ajenas a uploads.
-        if (
-            url.origin !== window.location.origin ||
-            !url.pathname.startsWith("/uploads/")
-        ) {
-            return ruta;
+                if (
+                    url.origin !== window.location.origin ||
+                    !url.pathname.startsWith("/uploads/")
+                ) {
+                    return ruta;
+                }
+
+                const ancho = window.innerWidth <= 700 ? 600 : 1400;
+                url.pathname = url.pathname.replace(/^\/uploads\//, "/fotos/");
+                url.searchParams.set("w", ancho);
+
+                return url.pathname + url.search + url.hash;
+            } catch (error) {
+                return ruta;
+            }
         }
 
-        // Móvil: máximo 600 px. Ordenador: máximo 1400 px.
-        const ancho = window.innerWidth <= 700 ? 600 : 1400;
-
-        url.pathname = url.pathname.replace(
-            /^\/uploads\//,
-            "/fotos/"
-        );
-
-        url.searchParams.set("w", ancho);
-
-        return url.pathname + url.search + url.hash;
-    } catch (error) {
-        return ruta;
-    }
-}
         async function cargarPublicacion() {
+            const parametros = new URLSearchParams(window.location.search);
 
-            const parametros =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-
-            /*
-             * Compatibilidad con las URL antiguas.
-             * Cada id queda asociado a un slug fijo,
-             * sin depender del orden actual del catálogo.
-             */
             const equivalenciasIdsAntiguos = {
                 "0": "ben-yart-agc",
                 "1": "dikaia",
@@ -856,144 +407,54 @@ function obtenerUrlFotoOptimizada(ruta) {
                 "9": "chuchulata-petar-dachev"
             };
 
-
-            const slug =
-                parametros.get("slug");
-
-
-            const idAntiguo =
-                parametros.get("id");
-
-
-            const slugFinal =
-                slug !== null
-                    ? slug
-                    : equivalenciasIdsAntiguos[idAntiguo];
-
+            const slug = parametros.get("slug");
+            const idAntiguo = parametros.get("id");
+            const slugFinal = slug !== null ? slug : equivalenciasIdsAntiguos[idAntiguo];
 
             if (!slugFinal) {
-
                 mostrarError();
-
                 return;
             }
 
-
             try {
+                const respuesta = await fetch("catalogo.json");
+                if (!respuesta.ok) throw new Error("No se pudo cargar catalogo.json");
 
-                const respuesta =
-                    await fetch("catalogo.json");
+                const datos = await respuesta.json();
 
-
-                if (!respuesta.ok) {
-
-                    throw new Error(
-                        "No se pudo cargar catalogo.json"
-                    );
+                if (!datos || !Array.isArray(datos.publicaciones)) {
+                    throw new Error("El formato de catalogo.json no es válido");
                 }
 
-
-                const datos =
-                    await respuesta.json();
-
-
-                if (
-                    !datos ||
-                    !Array.isArray(
-                        datos.publicaciones
-                    )
-                ) {
-
-                    throw new Error(
-                        "El formato de catalogo.json no es válido"
-                    );
-                }
-
-
-                const publicacion =
-                    datos.publicaciones.find(
-                        function (elemento) {
-                            return elemento.slug === slugFinal;
-                        }
-                    );
-
+                const publicacion = datos.publicaciones.find(item => item.slug === slugFinal);
 
                 if (!publicacion) {
-
                     mostrarError();
-
                     return;
                 }
 
+                document.title = publicacion.title + " — COLECTIVO CHACAL";
+                document.getElementById("titulo").textContent = publicacion.title || "";
+                document.getElementById("precio").textContent = publicacion.price || "";
+                document.getElementById("descripcion").innerHTML =
+                    convertirMarkdown(publicacion.description || "");
 
-                document.title =
-                    publicacion.title +
-                    " — COLECTIVO CHACAL";
-
-
-                document.getElementById(
-                    "titulo"
-                ).textContent =
-                    publicacion.title || "";
-
-
-                document.getElementById(
-                    "precio"
-                ).textContent =
-                    publicacion.price || "";
-
-
-                document.getElementById(
-                    "descripcion"
-                ).innerHTML =
-                    convertirMarkdown(
-                        publicacion.description || ""
-                    );
-
-
-                const galeria =
-                    document.getElementById("galeria");
-
-                const contador =
-                    document.getElementById("galeria-contador");
-
-                const placeholder =
-                    galeria.querySelector(".galeria-placeholder");
-
-
-                const imagenes =
-                    Array.isArray(publicacion.images)
-                        ? publicacion.images
-                        : [];
-
+                const galeria = document.getElementById("galeria");
+                const contador = document.getElementById("galeria-contador");
+                const placeholder = galeria.querySelector(".galeria-placeholder");
+                const imagenes = Array.isArray(publicacion.images) ? publicacion.images : [];
 
                 let imagenActual = 0;
 
-
                 if (imagenes.length === 0) {
-
-                    if (placeholder) {
-                        placeholder.textContent = "SIN IMÁGENES";
-                    }
-
+                    if (placeholder) placeholder.textContent = "SIN IMÁGENES";
                     contador.style.display = "none";
-
                     return;
                 }
 
-
-                /*
-                 * Imagen original de escritorio.
-                 * Se conserva el funcionamiento existente
-                 * de las flechas y del cambio de imagen.
-                 */
-                const imagen =
-                    document.createElement("img");
-
-
-                imagen.alt =
-                    publicacion.title || "";
-
+                const imagen = document.createElement("img");
+                imagen.alt = publicacion.title || "";
+                imagen.decoding = "async";
                 imagen.style.display = "block";
                 imagen.style.width = "auto";
                 imagen.style.height = "auto";
@@ -1001,248 +462,124 @@ function obtenerUrlFotoOptimizada(ruta) {
                 imagen.style.maxHeight = "100%";
                 imagen.style.objectFit = "contain";
 
-
-                if (placeholder) {
-                    placeholder.remove();
-                }
-
+                if (placeholder) placeholder.remove();
 
                 galeria.insertBefore(
                     imagen,
-                    galeria.querySelector(
-                        ".galeria-flecha-izquierda"
-                    )
+                    galeria.querySelector(".galeria-flecha-izquierda")
                 );
 
+                const flechaIzquierda = galeria.querySelector(".galeria-flecha-izquierda");
+                const flechaDerecha = galeria.querySelector(".galeria-flecha-derecha");
 
-                const flechaIzquierda =
-                    galeria.querySelector(
-                        ".galeria-flecha-izquierda"
-                    );
-
-                const flechaDerecha =
-                    galeria.querySelector(
-                        ".galeria-flecha-derecha"
-                    );
-
-
-                /*
-                 * Elementos exclusivos del carrusel móvil.
-                 */
                 let trackMovil = null;
                 let cintaMovil = null;
+                let panelesMovil = [];
                 let arrastreActivo = false;
                 let inicioX = 0;
                 let desplazamientoX = 0;
                 let anchoGaleria = 0;
                 let punteroActivo = null;
                 let movimientoAnimacion = false;
-
+                let direccionMovimiento = 0;
 
                 function esMovil() {
                     return window.innerWidth <= 700;
                 }
 
+                function obtenerIndice(indice) {
+                    return (indice + imagenes.length) % imagenes.length;
+                }
 
                 function actualizarContador() {
-
                     if (!esMovil() || imagenes.length <= 1) {
                         contador.style.display = "none";
                         return;
                     }
 
                     contador.style.display = "block";
-
-                    contador.textContent =
-                        (imagenActual + 1) +
-                        " / " +
-                        imagenes.length;
+                    contador.textContent = (imagenActual + 1) + " / " + imagenes.length;
                 }
 
+                function actualizarFuentesPanelesMovil() {
+                    if (!panelesMovil.length) return;
 
-                function obtenerIndice(indice) {
+                    panelesMovil.forEach((panel, posicion) => {
+                        const foto = panel.querySelector("img");
+                        const indice = obtenerIndice(imagenActual + posicion - 1);
+                        const rutaOriginal = imagenes[indice];
+                        const rutaOptimizada = obtenerUrlFotoOptimizada(rutaOriginal);
 
-                    if (indice < 0) {
-                        return imagenes.length - 1;
-                    }
-
-                    if (indice >= imagenes.length) {
-                        return 0;
-                    }
-
-                    return indice;
+                        // No volver a asignar la misma URL: evita recargas innecesarias.
+                        if (foto.dataset.ruta !== rutaOptimizada) {
+                            foto.dataset.ruta = rutaOptimizada;
+                            foto.src = rutaOptimizada;
+                        }
+                    });
                 }
 
-
-                function crearPanelMovil(indice) {
-
-                    const panel =
-                        document.createElement("div");
-
+                function crearPanelMovil() {
+                    const panel = document.createElement("div");
                     panel.className = "galeria-movil-panel";
 
-
-                    const foto =
-                        document.createElement("img");
-
-                    foto.alt =
-                        publicacion.title || "";
-
+                    const foto = document.createElement("img");
+                    foto.alt = publicacion.title || "";
                     foto.draggable = false;
-                    foto.src = obtenerUrlFotoOptimizada(
-                        imagenes[obtenerIndice(indice)]
-);
-
-                    foto.addEventListener(
-                        "load",
-                        function () {
-
-                            if (
-                                foto.naturalWidth &&
-                                foto.naturalHeight
-                            ) {
-
-                                if (
-                                    foto.naturalHeight >
-                                    foto.naturalWidth
-                                ) {
-
-                                    foto.style.maxHeight = "80%";
-                                    foto.style.maxWidth = "80%";
-
-                                } else {
-
-                                    foto.style.maxHeight = "100%";
-                                    foto.style.maxWidth = "100%";
-                                }
-                            }
-                        }
-                    );
-
+                    foto.decoding = "async";
 
                     panel.appendChild(foto);
-
                     return panel;
                 }
 
+                function colocarCintaEnCentro() {
+                    cintaMovil.style.transition = "none";
+                    cintaMovil.style.transform =
+                        "translate3d(-" + galeria.clientWidth + "px, 0, 0)";
+
+                    // Aplicar el reinicio de posición sin animación.
+                    void cintaMovil.offsetWidth;
+
+                    cintaMovil.style.transition = "transform 260ms ease";
+                }
 
                 function prepararCarruselMovil() {
+                    if (trackMovil) return;
 
-                    if (trackMovil) {
-                        return;
+                    trackMovil = document.createElement("div");
+                    trackMovil.className = "galeria-movil-track";
+
+                    cintaMovil = document.createElement("div");
+                    cintaMovil.className = "galeria-movil-cinta";
+
+                    // Los tres paneles se crean una sola vez.
+                    for (let i = 0; i < 3; i++) {
+                        const panel = crearPanelMovil();
+                        panelesMovil.push(panel);
+                        cintaMovil.appendChild(panel);
                     }
-
-
-                    trackMovil =
-                        document.createElement("div");
-
-                    trackMovil.className =
-                        "galeria-movil-track";
-
-
-                    cintaMovil =
-                        document.createElement("div");
-
-                    cintaMovil.className =
-                        "galeria-movil-cinta";
-
 
                     trackMovil.appendChild(cintaMovil);
-
                     galeria.appendChild(trackMovil);
 
+                    trackMovil.addEventListener("pointerdown", iniciarArrastre);
+                    trackMovil.addEventListener("pointermove", moverArrastre);
+                    trackMovil.addEventListener("pointerup", finalizarArrastre);
+                    trackMovil.addEventListener("pointercancel", cancelarArrastre);
+                    cintaMovil.addEventListener("transitionend", finalizarTransicion);
 
-                    trackMovil.addEventListener(
-                        "pointerdown",
-                        iniciarArrastre
-                    );
-
-                    trackMovil.addEventListener(
-                        "pointermove",
-                        moverArrastre
-                    );
-
-                    trackMovil.addEventListener(
-                        "pointerup",
-                        finalizarArrastre
-                    );
-
-                    trackMovil.addEventListener(
-                        "pointercancel",
-                        cancelarArrastre
-                    );
-
-
-                    cintaMovil.addEventListener(
-                        "transitionend",
-                        finalizarTransicion
-                    );
-
-
-                    dibujarCarruselMovil();
+                    actualizarFuentesPanelesMovil();
+                    colocarCintaEnCentro();
                 }
-
-
-                function dibujarCarruselMovil() {
-
-                    if (!cintaMovil) {
-                        return;
-                    }
-
-
-                    cintaMovil.innerHTML = "";
-
-
-                    cintaMovil.appendChild(
-                        crearPanelMovil(imagenActual - 1)
-                    );
-
-                    cintaMovil.appendChild(
-                        crearPanelMovil(imagenActual)
-                    );
-
-                    cintaMovil.appendChild(
-                        crearPanelMovil(imagenActual + 1)
-                    );
-
-
-                    cintaMovil.style.transition = "none";
-
-                    cintaMovil.style.transform =
-                        "translate3d(-" +
-                        galeria.clientWidth +
-                        "px, 0, 0)";
-
-
-                    /*
-                     * Fuerza al navegador a aplicar la posición inicial
-                     * antes de volver a activar la transición.
-                     */
-                    cintaMovil.offsetHeight;
-
-                    cintaMovil.style.transition =
-                        "transform 260ms ease";
-
-
-                    actualizarContador();
-                }
-
 
                 function iniciarArrastre(evento) {
-
                     if (
                         !esMovil() ||
                         imagenes.length <= 1 ||
-                        movimientoAnimacion
+                        movimientoAnimacion ||
+                        evento.pointerType === "mouse"
                     ) {
                         return;
                     }
-
-
-                    if (evento.pointerType === "mouse") {
-                        return;
-                    }
-
 
                     arrastreActivo = true;
                     punteroActivo = evento.pointerId;
@@ -1250,36 +587,21 @@ function obtenerUrlFotoOptimizada(ruta) {
                     desplazamientoX = 0;
                     anchoGaleria = galeria.clientWidth;
 
-
                     cintaMovil.style.transition = "none";
 
-
                     if (trackMovil.setPointerCapture) {
-
                         try {
-                            trackMovil.setPointerCapture(
-                                evento.pointerId
-                            );
+                            trackMovil.setPointerCapture(evento.pointerId);
                         } catch (error) {
                             // El navegador puede haber liberado el puntero.
                         }
                     }
                 }
 
-
                 function moverArrastre(evento) {
+                    if (!arrastreActivo || evento.pointerId !== punteroActivo) return;
 
-                    if (
-                        !arrastreActivo ||
-                        evento.pointerId !== punteroActivo
-                    ) {
-                        return;
-                    }
-
-
-                    desplazamientoX =
-                        evento.clientX - inicioX;
-
+                    desplazamientoX = evento.clientX - inicioX;
 
                     cintaMovil.style.transform =
                         "translate3d(" +
@@ -1287,108 +609,51 @@ function obtenerUrlFotoOptimizada(ruta) {
                         "px, 0, 0)";
                 }
 
-
                 function finalizarArrastre(evento) {
-
-                    if (
-                        !arrastreActivo ||
-                        evento.pointerId !== punteroActivo
-                    ) {
-                        return;
-                    }
-
+                    if (!arrastreActivo || evento.pointerId !== punteroActivo) return;
 
                     arrastreActivo = false;
                     punteroActivo = null;
 
-
-                    const umbral =
-                        Math.min(70, anchoGaleria * 0.18);
-
+                    const umbral = Math.min(70, anchoGaleria * 0.18);
 
                     if (desplazamientoX < -umbral) {
-
-                        /*
-                         * El dedo se ha desplazado hacia la izquierda:
-                         * mostrar la siguiente imagen.
-                         */
-                        imagenActual =
-                            obtenerIndice(imagenActual + 1);
-
+                        imagenActual = obtenerIndice(imagenActual + 1);
+                        direccionMovimiento = 1;
                         movimientoAnimacion = true;
 
-                        cintaMovil.style.transition =
-                            "transform 260ms ease";
-
+                        cintaMovil.style.transition = "transform 260ms ease";
                         cintaMovil.style.transform =
-                            "translate3d(" +
-                            (-anchoGaleria * 2) +
-                            "px, 0, 0)";
-
+                            "translate3d(" + (-anchoGaleria * 2) + "px, 0, 0)";
                     } else if (desplazamientoX > umbral) {
-
-                        /*
-                         * El dedo se ha desplazado hacia la derecha:
-                         * mostrar la imagen anterior.
-                         */
-                        imagenActual =
-                            obtenerIndice(imagenActual - 1);
-
+                        imagenActual = obtenerIndice(imagenActual - 1);
+                        direccionMovimiento = -1;
                         movimientoAnimacion = true;
 
-                        cintaMovil.style.transition =
-                            "transform 260ms ease";
-
-                        cintaMovil.style.transform =
-                            "translate3d(0, 0, 0)";
-
+                        cintaMovil.style.transition = "transform 260ms ease";
+                        cintaMovil.style.transform = "translate3d(0, 0, 0)";
                     } else {
-
-                        /*
-                         * Si el arrastre ha sido corto, regresar
-                         * suavemente a la imagen actual.
-                         */
-                        cintaMovil.style.transition =
-                            "transform 260ms ease";
-
+                        cintaMovil.style.transition = "transform 260ms ease";
                         cintaMovil.style.transform =
-                            "translate3d(" +
-                            (-anchoGaleria) +
-                            "px, 0, 0)";
+                            "translate3d(-" + anchoGaleria + "px, 0, 0)";
                     }
-
 
                     desplazamientoX = 0;
                 }
 
-
                 function cancelarArrastre(evento) {
-
-                    if (
-                        !arrastreActivo ||
-                        evento.pointerId !== punteroActivo
-                    ) {
-                        return;
-                    }
-
+                    if (!arrastreActivo || evento.pointerId !== punteroActivo) return;
 
                     arrastreActivo = false;
                     punteroActivo = null;
                     desplazamientoX = 0;
 
-
-                    cintaMovil.style.transition =
-                        "transform 260ms ease";
-
+                    cintaMovil.style.transition = "transform 260ms ease";
                     cintaMovil.style.transform =
-                        "translate3d(" +
-                        (-galeria.clientWidth) +
-                        "px, 0, 0)";
+                        "translate3d(-" + galeria.clientWidth + "px, 0, 0)";
                 }
 
-
                 function finalizarTransicion(evento) {
-
                     if (
                         evento.target !== cintaMovil ||
                         evento.propertyName !== "transform" ||
@@ -1397,213 +662,107 @@ function obtenerUrlFotoOptimizada(ruta) {
                         return;
                     }
 
-
                     movimientoAnimacion = false;
 
-                    dibujarCarruselMovil();
-                }
+                    // Reutilizar los paneles: no borrar ni recrear las imágenes.
+                    if (direccionMovimiento === 1) {
+                        const primero = panelesMovil.shift();
+                        panelesMovil.push(primero);
+                        cintaMovil.appendChild(primero);
+                    } else if (direccionMovimiento === -1) {
+                        const ultimo = panelesMovil.pop();
+                        panelesMovil.unshift(ultimo);
+                        cintaMovil.insertBefore(ultimo, cintaMovil.firstElementChild);
+                    }
 
+                    direccionMovimiento = 0;
+
+                    colocarCintaEnCentro();
+                    actualizarFuentesPanelesMovil();
+                    actualizarContador();
+                }
 
                 function ajustarImagenMovil() {
-
-                    if (
-                        window.innerWidth > 700 ||
-                        !imagen.naturalWidth ||
-                        !imagen.naturalHeight
-                    ) {
-                        return;
-                    }
-
-
-                    if (
-                        imagen.naturalHeight >
-                        imagen.naturalWidth
-                    ) {
-
-                        imagen.style.maxHeight = "80%";
-                        imagen.style.maxWidth = "80%";
-
-                    } else {
-
-                        imagen.style.maxHeight = "100%";
-                        imagen.style.maxWidth = "100%";
-                    }
+                    // El carrusel móvil usa sus propias imágenes.
+                    // No cambiar dimensiones al terminar de cargar una imagen.
                 }
 
-
                 function ajustarGaleria() {
-
                     if (esMovil()) {
-
                         ajustarImagenMovil();
 
-                        if (trackMovil) {
-
-                            cintaMovil.style.transition = "none";
-
-                            cintaMovil.style.transform =
-                                "translate3d(-" +
-                                galeria.clientWidth +
-                                "px, 0, 0)";
-
-                            cintaMovil.offsetHeight;
-
-                            cintaMovil.style.transition =
-                                "transform 260ms ease";
+                        if (trackMovil && !arrastreActivo && !movimientoAnimacion) {
+                            colocarCintaEnCentro();
+                            actualizarFuentesPanelesMovil();
                         }
 
                         actualizarContador();
-
                         return;
                     }
 
-
-                    const altoDisponible =
-                        Math.max(
-                            240,
-                            window.innerHeight - 180
-                        );
-
-
+                    const altoDisponible = Math.max(240, window.innerHeight - 180);
                     galeria.style.width = "100%";
-
-                    galeria.style.height =
-                        altoDisponible + "px";
-
-
+                    galeria.style.height = altoDisponible + "px";
                     contador.style.display = "none";
                 }
 
-
                 function mostrarImagen() {
+                    const ruta = obtenerUrlFotoOptimizada(imagenes[imagenActual]);
 
-                    imagen.onload = function () {
-
-                        ajustarGaleria();
-                    };
-
-
-                    imagen.src = obtenerUrlFotoOptimizada(
-                        imagenes[imagenActual]
-);
-
-
-                    if (imagen.complete) {
+                    // Evitar recargar la imagen si ya se está mostrando esa URL.
+                    if (imagen.dataset.ruta !== ruta) {
+                        imagen.dataset.ruta = ruta;
+                        imagen.onload = ajustarGaleria;
+                        imagen.src = ruta;
+                    } else if (imagen.complete) {
                         ajustarGaleria();
                     }
-
 
                     actualizarContador();
 
-
                     if (esMovil()) {
-
                         prepararCarruselMovil();
-
-                        dibujarCarruselMovil();
+                        actualizarFuentesPanelesMovil();
                     }
                 }
 
+                window.addEventListener("resize", ajustarGaleria);
 
-                window.addEventListener(
-                    "resize",
-                    ajustarGaleria
-                );
+                flechaIzquierda.addEventListener("click", function () {
+                    imagenActual = obtenerIndice(imagenActual - 1);
+                    mostrarImagen();
+                });
 
-
-                /*
-                 * Las flechas de escritorio conservan
-                 * su comportamiento original.
-                 */
-                flechaIzquierda.addEventListener(
-                    "click",
-                    function () {
-
-                        imagenActual--;
-
-
-                        if (imagenActual < 0) {
-                            imagenActual = imagenes.length - 1;
-                        }
-
-
-                        mostrarImagen();
-                    }
-                );
-
-
-                flechaDerecha.addEventListener(
-                    "click",
-                    function () {
-
-                        imagenActual++;
-
-
-                        if (imagenActual >= imagenes.length) {
-                            imagenActual = 0;
-                        }
-
-
-                        mostrarImagen();
-                    }
-                );
-
+                flechaDerecha.addEventListener("click", function () {
+                    imagenActual = obtenerIndice(imagenActual + 1);
+                    mostrarImagen();
+                });
 
                 if (imagenes.length === 1) {
-
                     flechaIzquierda.style.display = "none";
-
                     flechaDerecha.style.display = "none";
-
                     contador.style.display = "none";
                 }
 
-
                 mostrarImagen();
-
                 ajustarGaleria();
 
             } catch (error) {
-
                 console.error(error);
-
                 mostrarError();
             }
         }
 
-
         function mostrarError() {
+            document.getElementById("titulo").textContent = "PUBLICACIÓN NO ENCONTRADA";
+            document.getElementById("precio").textContent = "";
+            document.getElementById("descripcion").textContent = "";
 
-            document.getElementById(
-                "titulo"
-            ).textContent =
-                "PUBLICACIÓN NO ENCONTRADA";
-
-
-            document.getElementById(
-                "precio"
-            ).textContent =
-                "";
-
-
-            document.getElementById(
-                "descripcion"
-            ).textContent =
-                "";
-
-
-            const contador =
-                document.getElementById("galeria-contador");
-
-            if (contador) {
-                contador.style.display = "none";
-            }
+            const contador = document.getElementById("galeria-contador");
+            if (contador) contador.style.display = "none";
         }
 
-
         cargarPublicacion();
-
     </script>
-
 </body>
 </html>
