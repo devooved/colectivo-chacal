@@ -947,13 +947,10 @@
 
                 const elementosImagen = [];
 
-                imagenes.forEach((urlImagen, index) => {
+                imagenes.forEach((urlImagen) => {
                     const img = document.createElement("img");
                     img.alt = publicacion.title || "";
                     img.src = urlImagen;
-                    
-                    // Optimización de carga fluida
-                    img.loading = index === 0 ? "eager" : "lazy";
                     
                     img.style.display = "block";
                     img.style.objectFit = "contain";
@@ -961,7 +958,7 @@
                     if (window.innerWidth <= 700) {
                         img.style.flex = "0 0 100%";
                         img.style.width = "100%";
-                        img.style.scrollSnapAlign = "start";
+                        img.style.scrollSnapAlign = "center";
                         img.style.userSelect = "none";
                     } else {
                         img.style.width = "auto";
@@ -979,8 +976,7 @@
                     if (window.innerWidth <= 700 && imagenes.length > 1) {
                         const slideWidth = galeria.clientWidth;
                         const scrollLeft = galeria.scrollLeft;
-                        // Forzar que el índice mínimo sea 1 y no baje a 0
-                        const currentIndex = Math.min(imagenes.length, Math.max(1, Math.round(scrollLeft / slideWidth) + 1));
+                        const currentIndex = Math.round(scrollLeft / slideWidth) + 1;
                         contador.textContent = `${currentIndex} / ${imagenes.length}`;
                     } else {
                         contador.textContent = "";
