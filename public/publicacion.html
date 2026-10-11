@@ -1027,6 +1027,33 @@
                 }
 
 
+                function cambiarImagen(direccion) {
+
+                    imagenActual += direccion;
+
+
+                    if (
+                        imagenActual < 0
+                    ) {
+
+                        imagenActual =
+                            imagenes.length - 1;
+                    }
+
+
+                    if (
+                        imagenActual >=
+                        imagenes.length
+                    ) {
+
+                        imagenActual = 0;
+                    }
+
+
+                    mostrarImagen();
+                }
+
+
                 window.addEventListener(
                     "resize",
                     ajustarGaleria
@@ -1037,19 +1064,7 @@
                     "click",
                     function () {
 
-                        imagenActual--;
-
-
-                        if (
-                            imagenActual < 0
-                        ) {
-
-                            imagenActual =
-                                imagenes.length - 1;
-                        }
-
-
-                        mostrarImagen();
+                        cambiarImagen(-1);
                     }
                 );
 
@@ -1058,20 +1073,92 @@
                     "click",
                     function () {
 
-                        imagenActual++;
+                        cambiarImagen(1);
+                    }
+                );
 
+
+                /*
+                 * Deslizamiento táctil en móvil.
+                 * Solo cambia la foto cuando el gesto es
+                 * claramente horizontal, para no interferir
+                 * con el desplazamiento vertical de la página.
+                 */
+                let inicioToqueX = 0;
+                let inicioToqueY = 0;
+
+
+                imagen.addEventListener(
+                    "touchstart",
+                    function (evento) {
 
                         if (
-                            imagenActual >=
-                            imagenes.length
+                            window.innerWidth > 700 ||
+                            evento.touches.length !== 1
                         ) {
-
-                            imagenActual = 0;
+                            return;
                         }
 
 
-                        mostrarImagen();
-                    }
+                        inicioToqueX =
+                            evento.touches[0].clientX;
+
+                        inicioToqueY =
+                            evento.touches[0].clientY;
+
+                    },
+                    { passive: true }
+                );
+
+
+                imagen.addEventListener(
+                    "touchend",
+                    function (evento) {
+
+                        if (
+                            window.innerWidth > 700 ||
+                            evento.changedTouches.length !== 1
+                        ) {
+                            return;
+                        }
+
+
+                        const finalToqueX =
+                            evento.changedTouches[0].clientX;
+
+                        const finalToqueY =
+                            evento.changedTouches[0].clientY;
+
+
+                        const diferenciaX =
+                            finalToqueX - inicioToqueX;
+
+                        const diferenciaY =
+                            finalToqueY - inicioToqueY;
+
+
+                        const esDeslizamientoHorizontal =
+                            Math.abs(diferenciaX) >= 40 &&
+                            Math.abs(diferenciaX) >
+                                Math.abs(diferenciaY);
+
+
+                        if (!esDeslizamientoHorizontal) {
+                            return;
+                        }
+
+
+                        if (diferenciaX < 0) {
+
+                            cambiarImagen(1);
+
+                        } else {
+
+                            cambiarImagen(-1);
+                        }
+
+                    },
+                    { passive: true }
                 );
 
 
