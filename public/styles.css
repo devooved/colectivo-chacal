@@ -836,3 +836,54 @@ main {
         margin: 10px 0 0;
     }
 }
+
+/* Animación suave de entrada del catálogo */
+@keyframes chacal-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.producto {
+    animation: chacal-aparecer 450ms ease-out both;
+}
+
+.producto:nth-child(4n+1) {
+    animation-delay: 0ms;
+}
+
+.producto:nth-child(4n+2) {
+    animation-delay: 65ms;
+}
+
+.producto:nth-child(4n+3) {
+    animation-delay: 130ms;
+}
+
+.producto:nth-child(4n+4) {
+    animation-delay: 195ms;
+}
+
+/* En móvil, el efecto se alterna entre las dos columnas */
+@media (max-width: 700px) {
+    .producto:nth-child(odd) {
+        animation-delay: 0ms;
+    }
+
+    .producto:nth-child(even) {
+        animation-delay: 90ms;
+    }
+}
+
+/* Respetar la preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .producto {
+        animation: none;
+    }
+}
