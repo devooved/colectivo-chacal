@@ -13,49 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
-
-    <style>
-        .footer-chacal-link {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: auto;
-            height: 80px;
-            text-decoration: none;
-        }
-
-        .footer-chacal {
-            display: block;
-            width: auto;
-            height: 80px;
-            object-fit: contain;
-        }
-
-        .footer-chacal-hover {
-            display: none;
-        }
-
-        .footer-chacal-link:hover .footer-chacal-normal,
-        .footer-chacal-link.tocado .footer-chacal-normal {
-            display: none;
-        }
-
-        .footer-chacal-link:hover .footer-chacal-hover,
-        .footer-chacal-link.tocado .footer-chacal-hover {
-            display: block;
-        }
-
-        @media (max-width: 700px) {
-            .footer-chacal-link {
-                height: 70px;
-            }
-
-            .footer-chacal {
-                height: 70px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -93,10 +50,7 @@
                     PUBLICACIONES
                 </button>
 
-                <div
-                    class="nav-dropdown"
-                    id="publicaciones-menu"
-                >
+                <div class="nav-dropdown" id="publicaciones-menu">
                     <a href="#" data-categoria="TODO">TODO</a>
                     <a href="#" data-categoria="FANZINES">FANZINES</a>
                     <a href="#" data-categoria="REVISTAS">REVISTAS</a>
@@ -108,7 +62,6 @@
             </div>
 
             <a href="pedidos.html">PEDIDOS</a>
-
             <a href="about.html">ABOUT</a>
 
         </nav>
@@ -169,10 +122,7 @@
                     PUBLICACIONES
                 </button>
 
-                <div
-                    class="mobile-categorias"
-                    id="mobile-categorias"
-                >
+                <div class="mobile-categorias" id="mobile-categorias">
                     <a href="#" data-categoria="TODO">TODO</a>
                     <a href="#" data-categoria="FANZINES">FANZINES</a>
                     <a href="#" data-categoria="REVISTAS">REVISTAS</a>
@@ -191,9 +141,7 @@
     </header>
 
     <main class="publicaciones">
-
         <section class="grid" id="catalogo"></section>
-
     </main>
 
     <footer class="site-footer">
@@ -221,7 +169,6 @@
     </footer>
 
     <script>
-
         const publicacionesButton =
             document.getElementById("publicaciones-button");
 
@@ -248,431 +195,230 @@
 
         let publicaciones = [];
 
-
         if (footerChacal) {
+            footerChacal.addEventListener("pointerdown", function () {
+                footerChacal.classList.add("tocado");
+            });
 
-            footerChacal.addEventListener(
-                "pointerdown",
-                function () {
-                    footerChacal.classList.add("tocado");
-                }
-            );
+            footerChacal.addEventListener("pointerup", function () {
+                footerChacal.classList.remove("tocado");
+            });
 
-            footerChacal.addEventListener(
-                "pointerup",
-                function () {
-                    footerChacal.classList.remove("tocado");
-                }
-            );
+            footerChacal.addEventListener("pointercancel", function () {
+                footerChacal.classList.remove("tocado");
+            });
 
-            footerChacal.addEventListener(
-                "pointercancel",
-                function () {
-                    footerChacal.classList.remove("tocado");
-                }
-            );
-
-            footerChacal.addEventListener(
-                "pointerleave",
-                function () {
-                    footerChacal.classList.remove("tocado");
-                }
-            );
-
+            footerChacal.addEventListener("pointerleave", function () {
+                footerChacal.classList.remove("tocado");
+            });
         }
 
+        publicacionesButton.addEventListener("click", function () {
+            const abierto =
+                publicacionesButton.getAttribute("aria-expanded") === "true";
 
-        publicacionesButton.addEventListener(
-            "click",
-            function () {
+            publicacionesButton.setAttribute(
+                "aria-expanded",
+                String(!abierto)
+            );
 
-                const abierto =
-                    publicacionesButton.getAttribute("aria-expanded") === "true";
+            publicacionesMenu.classList.toggle("abierto", !abierto);
+        });
 
-                publicacionesButton.setAttribute(
-                    "aria-expanded",
-                    String(!abierto)
-                );
-
-                publicacionesMenu.classList.toggle(
-                    "abierto",
-                    !abierto
-                );
-            }
-        );
-
-
-        mobileMenuButton.addEventListener(
-            "click",
-            function () {
-
-                const abierto =
-                    mobileMenuButton.getAttribute("aria-expanded") === "true";
-
-                mobileMenuButton.setAttribute(
-                    "aria-expanded",
-                    String(!abierto)
-                );
-
-                mobileMenu.setAttribute(
-                    "aria-hidden",
-                    String(abierto)
-                );
-
-                mobileMenu.classList.toggle(
-                    "abierto",
-                    !abierto
-                );
-            }
-        );
-
-
-        mobilePublicacionesButton.addEventListener(
-            "click",
-            function () {
-
-                const abierto =
-                    mobilePublicacionesButton.getAttribute(
-                        "aria-expanded"
-                    ) === "true";
-
-                mobilePublicacionesButton.setAttribute(
-                    "aria-expanded",
-                    String(!abierto)
-                );
-
-                mobileCategorias.classList.toggle(
-                    "abierto",
-                    !abierto
-                );
-            }
-        );
-
-
-        document.addEventListener(
-            "click",
-            function (evento) {
-
-                if (
-                    !evento.target.closest(".nav-publicaciones")
-                ) {
-
-                    publicacionesButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                    publicacionesMenu.classList.remove(
-                        "abierto"
-                    );
-                }
-
-                if (
-                    !evento.target.closest(".site-header")
-                ) {
-
-                    mobileMenuButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                    mobileMenu.setAttribute(
-                        "aria-hidden",
-                        "true"
-                    );
-
-                    mobileMenu.classList.remove(
-                        "abierto"
-                    );
-
-                    mobilePublicacionesButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                    mobileCategorias.classList.remove(
-                        "abierto"
-                    );
-                }
-            }
-        );
-
-
-        function cerrarMenuMovil() {
+        mobileMenuButton.addEventListener("click", function () {
+            const abierto =
+                mobileMenuButton.getAttribute("aria-expanded") === "true";
 
             mobileMenuButton.setAttribute(
                 "aria-expanded",
-                "false"
+                String(!abierto)
             );
 
-            mobileMenu.setAttribute(
-                "aria-hidden",
-                "true"
+            mobileMenu.setAttribute("aria-hidden", String(abierto));
+            mobileMenu.classList.toggle("abierto", !abierto);
+        });
+
+        mobilePublicacionesButton.addEventListener("click", function () {
+            const abierto =
+                mobilePublicacionesButton.getAttribute("aria-expanded") === "true";
+
+            mobilePublicacionesButton.setAttribute(
+                "aria-expanded",
+                String(!abierto)
             );
 
-            mobileMenu.classList.remove(
-                "abierto"
-            );
+            mobileCategorias.classList.toggle("abierto", !abierto);
+        });
+
+        document.addEventListener("click", function (evento) {
+            if (!evento.target.closest(".nav-publicaciones")) {
+                publicacionesButton.setAttribute("aria-expanded", "false");
+                publicacionesMenu.classList.remove("abierto");
+            }
+
+            if (!evento.target.closest(".site-header")) {
+                mobileMenuButton.setAttribute("aria-expanded", "false");
+                mobileMenu.setAttribute("aria-hidden", "true");
+                mobileMenu.classList.remove("abierto");
+
+                mobilePublicacionesButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                mobileCategorias.classList.remove("abierto");
+            }
+        });
+
+        function cerrarMenuMovil() {
+            mobileMenuButton.setAttribute("aria-expanded", "false");
+            mobileMenu.setAttribute("aria-hidden", "true");
+            mobileMenu.classList.remove("abierto");
 
             mobilePublicacionesButton.setAttribute(
                 "aria-expanded",
                 "false"
             );
 
-            mobileCategorias.classList.remove(
-                "abierto"
-            );
+            mobileCategorias.classList.remove("abierto");
         }
 
-
-        function mostrarPublicaciones(
-            publicacionesFiltradas
-        ) {
-
+        function mostrarPublicaciones(publicacionesFiltradas) {
             catalogo.innerHTML = "";
 
-            publicacionesFiltradas.forEach(
-                function (publicacion) {
+            publicacionesFiltradas.forEach(function (publicacion) {
+                const indice = publicaciones.indexOf(publicacion);
+                const numero = String(indice + 1).padStart(2, "0");
 
-                    const indice =
-                        publicaciones.indexOf(publicacion);
+                const producto = document.createElement("article");
+                producto.className = "producto";
 
-                    const numero =
-                        String(indice + 1).padStart(2, "0");
+                const enlace = document.createElement("a");
 
-                    const producto =
-                        document.createElement("article");
+                if (
+                    typeof publicacion.slug === "string" &&
+                    publicacion.slug.trim() !== ""
+                ) {
+                    enlace.href =
+                        "publicacion.html?slug=" +
+                        encodeURIComponent(publicacion.slug);
+                } else {
+                    enlace.removeAttribute("href");
 
-                    producto.className = "producto";
+                    console.error(
+                        "La publicación no tiene un slug válido:",
+                        publicacion.title
+                    );
+                }
 
-                    const enlace =
-                        document.createElement("a");
+                const imagen = document.createElement("div");
+                imagen.className = "producto-imagen";
 
-                    if (
-                        typeof publicacion.slug === "string" &&
-                        publicacion.slug.trim() !== ""
-                    ) {
-
-                        enlace.href =
-                            "publicacion.html?slug=" +
-                            encodeURIComponent(publicacion.slug);
-
-                    } else {
-
-                        enlace.removeAttribute("href");
-
-                        console.error(
-                            "La publicación no tiene un slug válido:",
-                            publicacion.title
-                        );
-                    }
-
-                    const imagen =
-                        document.createElement("div");
-
-                    imagen.className =
-                        "producto-imagen";
-
-
-                    if (
-                        Array.isArray(publicacion.images) &&
-                        publicacion.images.length > 0
-                    ) {
-
-                        
+                if (
+                    Array.isArray(publicacion.images) &&
+                    publicacion.images.length > 0
+                ) {
                     const img = document.createElement("img");
-
                     const imagenOriginal = publicacion.images[0];
 
                     img.alt = publicacion.title || "";
                     img.loading = "lazy";
                     img.decoding = "async";
 
-                    if (imagenOriginal.startsWith("/uploads/")) {
-                        const rutaMiniatura = imagenOriginal.replace(
-                        "/uploads/",
-                        "/thumbs/"
-                        );
+                    img.src = imagenOriginal.startsWith("/uploads/")
+                        ? imagenOriginal.replace("/uploads/", "/thumbs/")
+                        : imagenOriginal;
 
-                        // Móvil: 500 px. Escritorio: 800 px.
-                        const picture = document.createElement("picture");
-                        const fuenteMovil = document.createElement("source");
+                    imagen.appendChild(img);
 
-                        fuenteMovil.media = "(max-width: 700px)";
-                        fuenteMovil.srcset = rutaMiniatura + "?w=500";
+                } else {
+                    const textoImagen = document.createElement("span");
+                    textoImagen.textContent = "IMAGEN " + numero;
 
-                        img.src = rutaMiniatura;
-
-                        picture.appendChild(fuenteMovil);
-                        picture.appendChild(img);
-                        imagen.appendChild(picture);
-                    } else {
-                        img.src = imagenOriginal;
-                        imagen.appendChild(img);
-                    }
-
-
-                    } else {
-
-                        const textoImagen =
-                            document.createElement("span");
-
-                        textoImagen.textContent =
-                            "IMAGEN " + numero;
-
-                        imagen.appendChild(textoImagen);
-                    }
-
-
-                    const titulo =
-                        document.createElement("h2");
-
-                    titulo.textContent =
-                        publicacion.title || "";
-
-
-                    const precio =
-                        document.createElement("p");
-
-                    precio.textContent =
-                        publicacion.price || "";
-
-
-                    enlace.appendChild(imagen);
-                    enlace.appendChild(titulo);
-                    enlace.appendChild(precio);
-
-                    producto.appendChild(enlace);
-                    catalogo.appendChild(producto);
+                    imagen.appendChild(textoImagen);
                 }
-            );
 
+                const titulo = document.createElement("h2");
+                titulo.textContent = publicacion.title || "";
 
-            if (
-                publicacionesFiltradas.length === 0
-            ) {
+                const precio = document.createElement("p");
+                precio.textContent = publicacion.price || "";
 
+                enlace.appendChild(imagen);
+                enlace.appendChild(titulo);
+                enlace.appendChild(precio);
+
+                producto.appendChild(enlace);
+                catalogo.appendChild(producto);
+            });
+
+            if (publicacionesFiltradas.length === 0) {
                 catalogo.innerHTML =
                     "<p>No hay publicaciones en esta categoría.</p>";
             }
         }
 
-
         function filtrarPorCategoria(categoria) {
-
             if (categoria === "TODO") {
-
                 mostrarPublicaciones(publicaciones);
                 return;
             }
 
-            const filtradas =
-                publicaciones.filter(
-                    function (publicacion) {
+            const filtradas = publicaciones.filter(function (publicacion) {
+                if (!Array.isArray(publicacion.categories)) {
+                    return false;
+                }
 
-                        if (
-                            !Array.isArray(
-                                publicacion.categories
-                            )
-                        ) {
-                            return false;
-                        }
-
-                        return publicacion.categories.includes(
-                            categoria
-                        );
-                    }
-                );
+                return publicacion.categories.includes(categoria);
+            });
 
             mostrarPublicaciones(filtradas);
         }
 
+        document.querySelectorAll("[data-categoria]").forEach(function (enlace) {
+            enlace.addEventListener("click", function (evento) {
+                evento.preventDefault();
 
-        document
-            .querySelectorAll("[data-categoria]")
-            .forEach(
-                function (enlace) {
+                const categoria = enlace.dataset.categoria;
+                filtrarPorCategoria(categoria);
 
-                    enlace.addEventListener(
-                        "click",
-                        function (evento) {
+                publicacionesButton.setAttribute("aria-expanded", "false");
+                publicacionesMenu.classList.remove("abierto");
 
-                            evento.preventDefault();
-
-                            const categoria =
-                                enlace.dataset.categoria;
-
-                            filtrarPorCategoria(
-                                categoria
-                            );
-
-                            publicacionesButton.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-
-                            publicacionesMenu.classList.remove(
-                                "abierto"
-                            );
-
-                            cerrarMenuMovil();
-                        }
-                    );
-                }
-            );
-
+                cerrarMenuMovil();
+            });
+        });
 
         async function cargarCatalogo() {
-
             try {
-
-                const respuesta =
-                    await fetch("catalogo.json");
+                const respuesta = await fetch("catalogo.json");
 
                 if (!respuesta.ok) {
-                    throw new Error(
-                        "No se pudo cargar catalogo.json"
-                    );
+                    throw new Error("No se pudo cargar catalogo.json");
                 }
 
-                const datos =
-                    await respuesta.json();
+                const datos = await respuesta.json();
 
-                if (
-                    !datos ||
-                    !Array.isArray(datos.publicaciones)
-                ) {
+                if (!datos || !Array.isArray(datos.publicaciones)) {
                     throw new Error(
                         "El formato de catalogo.json no es válido"
                     );
                 }
 
-                publicaciones =
-                    datos.publicaciones;
+                publicaciones = datos.publicaciones;
 
                 const parametros =
-                    new URLSearchParams(
-                        window.location.search
-                    );
+                    new URLSearchParams(window.location.search);
 
-                const categoria =
-                    parametros.get("categoria");
+                const categoria = parametros.get("categoria");
 
                 if (categoria) {
-
-                    filtrarPorCategoria(
-                        categoria
-                    );
-
+                    filtrarPorCategoria(categoria);
                 } else {
-
-                    mostrarPublicaciones(
-                        publicaciones
-                    );
+                    mostrarPublicaciones(publicaciones);
                 }
 
             } catch (error) {
-
                 console.error(error);
 
                 catalogo.innerHTML =
@@ -680,10 +426,51 @@
             }
         }
 
-
         cargarCatalogo();
-
     </script>
+
+    <style>
+        .footer-chacal-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            height: 80px;
+            text-decoration: none;
+        }
+
+        .footer-chacal {
+            display: block;
+            width: auto;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .footer-chacal-hover {
+            display: none;
+        }
+
+        .footer-chacal-link:hover .footer-chacal-normal,
+        .footer-chacal-link.tocado .footer-chacal-normal {
+            display: none;
+        }
+
+        .footer-chacal-link:hover .footer-chacal-hover,
+        .footer-chacal-link.tocado .footer-chacal-hover {
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            .footer-chacal-link {
+                height: 70px;
+            }
+
+            .footer-chacal {
+                height: 70px;
+            }
+        }
+    </style>
 
 </body>
 </html>
