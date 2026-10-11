@@ -837,6 +837,7 @@ main {
     }
 }
 
+
 /* =========================
    ANIMACIÓN DE ENTRADA DEL CATÁLOGO
    ========================= */
@@ -844,12 +845,10 @@ main {
 @keyframes chacal-aparecer {
     from {
         opacity: 0;
-        transform: translateY(10px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -857,7 +856,7 @@ main {
     animation: chacal-aparecer 450ms ease-out both;
 }
 
-/* Aparición escalonada de las primeras publicaciones */
+/* Aparición escalonada en escritorio */
 .producto:nth-child(4n + 1) {
     animation-delay: 0ms;
 }
@@ -874,7 +873,7 @@ main {
     animation-delay: 195ms;
 }
 
-/* En móvil, el orden visual es de dos columnas */
+/* Aparición escalonada en móvil */
 @media (max-width: 700px) {
     .producto:nth-child(odd) {
         animation-delay: 0ms;
