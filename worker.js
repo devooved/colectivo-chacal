@@ -30,8 +30,7 @@ export default {
                     url.searchParams.get("w")
                 );
 
-                // En escritorio, 800 px como hasta ahora.
-                // En móvil, 500 px.
+                // Escritorio: 800 px. Móvil: 500 px.
                 const ancho = anchoSolicitado === 500 ? 500 : 800;
 
                 opcionesImagen = {
@@ -50,6 +49,7 @@ export default {
                     url.searchParams.get("w")
                 );
 
+                // Carrusel: 600 o 1400 px.
                 const ancho = anchoSolicitado === 600 ? 600 : 1400;
 
                 opcionesImagen = {
@@ -66,14 +66,33 @@ export default {
                 }
             }
 
-            return fetch(imagenOriginal, {
+            const respuesta = await fetch(imagenOriginal, {
                 headers: request.headers,
                 cf: {
                     image: opcionesImagen
                 }
             });
+
+            // Si la carga falla, conservar la respuesta de error.
+            if (!respuesta.ok) {
+                return respuesta;
+            }
+
+            // Caché privada del navegador durante 30 minutos.
+            const respuestaConCache = new Response(
+                respuesta.body,
+                respuesta
+            );
+
+            respuestaConCache.headers.set(
+                "Cache-Control",
+                "private, max-age=1800"
+            );
+
+            return respuestaConCache;
         }
 
+        // El resto de la web continúa funcionando igual.
         return env.ASSETS.fetch(request);
     }
 };
