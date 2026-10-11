@@ -48,17 +48,6 @@
             display: block;
         }
 
-        /* Contador numérico centrado debajo de la foto en móvil */
-        .galeria-contador {
-            display: none;
-            text-align: center;
-            width: 100%;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #666;
-            letter-spacing: 1px;
-        }
-
         @media (max-width: 700px) {
             .footer-chacal-link {
                 height: 70px;
@@ -66,40 +55,6 @@
 
             .footer-chacal {
                 height: 70px;
-            }
-
-            /* Organiza la sección de la galería en columna para que el contador quede abajo */
-            .producto-galeria {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-
-            /* Habilitar scroll horizontal en móvil para las fotos */
-            .galeria-imagen {
-                display: flex !important;
-                overflow-x: auto !important;
-                scroll-snap-type: x mandatory !important;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                position: relative;
-                width: 100%;
-            }
-
-            .galeria-imagen::-webkit-scrollbar {
-                display: none;
-            }
-
-            /* Ocultar flechas en versión móvil */
-            .galeria-flecha {
-                display: none !important;
-            }
-
-            /* Mostrar contador en móvil */
-            .galeria-contador {
-                display: block;
             }
         }
     </style>
@@ -266,9 +221,6 @@
                 </button>
 
             </div>
-
-            <!-- Contador numérico debajo de la foto en móvil -->
-            <div class="galeria-contador" id="galeriaContador"></div>
 
         </section>
 
@@ -782,6 +734,11 @@
                 );
 
 
+            /*
+             * Compatibilidad con las URL antiguas.
+             * Cada id queda asociado a un slug fijo,
+             * sin depender del orden actual del catálogo.
+             */
             const equivalenciasIdsAntiguos = {
                 "0": "ben-yart-agc",
                 "1": "dikaia",
@@ -927,9 +884,46 @@
                 }
 
 
+                const imagen =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                imagen.alt =
+                    publicacion.title || "";
+
+
+                imagen.style.display =
+                    "block";
+
+                imagen.style.width =
+                    "auto";
+
+                imagen.style.height =
+                    "auto";
+
+                imagen.style.maxWidth =
+                    "100%";
+
+                imagen.style.maxHeight =
+                    "100%";
+
+                imagen.style.objectFit =
+                    "contain";
+
+
                 if (placeholder) {
                     placeholder.remove();
                 }
+
+
+                galeria.insertBefore(
+                    imagen,
+                    galeria.querySelector(
+                        ".galeria-flecha-izquierda"
+                    )
+                );
 
 
                 const flechaIzquierda =
@@ -943,67 +937,59 @@
                         ".galeria-flecha-derecha"
                     );
 
-                const contador = document.getElementById("galeriaContador");
-
-                const elementosImagen = [];
-
-                imagenes.forEach((urlImagen) => {
-                    const img = document.createElement("img");
-                    img.alt = publicacion.title || "";
-                    img.src = urlImagen;
-                    
-                    img.style.display = "block";
-                    img.style.objectFit = "contain";
-                    
-                    if (window.innerWidth <= 700) {
-                        img.style.flex = "0 0 100%";
-                        img.style.width = "100%";
-                        img.style.scrollSnapAlign = "center";
-                        img.style.userSelect = "none";
-                    } else {
-                        img.style.width = "auto";
-                        img.style.height = "auto";
-                        img.style.maxWidth = "100%";
-                        img.style.maxHeight = "100%";
-                    }
-
-                    galeria.insertBefore(img, flechaIzquierda);
-                    elementosImagen.push(img);
-                });
-
-
-                function actualizarContador() {
-                    if (window.innerWidth <= 700 && imagenes.length > 1) {
-                        const slideWidth = galeria.clientWidth;
-                        const scrollLeft = galeria.scrollLeft;
-                        const currentIndex = Math.round(scrollLeft / slideWidth) + 1;
-                        contador.textContent = `${currentIndex} / ${imagenes.length}`;
-                    } else {
-                        contador.textContent = "";
-                    }
-                }
-
 
                 function ajustarImagenMovil() {
-                    if (window.innerWidth > 700) return;
-                    elementosImagen.forEach(img => {
-                        if (img.naturalHeight > img.naturalWidth) {
-                            img.style.maxHeight = "80%";
-                            img.style.maxWidth = "80%";
-                        } else {
-                            img.style.maxHeight = "100%";
-                            img.style.maxWidth = "100%";
-                        }
-                    });
+
+                    if (
+                        window.innerWidth >
+                        700
+                    ) {
+                        return;
+                    }
+
+
+                    if (
+                        !imagen.naturalWidth ||
+                        !imagen.naturalHeight
+                    ) {
+                        return;
+                    }
+
+
+                    if (
+                        imagen.naturalHeight >
+                        imagen.naturalWidth
+                    ) {
+
+                        imagen.style.maxHeight =
+                            "80%";
+
+                        imagen.style.maxWidth =
+                            "80%";
+
+                    } else {
+
+                        imagen.style.maxHeight =
+                            "100%";
+
+                        imagen.style.maxWidth =
+                            "100%";
+                    }
                 }
 
 
                 function ajustarGaleria() {
-                    if (window.innerWidth <= 700) {
+
+                    if (
+                        window.innerWidth <=
+                        700
+                    ) {
+
                         ajustarImagenMovil();
-                        actualizarContador();
+
                         return;
                     }
+
 
                     const altoDisponible =
                         Math.max(
@@ -1011,40 +997,58 @@
                             window.innerHeight - 180
                         );
 
-                    galeria.style.width = "100%";
-                    galeria.style.height = altoDisponible + "px";
 
-                    elementosImagen.forEach((img, idx) => {
-                        img.style.display = (idx === imagenActual) ? "block" : "none";
-                    });
+                    galeria.style.width =
+                        "100%";
+
+                    galeria.style.height =
+                        altoDisponible + "px";
+                }
+
+
+                function mostrarImagen() {
+
+                    imagen.onload =
+                        function () {
+
+                            ajustarGaleria();
+                        };
+
+
+                    imagen.src =
+                        imagenes[imagenActual];
+
+
+                    if (imagen.complete) {
+
+                        ajustarGaleria();
+                    }
                 }
 
 
                 window.addEventListener(
                     "resize",
-                    () => {
-                        ajustarGaleria();
-                    }
+                    ajustarGaleria
                 );
-
-
-                galeria.addEventListener("scroll", () => {
-                    if (window.innerWidth <= 700) {
-                        actualizarContador();
-                    }
-                });
 
 
                 flechaIzquierda.addEventListener(
                     "click",
                     function () {
-                        if (window.innerWidth > 700) {
-                            imagenActual--;
-                            if (imagenActual < 0) {
-                                imagenActual = imagenes.length - 1;
-                            }
-                            ajustarGaleria();
+
+                        imagenActual--;
+
+
+                        if (
+                            imagenActual < 0
+                        ) {
+
+                            imagenActual =
+                                imagenes.length - 1;
                         }
+
+
+                        mostrarImagen();
                     }
                 );
 
@@ -1052,24 +1056,35 @@
                 flechaDerecha.addEventListener(
                     "click",
                     function () {
-                        if (window.innerWidth > 700) {
-                            imagenActual++;
-                            if (imagenActual >= imagenes.length) {
-                                imagenActual = 0;
-                            }
-                            ajustarGaleria();
+
+                        imagenActual++;
+
+
+                        if (
+                            imagenActual >=
+                            imagenes.length
+                        ) {
+
+                            imagenActual = 0;
                         }
+
+
+                        mostrarImagen();
                     }
                 );
 
 
                 if (imagenes.length === 1) {
-                    flechaIzquierda.style.display = "none";
-                    flechaDerecha.style.display = "none";
-                    if(contador) contador.style.display = "none";
-                } else if (imagenes.length > 1) {
-                    actualizarContador();
+
+                    flechaIzquierda.style.display =
+                        "none";
+
+                    flechaDerecha.style.display =
+                        "none";
                 }
+
+
+                mostrarImagen();
 
                 ajustarGaleria();
 
