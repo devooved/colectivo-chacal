@@ -1,16 +1,16 @@
-<escape><?xml version="1.0" encoding="UTF-8"?></escape>
-<escape><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/about.html</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/pedidos.html</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=ben-yart-agc</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=dikaia</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=vishovgrad</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=chacalitos</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n4</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n3</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n2</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n1</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=avisos-cierre-lineas-ferreas</loc></url></escape>
-  <escape><url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=chuchulata-petar-dachev</loc></url></escape>
-<escape></urlset></escape>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://colectivo.chacal.workers.dev/</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/about.html</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/pedidos.html</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=ben-yart-agc</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=dikaia</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=vishovgrad</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=chacalitos</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n4</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n3</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n2</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=xulanga-n1</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=avisos-cierre-lineas-ferreas</loc></url>
+  <url><loc>https://colectivo.chacal.workers.dev/publicacion.html?slug=chuchulata-petar-dachev</loc></url>
+</urlset>
