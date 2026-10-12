@@ -40,7 +40,7 @@ export default {
             return respuestaConCache;
         }
 
-        // --- SSR SEGURO PARA LA PÁGINA DE INICIO ---
+        // --- SSR DINÁMICO PARA LA PÁGINA DE INICIO ---
         if (url.pathname === "/" || url.pathname === "/index.html") {
             try {
                 const respuestaHtml = await env.ASSETS.fetch(request);
@@ -52,12 +52,14 @@ export default {
 
                     const htmlCatalogo = publicaciones.map((pub, idx) => {
                         const numero = String(idx + 1).padStart(2, "0");
-                        const esLCP = idx === 0;
+                        const esLCP = idx === 0; // Detecta automáticamente el primer elemento (LCP dinámico)
                         
                         let imgTag = "";
                         if (Array.isArray(pub.images) && pub.images.length > 0) {
                             const original = pub.images[0];
                             const src = original.startsWith("/uploads/") ? original.replace("/uploads/", "/thumbs/") : original;
+                            
+                            // La primera imagen lleva máxima prioridad y sin lazy loading. El resto, lazy.
                             const attrPriority = esLCP ? 'fetchpriority="high"' : 'loading="lazy"';
                             imgTag = `<img alt="${pub.title || ''}" decoding="async" ${attrPriority} src="${src}">`;
                         } else {
@@ -86,7 +88,7 @@ export default {
                         .transform(respuestaHtml);
                 }
             } catch (error) {
-                // Si algo falla en el servidor, registramos el error y servimos el HTML estático original sin romper la web
+                // Si ocurre cualquier error, registra el fallo pero sirve la web con normalidad
                 console.error("Error en SSR Worker:", error);
             }
         }
