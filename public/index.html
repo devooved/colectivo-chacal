@@ -324,14 +324,8 @@
                     const imagenOriginal = publicacion.images[0];
 
                     img.alt = publicacion.title || "";
+                    img.loading = "lazy";
                     img.decoding = "async";
-
-                    if (posicion === 0) {
-                        img.loading = "eager";
-                        img.fetchPriority = "high";
-                    } else {
-                        img.loading = "lazy";
-                    }
 
                     img.src = imagenOriginal.startsWith("/uploads/")
                         ? imagenOriginal.replace("/uploads/", "/thumbs/")
