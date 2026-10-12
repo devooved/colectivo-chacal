@@ -1,13 +1,13 @@
-```html
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="3aUCn0OW-IoekRctFyCvYNYgcxIqHSElL6VsA9XEFpc">
+    <meta name="google-site-verification" content="3aUCn0OW-IoekRctFyCvYNYgcxIqHSElL6VsA9XEFpc" />
+
 
     <title>COLECTIVO CHACAL</title>
-    <meta name="description" content="Colectivo Chacal es un colectivo de creación y autoedición de fanzines y otras publicaciones independientes artesanales.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -285,51 +285,10 @@
             mobileCategorias.classList.remove("abierto");
         }
 
-        function obtenerRutaImagen(imagenOriginal) {
-            return imagenOriginal.startsWith("/uploads/")
-                ? imagenOriginal.replace("/uploads/", "/thumbs/")
-                : imagenOriginal;
-        }
-
-        function precargarPrimeraImagen(publicacionesFiltradas) {
-            const primeraPublicacion = publicacionesFiltradas[0];
-
-            if (
-                !primeraPublicacion ||
-                !Array.isArray(primeraPublicacion.images) ||
-                primeraPublicacion.images.length === 0
-            ) {
-                return;
-            }
-
-            const rutaImagen = obtenerRutaImagen(
-                primeraPublicacion.images[0]
-            );
-
-            let precarga = document.getElementById(
-                "precarga-primera-publicacion"
-            );
-
-            if (!precarga) {
-                precarga = document.createElement("link");
-                precarga.id = "precarga-primera-publicacion";
-                precarga.rel = "preload";
-                precarga.as = "image";
-                precarga.fetchPriority = "high";
-                document.head.appendChild(precarga);
-            }
-
-            if (precarga.href !== new URL(rutaImagen, document.baseURI).href) {
-                precarga.href = rutaImagen;
-            }
-        }
-
         function mostrarPublicaciones(publicacionesFiltradas) {
             catalogo.innerHTML = "";
 
-            precargarPrimeraImagen(publicacionesFiltradas);
-
-            publicacionesFiltradas.forEach(function (publicacion, posicion) {
+            publicacionesFiltradas.forEach(function (publicacion) {
                 const indice = publicaciones.indexOf(publicacion);
                 const numero = String(indice + 1).padStart(2, "0");
 
@@ -365,16 +324,12 @@
                     const imagenOriginal = publicacion.images[0];
 
                     img.alt = publicacion.title || "";
+                    img.loading = "lazy";
                     img.decoding = "async";
 
-                    if (posicion === 0) {
-                        img.loading = "eager";
-                        img.fetchPriority = "high";
-                    } else {
-                        img.loading = "lazy";
-                    }
-
-                    img.src = obtenerRutaImagen(imagenOriginal);
+                    img.src = imagenOriginal.startsWith("/uploads/")
+                        ? imagenOriginal.replace("/uploads/", "/thumbs/")
+                        : imagenOriginal;
 
                     imagen.appendChild(img);
 
@@ -521,4 +476,3 @@
 
 </body>
 </html>
-```
