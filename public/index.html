@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -287,7 +288,7 @@
         function mostrarPublicaciones(publicacionesFiltradas) {
             catalogo.innerHTML = "";
 
-            publicacionesFiltradas.forEach(function (publicacion, indicePosicion) {
+            publicacionesFiltradas.forEach(function (publicacion) {
                 const indice = publicaciones.indexOf(publicacion);
                 const numero = String(indice + 1).padStart(2, "0");
 
@@ -323,14 +324,8 @@
                     const imagenOriginal = publicacion.images[0];
 
                     img.alt = publicacion.title || "";
+                    img.loading = "lazy";
                     img.decoding = "async";
-
-                    // La primera imagen del grid recibe prioridad alta (LCP) y NO lleva loading="lazy"
-                    if (indicePosicion === 0) {
-                        img.setAttribute("fetchpriority", "high");
-                    } else {
-                        img.loading = "lazy";
-                    }
 
                     img.src = imagenOriginal.startsWith("/uploads/")
                         ? imagenOriginal.replace("/uploads/", "/thumbs/")
@@ -421,18 +416,15 @@
 
                 if (categoria) {
                     filtrarPorCategoria(categoria);
-                } else if (catalogo.children.length === 0) {
-                    // Solo renderizamos si el servidor (Worker) no ha inyectado previamente el catálogo.
+                } else {
                     mostrarPublicaciones(publicaciones);
                 }
 
             } catch (error) {
                 console.error(error);
 
-                if (catalogo.children.length === 0) {
-                    catalogo.innerHTML =
-                        "<p>No se ha podido cargar el catálogo.</p>";
-                }
+                catalogo.innerHTML =
+                    "<p>No se ha podido cargar el catálogo.</p>";
             }
         }
 
